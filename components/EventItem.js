@@ -18,11 +18,11 @@ const EventItem = ({event, increaseCounter}) => {
 
   return (
     <View>
-        {/* <Image source={image}></Image> */}
+        <Image source={image}></Image>
         <Text>{name}</Text>
-        {/* <Text>{date}</Text> */}
-        {/* <Text>{time}</Text> */}
-        {/* <Text>{venue}</Text> */}
+        <Text>{date}</Text>
+        <Text>{time}</Text>
+        <Text>{venue}</Text>
         <Button onPress={handleOnPress} title="Press me"/>
     </View>
   )
