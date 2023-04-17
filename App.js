@@ -23,14 +23,14 @@ export default function App() {
   const getEvents = () => {
     return fetch('https://app.ticketmaster.com/discovery/v2/events.json?apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ')
     .then(res => res.json())
-    .then(json =>
-      setEvents(json._embedded)
+    .then(json => setEvents(json._embedded.events)
 )
     .catch(error => {
       console.error(error);
     });
   };
   
+
 
   
   return (

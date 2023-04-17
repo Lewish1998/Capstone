@@ -7,6 +7,7 @@ const EventsList = ({events}) => {
       return <EventItem event={event}/>
     })
 
+
     return(
         <View>
                 {eventNodes}
