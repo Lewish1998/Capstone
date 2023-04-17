@@ -7,17 +7,18 @@ const EventItem = ({event}) => {
     const date = event.dates.start.localDate
     const time = event.dates.start.localTime
     const venue = event._embedded.venues[0].name
-    const image = event.images[1]
+    
+    const image = event.images[4]
 
 
 
   return (
     <View>
-        <Image source={image}></Image>
+        {/* <Image source={image}></Image> */}
         <Text>{name}</Text>
-        <Text>{date}</Text>
+        {/* <Text>{date}</Text>
         <Text>{time}</Text>
-        <Text>{venue}</Text>
+        <Text>{venue}</Text> */}
     </View>
   )
 }

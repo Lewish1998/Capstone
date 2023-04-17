@@ -21,7 +21,7 @@ export default function App() {
   }, [])
 
   const getEvents = () => {
-    return fetch('https://app.ticketmaster.com/discovery/v2/events.json?apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ')
+    return fetch('https://app.ticketmaster.com/discovery/v2/events.json?city=Edinburgh&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ')
     .then(res => res.json())
     .then(json => setEvents(json._embedded.events)
 )
