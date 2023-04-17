@@ -7,15 +7,38 @@ import ContactPage from './components/ContactPage';
 import AccountSettings from './components/AccountSettings';
 import MyEventsPage from './components/MyEventsPage';
 import ParametersPage from './components/ParametersPage';
+import { useState, useEffect } from 'react';
 
 
 
-export default function App() {  return (
+
+export default function App() {  
+  
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {    getEvents()
+    console.log(events)
+  }, [])
+
+  const getEvents = () => {
+    return fetch('https://app.ticketmaster.com/discovery/v2/events.json?city=Edinburgh&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ')
+    .then(res => res.json())
+    .then(json => setEvents(json._embedded.events)
+)
+    .catch(error => {
+      console.error(error);
+    });
+  };
+  
+
+
+  
+  return (
     <NativeRouter>
       <View style={styles.container}>
         <NavBar/>
       <Routes>
-        <Route path="/" element={<Home/>}/>
+        <Route path="/" element={<Home events={events}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
         <Route path="/events" element={<MyEventsPage/>}/>
