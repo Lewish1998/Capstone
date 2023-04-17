@@ -8,9 +8,14 @@ const EventsList = ({events}) => {
     })
 
 
+    
+
+
+    const index = 0
+
     return(
-        <View>
-                {eventNodes}
+        <View >
+                {eventNodes[index]}
         </View>
     )
 }

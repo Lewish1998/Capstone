@@ -11,14 +11,15 @@ const EventItem = ({event}) => {
     const image = event.images[4]
 
 
+// some titles have date and title in the name!
 
   return (
     <View>
         {/* <Image source={image}></Image> */}
         <Text>{name}</Text>
-        {/* <Text>{date}</Text>
-        <Text>{time}</Text>
-        <Text>{venue}</Text> */}
+        {/* <Text>{date}</Text> */}
+        {/* <Text>{time}</Text> */}
+        {/* <Text>{venue}</Text> */}
     </View>
   )
 }
