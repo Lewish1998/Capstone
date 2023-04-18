@@ -5,7 +5,7 @@ import { useState } from "react";
 const EventsList = ({events}) => {
 
     let eventNodes = events.map((event) => {
-      return <EventItem event={event} increaseCounter={increaseCounter}/>
+        return <EventItem event={event} increaseCounter={increaseCounter}/>
     })
 
     let array = [1,2,3,4,5]
