@@ -6,9 +6,7 @@ const EventsList = ({events}) => {
 
     let eventNodes = events.map((event) => {
         return <EventItem event={event} increaseCounter={increaseCounter}/>
-    })
-
-    let array = [1,2,3,4,5]
+    });
 
     let [index, setIndex] = useState(0)
 
@@ -23,7 +21,7 @@ const EventsList = ({events}) => {
 
     return(
         <View >
-                {eventNodes[index]}
+            {eventNodes[index]}
         </View>
     )
 }

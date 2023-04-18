@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-native";
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
-import SideMenu from 'react-native-side-menu';
-
 
 const NavBar = () => {
 
@@ -21,12 +19,12 @@ const NavBar = () => {
       <View style={styles.menu}>
         <TouchableOpacity style={styles.menuItem}>
           {/* <Text style={styles.menuItemText}>Hello</Text> */}
-        <Link to="/"><Text>Home</Text></Link>
-        <Link to="/about"><Text>About</Text></Link>
-        <Link to="/contact"><Text>Contact</Text></Link>
-        <Link to="/events"><Text>My Events</Text></Link>
-        <Link to="/paramaters"><Text>Paramaters</Text></Link>
-        <Link to="/account"><Text>Account</Text></Link>
+        <Link to="/"><Text style={styles.menuItemText}>Home</Text></Link>
+        <Link to="/about"><Text style={styles.menuItemText}>About</Text></Link>
+        <Link to="/contact"><Text style={styles.menuItemText}>Contact</Text></Link>
+        <Link to="/events"><Text style={styles.menuItemText}>My Events</Text></Link>
+        <Link to="/paramaters"><Text style={styles.menuItemText}>Paramaters</Text></Link>
+        <Link to="/account"><Text style={styles.menuItemText}>Account</Text></Link>
         </TouchableOpacity>
       </View>
     )}
@@ -46,20 +44,26 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    zIndex: 1,
   },
   content: {
     fontSize: 24,
     marginBottom: 20,
   },
+
+  // Edit here for Nav styling
   menu: {
     position: 'absolute',
     top: 0,
     left: 0,
-    width: '100%',
-    height: '100%',
-    backgroundColor: 'white',
-    justifyContent: 'center',
+    width: 300,
+    height: 300,
+    backgroundColor: 'gray',
+    justifyContent: 'top',
     alignItems: 'center',
+    top: 150,
+    borderColor: 'black',
+    borderWidth: 5,
   },
   menuItem: {
     paddingVertical: 20,
