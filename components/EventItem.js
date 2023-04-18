@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, Image, Button } from 'react-native'
+import { Text, View, Image, Button, StyleSheet } from 'react-native'
 
 const EventItem = ({event, increaseCounter}) => {
 
@@ -17,8 +17,8 @@ const EventItem = ({event, increaseCounter}) => {
 // some titles have date and title in the name!
 
   return (
-    <View>
-        <Image source={image}></Image>
+    <View style={styles.container}>
+        <Image style={styles.image} source={image}></Image>
         <Text>{name}</Text>
         <Text>{date}</Text>
         <Text>{time}</Text>
@@ -27,5 +27,26 @@ const EventItem = ({event, increaseCounter}) => {
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    minWidth: '90%',
+    maxHeight: '90%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: 'black',
+    borderWidth: 5,
+    backgroundColor: 'gray',
+    // bottom: 50,
+    // top: 50,
+  },
+
+  image: {
+    width: 100,
+    height: 100,
+  },
+});
+
 
 export default EventItem;
