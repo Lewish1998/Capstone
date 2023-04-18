@@ -30,8 +30,6 @@ export default function App() {
     });
   };
   
-
-
   
   return (
     <NativeRouter>
@@ -44,7 +42,6 @@ export default function App() {
         <Route path="/events" element={<MyEventsPage/>}/>
         <Route path="/paramaters" element={<ParametersPage/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
-
       </Routes>
       </View>
     </NativeRouter>
