@@ -2,10 +2,10 @@ import { Text, View, Button } from "react-native";
 import EventItem from "./EventItem";
 import { useState } from "react";
 
-const EventsList = ({events}) => {
+const EventsList = ({events, javaEvents, user}) => {
 
     let eventNodes = events.map((event) => {
-        return <EventItem event={event} increaseCounter={increaseCounter}/>
+        return <EventItem event={event} increaseCounter={increaseCounter} javaEvents={javaEvents} user={user}/>
     });
 
     let [index, setIndex] = useState(0)
@@ -23,10 +23,14 @@ const EventsList = ({events}) => {
         increaseCounter();
     }
 
+
+
+
     return(
         <View>
             {eventNodes[index]}
             <Button onPress={handleOnPress} title="Press me"/>
+            
         </View>
     )
 }

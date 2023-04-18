@@ -34,7 +34,7 @@ public class DataLoader implements ApplicationRunner {
         userRepository.save(user4);
 
 
-        Event event1 = new Event("abc");
+        Event event1 = new Event("ZqqgVMyxjZBYPzIVyymzcMBiEXZAk1v");
         eventRepository.save(event1);
         Event event2 = new Event("def");
         eventRepository.save(event2);
@@ -49,13 +49,13 @@ public class DataLoader implements ApplicationRunner {
         event1.addInterested(user1);
         event1.addContact(user1);
         eventRepository.save(event1);
-//
-//        user2.addContact(event2);
-//        user2.addInterested(event2);
-//
-//
-//        user2.addGoing(event2);
-//        userRepository.save(user2);
+
+        user2.addContact(event2);
+        user2.addInterested(event2);
+
+
+        user2.addGoing(event2);
+        userRepository.save(user2);
 
 
     }

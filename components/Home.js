@@ -3,11 +3,17 @@ import { Text, View, StyleSheet } from 'react-native'
 import EventsList from './EventsList'
 import EventItem from './EventItem'
 
-const Home = ({events}) => {
+const Home = ({events, javaEvents, user}) => {
+
+  // console.log(user)
+  // console.log(javaEvents)
+
+
+
   return (
     <View style={styles.container}>
         {/* <Text>Home Screen</Text> */}
-        <EventsList events={events}/>
+        <EventsList events={events} javaEvents={javaEvents} user={user}/>
     </View>
   )
 }

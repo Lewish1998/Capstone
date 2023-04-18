@@ -74,7 +74,7 @@ const getUser=()=>{
       <View style={styles.container}>
         <NavBar/>
       <Routes>
-        <Route path="/" element={<Home events={events}/>}/>
+        <Route path="/" element={<Home events={events} javaEvents={javaEvents} user={user}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
         <Route path="/events" element={<MyEventsPage/>}/>
