@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, View, Button } from "react-native";
 import EventItem from "./EventItem";
 import { useState } from "react";
 
@@ -19,9 +19,14 @@ const EventsList = ({events}) => {
         return setIndex(newIndex)
     }
 
+    function handleOnPress(){
+        increaseCounter();
+    }
+
     return(
-        <View >
+        <View>
             {eventNodes[index]}
+            <Button onPress={handleOnPress} title="Press me"/>
         </View>
     )
 }

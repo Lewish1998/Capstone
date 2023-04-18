@@ -1,18 +1,13 @@
-import React from 'react'
-import { Text, View, Image, Button, StyleSheet } from 'react-native'
+import React from 'react';
+import { Text, View, Image, Button, StyleSheet } from 'react-native';
 
-const EventItem = ({event, increaseCounter}) => {
+const EventItem = ({event}) => {
 
-    const name = event.name
-    const date = event.dates.start.localDate
-    const time = event.dates.start.localTime
-    const venue = event._embedded.venues[0].name
-    const image = event.images[1]
-
-    function handleOnPress(){
-        increaseCounter();
-    }
-
+    const name = event.name;
+    const date = event.dates.start.localDate;
+    const time = event.dates.start.localTime;
+    const venue = event._embedded.venues[0].name;
+    const image = event.images[1];
 
 // some titles have date and title in the name!
 
@@ -23,7 +18,6 @@ const EventItem = ({event, increaseCounter}) => {
         <Text>{date}</Text>
         <Text>{time}</Text>
         <Text>{venue}</Text>
-        <Button onPress={handleOnPress} title="Press me"/>
     </View>
   )
 }
