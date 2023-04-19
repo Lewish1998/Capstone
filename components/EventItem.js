@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 
-const EventItem = ({ event, javaEvents, user, eventPost }) => {
+const EventItem = ({ event, javaEvents, user, eventPost, patch }) => {
   const [eventState, setEventState] = useState([]);
 
   const name = event.name;
@@ -19,20 +19,30 @@ const EventItem = ({ event, javaEvents, user, eventPost }) => {
   function handleInterested() {
     for (javaEvent of javaEvents) {
       if (javaEvent.event_id === event.id) {
-        setEventState(javaEvent);
-        javaEvent.event_interested.push(user);
-      } else {
-        setEventState({
-          event_id: event.id,
-          event_contact: [],
-          event_going: [],
-          event_interested: [user],
-        });
+        if (!javaEvent.event_interested.includes(user)) {
+          javaEvent.event_interested.push(user);
+         
+          patch(javaEvent, javaEvent.id);
+        }
       }
     }
-    eventPost(eventState);
+    const eventExists = javaEvents.some(
+      (javaEvent) => javaEvent.event_id === event.id
+    );
+    if (!eventExists) {
+      const payload ={
+        event_id: event.id,
+        event_contact: [],
+        event_going: [],
+        event_interested: [user],
+      };
+
+      eventPost(payload);
+      
+    }
   }
-  // console.log(javaEvents)
+
+  console.log(event.id);
 
   return (
     <View style={styles.container}>

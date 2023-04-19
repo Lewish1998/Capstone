@@ -88,6 +88,14 @@ const getUser=()=>{
     }) 
   }
 
+  const patch= ( payload,id) =>{
+    return fetch('http://127.0.0.1:8080/api/events/'+ id, {
+      method: "PATCH",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    })
+  }
+
   // const EventPost= ('http://127.0.0.1:8080/api/events', payload) => {
   //   return fetch(url, {
   //     method: "POST",
@@ -96,13 +104,7 @@ const getUser=()=>{
   //   })
   // }
   
-  // patch(url, payload){
-  //   return fetch(url, {
-  //     method: "PATCH",
-  //     headers: {'Content-Type': 'application/json'},
-  //     body: JSON.stringify(payload)
-  //   })
-  // }
+  
   
   
   return (
@@ -110,7 +112,7 @@ const getUser=()=>{
       <View style={styles.container}>
         <NavBar/>
       <Routes>
-        <Route path="/" element={<Home events={events} javaEvents={javaEvents} user={user} eventPost={eventPost}/>}/>
+        <Route path="/" element={<Home events={events} javaEvents={javaEvents} user={user} eventPost={eventPost} patch={patch}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
         <Route path="/events" element={<MyEventsPage/>}/>
