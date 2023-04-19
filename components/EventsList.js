@@ -1,7 +1,7 @@
 import { Text, View, Button, StyleSheet, ImageBackground, Image} from "react-native";
 import EventItem from "./EventItem";
 import { useState, useRef, useMemo } from "react";
-import TinderCard from 'react-tinder-card'
+import TinderCard from 'react-tinder-card';
 import React from "react";
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
