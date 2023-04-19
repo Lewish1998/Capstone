@@ -19,11 +19,11 @@ const NavBar = () => {
       <View style={styles.menu}>
         <TouchableOpacity style={styles.menuItem}>
           {/* <Text style={styles.menuItemText}>Hello</Text> */}
-        <Link to="/"><Text style={styles.menuItemText}>Home</Text></Link>
-        <Link to="/about"><Text style={styles.menuItemText}>About</Text></Link>
-        <Link to="/contact"><Text style={styles.menuItemText}>Contact</Text></Link>
+        <Link to="/"><Text style={styles.menuItemText}>Home</Text></Link>        
         <Link to="/events"><Text style={styles.menuItemText}>My Events</Text></Link>
         <Link to="/paramaters"><Text style={styles.menuItemText}>Paramaters</Text></Link>
+        <Link to="/about"><Text style={styles.menuItemText}>About</Text></Link>
+        <Link to="/contact"><Text style={styles.menuItemText}>Contact</Text></Link>
         <Link to="/account"><Text style={styles.menuItemText}>Account</Text></Link>
         </TouchableOpacity>
       </View>
@@ -55,13 +55,13 @@ const styles = StyleSheet.create({
   menu: {
     position: 'absolute',
     top: 0,
-    left: 0,
     width: 300,
     height: 300,
     backgroundColor: 'gray',
     justifyContent: 'top',
     alignItems: 'center',
-    top: 150,
+    top: 128,
+    right: 5,
     borderColor: 'black',
     borderWidth: 5,
   },
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
   burgerIcon: {
     position: 'absolute',
     top: 80,
-    right: -200,
+    right: 20,
     width: 40,
     height: 40,
     justifyContent: 'center',

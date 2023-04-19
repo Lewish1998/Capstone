@@ -152,6 +152,7 @@ const styles = {
       shadowRadius: 10,
       borderRadius: 20,
       resizeMode: 'cover',
+      top:50
     },
 
 
