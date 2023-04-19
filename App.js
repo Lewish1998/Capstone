@@ -18,6 +18,7 @@ export default function App() {
   const [users,setUsers]=useState([]);
   const [javaEvents,setJavaEvents]=useState([]);
   const [user,setUser]=useState([]);
+  const [refreshed, setRefreshed] = useState(false);
 
 
 
@@ -28,6 +29,19 @@ export default function App() {
     getUser()
    
   }, [])
+
+  useEffect(() => {    
+
+    getJavaEvents()
+
+   
+  }, [refreshed])
+
+  const clickRefresh =() => {
+    setRefreshed(!refreshed);
+  }
+
+
 
 const getUser=()=>{
   return fetch('http://127.0.0.1:8080/api/users/1')
@@ -113,7 +127,7 @@ const getUser=()=>{
       <View style={styles.container}>
         <NavBar/>
       <Routes>
-        <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} fetch={getJavaEvents}/>}/>
+        <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} fetch={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
         <Route path="/events" element={<MyEventsPage/>}/>

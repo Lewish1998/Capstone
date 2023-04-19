@@ -23,7 +23,7 @@ const EventItem = ({ event,  user, eventPost, patch, javaEvents, fetch }) => {
   //if it doesnt exist create a new entry with blank event object like above
   //
   function handleInterested() {
-    fetch();
+    
     for (const javaEvent of javaEvents) {
       if (javaEvent.event_id === event.id) {
         if (!javaEvent.event_interested.includes(user)) {
@@ -46,6 +46,7 @@ const EventItem = ({ event,  user, eventPost, patch, javaEvents, fetch }) => {
       
 
       eventPost(payload);
+      fetch();
      
     
     }
