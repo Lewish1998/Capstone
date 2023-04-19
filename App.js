@@ -26,7 +26,7 @@ export default function App() {
     getJavaEvents()
     getUsers()
     getUser()
-    console.log(user);
+   
   }, [])
 
 const getUser=()=>{
@@ -57,6 +57,7 @@ const getUser=()=>{
       console.error(error);
     });
   }
+
 
   const getEvents = () => {
     return fetch('https://app.ticketmaster.com/discovery/v2/events.json?city=Edinburgh&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ')
@@ -112,7 +113,7 @@ const getUser=()=>{
       <View style={styles.container}>
         <NavBar/>
       <Routes>
-        <Route path="/" element={<Home events={events} javaEvents={javaEvents} user={user} eventPost={eventPost} patch={patch}/>}/>
+        <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} fetch={getJavaEvents}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
         <Route path="/events" element={<MyEventsPage/>}/>

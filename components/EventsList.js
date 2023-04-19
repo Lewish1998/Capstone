@@ -2,10 +2,10 @@ import { Text, View, Button } from "react-native";
 import EventItem from "./EventItem";
 import { useState } from "react";
 
-const EventsList = ({events, javaEvents, user, eventPost, patch}) => {
+const EventsList = ({events, user, eventPost, patch, javaEvents, fetch}) => {
 
     let eventNodes = events.map((event) => {
-        return <EventItem event={event} increaseCounter={increaseCounter} javaEvents={javaEvents} user={user} eventPost={eventPost} patch={patch}/>
+        return <EventItem event={event} increaseCounter={increaseCounter} user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} fetch={fetch}/>
     });
 
     let [index, setIndex] = useState(0)

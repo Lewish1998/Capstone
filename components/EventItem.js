@@ -2,14 +2,20 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 
-const EventItem = ({ event, javaEvents, user, eventPost, patch }) => {
-  const [eventState, setEventState] = useState([]);
+const EventItem = ({ event,  user, eventPost, patch, javaEvents, fetch }) => {
+  // const [eventState, setEventState] = useState([]);
+ 
 
+  
   const name = event.name;
   const date = event.dates.start.localDate;
   const time = event.dates.start.localTime;
   const venue = event._embedded.venues[0].name;
   const image = event.images[1];
+
+  
+
+
 
   // some titles have date and title in the name!
 
@@ -17,7 +23,8 @@ const EventItem = ({ event, javaEvents, user, eventPost, patch }) => {
   //if it doesnt exist create a new entry with blank event object like above
   //
   function handleInterested() {
-    for (javaEvent of javaEvents) {
+    fetch();
+    for (const javaEvent of javaEvents) {
       if (javaEvent.event_id === event.id) {
         if (!javaEvent.event_interested.includes(user)) {
           javaEvent.event_interested.push(user);
@@ -36,13 +43,15 @@ const EventItem = ({ event, javaEvents, user, eventPost, patch }) => {
         event_going: [],
         event_interested: [user],
       };
+      
 
       eventPost(payload);
-      
+     
+    
     }
   }
 
-  console.log(event.id);
+  // console.log(javaEvents);
 
   return (
     <View style={styles.container}>
