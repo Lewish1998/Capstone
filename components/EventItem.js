@@ -2,20 +2,14 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 
-const EventItem = ({ event,  user, eventPost, patch, javaEvents, fetch }) => {
+const EventItem = ({ event, user, eventPost, patch, javaEvents, fetch }) => {
   // const [eventState, setEventState] = useState([]);
- 
 
-  
   const name = event.name;
   const date = event.dates.start.localDate;
   const time = event.dates.start.localTime;
   const venue = event._embedded.venues[0].name;
   const image = event.images[1];
-
-  
-
-
 
   // some titles have date and title in the name!
 
@@ -23,32 +17,70 @@ const EventItem = ({ event,  user, eventPost, patch, javaEvents, fetch }) => {
   //if it doesnt exist create a new entry with blank event object like above
   //
   function handleInterested() {
-    
     for (const javaEvent of javaEvents) {
       if (javaEvent.event_id === event.id) {
-        if (!javaEvent.event_interested.includes(user)) {
+        if (javaEvent.event_interested.length === 0) {
           javaEvent.event_interested.push(user);
-         
           patch(javaEvent, javaEvent.id);
+        } else {
+          for (const checkUser of javaEvent.event_interested) {
+
+            if (checkUser.id !== user.id) {
+              javaEvent.event_interested.push(user);
+              patch(javaEvent, javaEvent.id);
+            }
+          }
         }
       }
     }
+
     const eventExists = javaEvents.some(
       (javaEvent) => javaEvent.event_id === event.id
     );
     if (!eventExists) {
-      const payload ={
+      const payload = {
         event_id: event.id,
         event_contact: [],
         event_going: [],
         event_interested: [user],
       };
-      
 
       eventPost(payload);
       fetch();
-     
-    
+    }
+  }
+
+  function handleContact() {
+    for (const javaEvent of javaEvents) {
+      if (javaEvent.event_id === event.id) {
+        if (javaEvent.event_contact.length === 0) {
+          javaEvent.event_contact.push(user);
+          patch(javaEvent, javaEvent.id);
+        } else {
+          for (const checkUser of javaEvent.event_contact) {
+
+            if (checkUser.id !== user.id) {
+              javaEvent.event_interested.push(user);
+              patch(javaEvent, javaEvent.id);
+            }
+          }
+        }
+      }
+    }
+
+    const eventExists = javaEvents.some(
+      (javaEvent) => javaEvent.event_id === event.id
+    );
+    if (!eventExists) {
+      const payload = {
+        event_id: event.id,
+        event_contact: [user],
+        event_going: [],
+        event_interested: [],
+      };
+
+      eventPost(payload);
+      fetch();
     }
   }
 
@@ -57,6 +89,7 @@ const EventItem = ({ event,  user, eventPost, patch, javaEvents, fetch }) => {
   return (
     <View style={styles.container}>
       <Button onPress={handleInterested} title="test create event object" />
+      <Button onPress={handleContact} title="test contactable" />
       <Image style={styles.image} source={image}></Image>
       <Text>{name}</Text>
       <Text>{date}</Text>
