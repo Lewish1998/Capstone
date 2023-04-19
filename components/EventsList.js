@@ -1,4 +1,4 @@
-import { Text, View, Button, StyleSheet} from "react-native";
+import { Text, View, Button, StyleSheet, ImageBackground, Image} from "react-native";
 import EventItem from "./EventItem";
 import { useState, useRef, useMemo } from "react";
 import TinderCard from 'react-tinder-card'
@@ -92,7 +92,11 @@ const EventsList = ({events}) => {
             {test.map((event) => 
                 <TinderCard key={event.name} onSwipe={(dir) => swiped(dir, event.name)} onCardLeftScreen={() => outOfFrame(event.name)}>
                     <View style={styles.card}>
-                        <Text style={styles.cardTitle}>{event.name}</Text>
+                        <ImageBackground style={styles.cardImage} source={event.images[1]}><Text style={styles.cardHeading}>Testing</Text></ImageBackground>
+                        <Text style={[styles.cardTitle, styles.cardHeading]} >{event.name}</Text>
+                        <Text style={styles.cardTitle}>{event.dates.start.localDate}</Text>
+                        <Text style={styles.cardTitle}>{event.dates.start.localTime}</Text>
+                        <Text style={styles.cardTitle}>{event._embedded.venues[0].name}</Text>
                     </View>
                 </TinderCard>
             )}
@@ -104,6 +108,17 @@ const EventsList = ({events}) => {
 
 
 
+
+        // const name = event.name;
+        // const date = event.dates.start.localDate;
+        // const time = event.dates.start.localTime;
+        // const venue = event._embedded.venues[0].name;
+        // const image = event.images[1];
+      
+
+
+
+
 const styles = {
     container: {
       display: 'flex',
@@ -111,7 +126,7 @@ const styles = {
       justifyContent: 'center',
       height: '100%',
       width: '100%',
-      backgroundColor: 'red',
+      backgroundColor: 'white',
     },
     header: {
       color: '#000',
@@ -131,26 +146,42 @@ const styles = {
       backgroundColor: '#666666',
       width: '100%',
       maxWidth: 380,
-      height: 700,
+      height: 600,
       shadowColor: 'black',
       shadowOpacity: 0.2,
       shadowRadius: 10,
       borderRadius: 20,
       resizeMode: 'cover',
     },
+
+
+    
     cardImage: {
-      width: '100%',
-      height: '100%',
+      width: null,
+      height: 400,
       overflow: 'hidden',
       borderRadius: 20,
     },
+
+
+
     cardTitle: {
-      position: 'absolute',
+      position: 'relative',
+      display: 'flex',
+      textAlign: 'center',
       bottom: 0,
-      margin: 10,
+      margin: 5,
       color: '#fff',
+      fontSize:16,
     },
+
+    cardHeading: {
+        fontSize: 24,
+        color: '#fff'
+    },
+
     infoText: {
+        top:10,
       height: 28,
       justifyContent: 'center',
       display: 'flex',
