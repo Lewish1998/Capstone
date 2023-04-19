@@ -5,9 +5,6 @@ import TinderCard from 'react-tinder-card'
 
 const EventsList = ({events}) => {
 
-    let eventNodes = events.map((event) => {
-        return <EventItem event={event} increaseCounter={increaseCounter}/>
-    });
 
     let [index, setIndex] = useState(0)
 
@@ -15,25 +12,23 @@ const EventsList = ({events}) => {
         let newIndex = index += 1;
         if (newIndex >= events.length){
             newIndex = 0
-            console.log(index)
             return setIndex(newIndex);
         }
         return setIndex(newIndex)
     }
 
+    let eventNodes = events.map((event, index) => {
+        return <EventItem event={event} key={index} index={index}/>
+    });
+
     function handleOnPress(){
         increaseCounter();
     }
 
-    function handleBackButton(){
-        return
-    }
-
     return(
         <View>
-            {eventNodes[index]}
+            {eventNodes}
             <Button onPress={handleOnPress} title="Press me"/>
-            <Button onPress={handleBackButton} title="Back Button"/>
         </View>
     )
 }

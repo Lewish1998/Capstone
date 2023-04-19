@@ -10,27 +10,28 @@ const EventItem = ({event, increaseCounter}) => {
     const venue = event._embedded.venues[0].name;
     const image = event.images[1];
   
-    const onSwipe = () => {
+    // const onSwipe = () => {
+    //   console.log(eventList);
+    // }
+
+    function onCardLeftScreen() {
       increaseCounter();
+      // console.log('Card left the screen');
     }
 
-    const onCardLeftScreen = (myIdentifier) => {
-      console.log(myIdentifier + ' left the screen');
-    }
 
-    const handlePress = () => {
-      restoreCard()
-    }
+
+    // onCardLeftScreen={()=> onCardLeftScreen('fooBar')}
+    // onCardLeftScreen={onCardLeftScreen} 
 
   return (
-    <TinderCard style={styles.container} onSwipe={onSwipe} onCardLeftScreen={()=> onCardLeftScreen('fooBar')} preventSwipe={['up', 'down']}>
+    <TinderCard style={styles.container} onCardLeftScreen={onCardLeftScreen}preventSwipe={['up', 'down']}>
       <View>
-          <Image style={styles.image} source={image}></Image>
+          {/* <Image style={styles.image} source={image}></Image> */}
           <Text>{name}</Text>
           <Text>{date}</Text>
           <Text>{time}</Text>
           <Text>{venue}</Text>
-          <Button onPress={handlePress} title='Back'/>
       </View>
     </TinderCard>
   )
