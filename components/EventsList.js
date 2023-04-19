@@ -3,6 +3,9 @@ import EventItem from "./EventItem";
 import { useState, useRef, useMemo } from "react";
 import TinderCard from 'react-tinder-card'
 import React from "react";
+import { FiInfo } from 'react-icons/fa';
+import { FontAwesome } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 
 const EventsList = ({events}) => {
 
@@ -85,6 +88,10 @@ const EventsList = ({events}) => {
         increaseCounter();
     }
 
+    function handleClick(){
+        console.log('image clicked')
+    }
+
     return(
          
         <View style={styles.container}>
@@ -92,7 +99,9 @@ const EventsList = ({events}) => {
             {test.map((event) => 
                 <TinderCard key={event.name} onSwipe={(dir) => swiped(dir, event.name)} onCardLeftScreen={() => outOfFrame(event.name)}>
                     <View style={styles.card}>
-                        <ImageBackground style={styles.cardImage} source={event.images[1]}><Text style={styles.cardHeading}>Testing</Text></ImageBackground>
+                        <ImageBackground style={styles.cardImage} source={event.images[1]} >
+                            <Ionicons onPress={handleClick} style={styles.infoIcon} name="information-circle-outline" size={30} color="white" />
+                        </ImageBackground>
                         <Text style={[styles.cardTitle, styles.cardHeading]} >{event.name}</Text>
                         <Text style={styles.cardTitle}>{event.dates.start.localDate}</Text>
                         <Text style={styles.cardTitle}>{event.dates.start.localTime}</Text>
@@ -187,7 +196,15 @@ const styles = {
       justifyContent: 'center',
       display: 'flex',
       zIndex: -100,
-    }
+    },
+
+    infoIcon:{
+        position: 'absolute',
+        right: 20,
+        bottom: 20,
+        opacity: 0.5,
+    },
+
   }
 
 export default EventsList;
