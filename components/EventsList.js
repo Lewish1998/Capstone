@@ -98,7 +98,7 @@ const EventsList = ({events}) => {
          
         <View style={styles.container}>
             <View style={styles.cardContainer}>
-            <Text><AntDesign name="enviromento" size={24} color="black"/>{name}</Text>
+            <Text style={styles.location}><AntDesign name="enviromento" size={24} color="black"/>{name}</Text>
             {test.map((event) => 
                 <TinderCard key={event.name} onSwipe={(dir) => swiped(dir, event.name)} onCardLeftScreen={() => outOfFrame(event.name)}>
                     <View style={styles.card}>
@@ -147,10 +147,10 @@ const styles = {
       width: '100%',
       maxWidth: 380,
       height: 600,
-      shadowOffset:{width:5, height:10},
-      shadowColor: '#666666',
-      shadowOpacity: 0.1,
-      shadowRadius: 2,
+      shadowOffset:{width:10, height:15},
+      shadowColor: 'black',
+      shadowOpacity: 0.05,
+      shadowRadius: 8,
       borderRadius: 20,
       resizeMode: 'cover',
       top:50
@@ -197,6 +197,10 @@ const styles = {
         bottom: 20,
         opacity: 0.5,
     },
+
+    location: {
+        top: 10
+    }
 
   }
 

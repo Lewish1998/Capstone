@@ -74,18 +74,18 @@ const styles = StyleSheet.create({
   },
   burgerIcon: {
     position: 'absolute',
-    top: 80,
-    right: 20,
+    top: 100,
+    right: 28,
     width: 40,
     height: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },
   burgerIconLine: {
-    width: 30,
+    width: 36,
     height: 3,
     backgroundColor: 'black',
-    marginBottom: 5,
+    marginBottom: 7,
   },
 });
 
