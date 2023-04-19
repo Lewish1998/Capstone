@@ -34,29 +34,29 @@ public class DataLoader implements ApplicationRunner {
         userRepository.save(user4);
 
 
-        Event event1 = new Event("ZqqgVMyxjZBYPzIVyymzcMBiEXZAk1v");
-        eventRepository.save(event1);
-        Event event2 = new Event("def");
-        eventRepository.save(event2);
-        Event event3 = new Event("ghi");
-        eventRepository.save(event3);
-        Event event4 = new Event("jkl");
-        eventRepository.save(event4);
-
-
-        event1.addGoing(user1);
-        event1.addGoing(user1);
-        event1.addInterested(user1);
-        event1.addContact(user1);
-        eventRepository.save(event1);
-
-        user2.addContact(event2);
-        user2.addInterested(event2);
-
-
-        user2.addGoing(event2);
-        userRepository.save(user2);
-
+//        Event event1 = new Event("ZqqgVMyxjZBYPzIVyymzcMBiEXZAk1v");
+//        eventRepository.save(event1);
+//        Event event2 = new Event("def");
+//        eventRepository.save(event2);
+//        Event event3 = new Event("ghi");
+//        eventRepository.save(event3);
+//        Event event4 = new Event("jkl");
+//        eventRepository.save(event4);
+//
+//
+//        event1.addGoing(user1);
+//        event1.addGoing(user1);
+//        event1.addInterested(user1);
+//        event1.addContact(user1);
+//        eventRepository.save(event1);
+//
+//        user2.addContact(event2);
+//        user2.addInterested(event2);
+//
+//
+//        user2.addGoing(event2);
+//        userRepository.save(user2);
+//
 
     }
 }
