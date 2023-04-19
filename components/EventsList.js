@@ -3,9 +3,8 @@ import EventItem from "./EventItem";
 import { useState, useRef, useMemo } from "react";
 import TinderCard from 'react-tinder-card'
 import React from "react";
-import { FiInfo } from 'react-icons/fa';
-import { FontAwesome } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 const EventsList = ({events}) => {
 
@@ -92,10 +91,14 @@ const EventsList = ({events}) => {
         console.log('image clicked')
     }
 
+    let name = "Edinburgh";
+
+
     return(
          
         <View style={styles.container}>
             <View style={styles.cardContainer}>
+            <Text><AntDesign name="enviromento" size={24} color="black"/>{name}</Text>
             {test.map((event) => 
                 <TinderCard key={event.name} onSwipe={(dir) => swiped(dir, event.name)} onCardLeftScreen={() => outOfFrame(event.name)}>
                     <View style={styles.card}>
@@ -117,17 +120,6 @@ const EventsList = ({events}) => {
 
 
 
-
-        // const name = event.name;
-        // const date = event.dates.start.localDate;
-        // const time = event.dates.start.localTime;
-        // const venue = event._embedded.venues[0].name;
-        // const image = event.images[1];
-      
-
-
-
-
 const styles = {
     container: {
       display: 'flex',
@@ -135,7 +127,6 @@ const styles = {
       justifyContent: 'center',
       height: '100%',
       width: '100%',
-      backgroundColor: 'white',
     },
     header: {
       color: '#000',
@@ -156,9 +147,10 @@ const styles = {
       width: '100%',
       maxWidth: 380,
       height: 600,
-      shadowColor: 'black',
-      shadowOpacity: 0.2,
-      shadowRadius: 10,
+      shadowOffset:{width:5, height:10},
+      shadowColor: '#666666',
+      shadowOpacity: 0.1,
+      shadowRadius: 2,
       borderRadius: 20,
       resizeMode: 'cover',
       top:50
@@ -170,7 +162,8 @@ const styles = {
       width: null,
       height: 400,
       overflow: 'hidden',
-      borderRadius: 20,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
     },
 
 
