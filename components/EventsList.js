@@ -1,6 +1,7 @@
 import { Text, View, Button } from "react-native";
 import EventItem from "./EventItem";
 import { useState } from "react";
+import TinderCard from 'react-tinder-card'
 
 const EventsList = ({events}) => {
 
@@ -14,6 +15,7 @@ const EventsList = ({events}) => {
         let newIndex = index += 1;
         if (newIndex >= events.length){
             newIndex = 0
+            console.log(index)
             return setIndex(newIndex);
         }
         return setIndex(newIndex)
@@ -23,10 +25,15 @@ const EventsList = ({events}) => {
         increaseCounter();
     }
 
+    function handleBackButton(){
+        return
+    }
+
     return(
         <View>
             {eventNodes[index]}
             <Button onPress={handleOnPress} title="Press me"/>
+            <Button onPress={handleBackButton} title="Back Button"/>
         </View>
     )
 }
