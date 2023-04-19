@@ -15,9 +15,10 @@ const Home = ({events}) => {
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    // backgroundColor: '#fff',
+    // backgroundColor: '#666666',
     // alignItems: 'center',
     // justifyContent: 'center',
+
   },
 });
 
