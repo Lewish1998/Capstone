@@ -88,7 +88,6 @@ const EventsList = ({events}) => {
     return(
          
         <View style={styles.container}>
-            <Text style={styles.header}>React Native Tinder Card</Text>
             <View style={styles.cardContainer}>
             {test.map((event) => 
                 <TinderCard key={event.name} onSwipe={(dir) => swiped(dir, event.name)} onCardLeftScreen={() => outOfFrame(event.name)}>
@@ -110,7 +109,9 @@ const styles = {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      height: '100%',
       width: '100%',
+      backgroundColor: 'red',
     },
     header: {
       color: '#000',
@@ -119,18 +120,21 @@ const styles = {
     },
     cardContainer: {
       width: '90%',
-      maxWidth: 260,
-      height: 300,
+      maxWidth: 380,
+      height: 700,
+    //   borderWidth: 5,
+    //   borderColor: 'black',
+    //   backgroundColor: 'white',
     },
     card: {
       position: 'absolute',
       backgroundColor: '#666666',
       width: '100%',
-      maxWidth: 260,
-      height: 300,
+      maxWidth: 380,
+      height: 700,
       shadowColor: 'black',
       shadowOpacity: 0.2,
-      shadowRadius: 20,
+      shadowRadius: 10,
       borderRadius: 20,
       resizeMode: 'cover',
     },
