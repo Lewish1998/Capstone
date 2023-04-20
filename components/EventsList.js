@@ -102,7 +102,7 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
             <View style={styles.cardContainer}>
             <Text style={styles.location}><AntDesign name="enviromento" size={24} color="black"/>{name}</Text>
             {test.map((event) => 
-                <TinderCard key={event.name} onSwipe={(dir) => swiped(dir, event.name)} onCardLeftScreen={() => outOfFrame(event.name)}>
+                <TinderCard key={event.id} onSwipe={(dir) => swiped(dir, event.name)} onCardLeftScreen={() => outOfFrame(event.name)}>
                     <View style={styles.card}>
                         <ImageBackground style={styles.cardImage} source={event.images[1]} >
                             <Ionicons onPress={handleClick} style={styles.infoIcon} name="information-circle-outline" size={30} color="white" />
