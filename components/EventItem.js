@@ -1,8 +1,7 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 
-const EventItem = ({ event, user, eventPost, patch, javaEvents, fetch }) => {
+const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh }) => {
   // const [eventState, setEventState] = useState([]);
 
   const name = event.name;
@@ -13,8 +12,8 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, fetch }) => {
 
   // some titles have date and title in the name!
 
-  //for loop through event_id in database and if it exists set that as the state and then update that object
-  //if it doesnt exist create a new entry with blank event object like above
+  //for loop through event_id in database and if it exists update the db
+  //if it doesnt exist create a new entry with blank event object + user and update the db
   //
   function handleInterested() {
     for (const javaEvent of javaEvents) {
@@ -27,13 +26,16 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, fetch }) => {
 
             if (checkUser.id !== user.id) {
               javaEvent.event_interested.push(user);
+
+              // do we want to make this a toggle so you can click once to add then once to remove?
+              // 
               patch(javaEvent, javaEvent.id);
+
             }
           }
         }
       }
     }
-
     const eventExists = javaEvents.some(
       (javaEvent) => javaEvent.event_id === event.id
     );
@@ -46,7 +48,7 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, fetch }) => {
       };
 
       eventPost(payload);
-      fetch();
+      clickRefresh();
     }
   }
 
@@ -62,12 +64,12 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, fetch }) => {
             if (checkUser.id !== user.id) {
               javaEvent.event_interested.push(user);
               patch(javaEvent, javaEvent.id);
+
             }
           }
         }
       }
     }
-
     const eventExists = javaEvents.some(
       (javaEvent) => javaEvent.event_id === event.id
     );
@@ -80,11 +82,11 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, fetch }) => {
       };
 
       eventPost(payload);
-      fetch();
+      clickRefresh();
     }
   }
 
-  // console.log(javaEvents);
+
 
   return (
     <View style={styles.container}>

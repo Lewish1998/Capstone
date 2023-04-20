@@ -20,8 +20,6 @@ export default function App() {
   const [user,setUser]=useState([]);
   const [refreshed, setRefreshed] = useState(false);
 
-
-
   useEffect(() => {    
     getEvents()
     getJavaEvents()
@@ -31,17 +29,12 @@ export default function App() {
   }, [])
 
   useEffect(() => {    
-
     getJavaEvents()
-
-   
   }, [refreshed])
 
   const clickRefresh =() => {
     setRefreshed(!refreshed);
   }
-
-
 
 const getUser=()=>{
   return fetch('http://127.0.0.1:8080/api/users/1')
@@ -72,7 +65,6 @@ const getUser=()=>{
     });
   }
 
-
   const getEvents = () => {
     return fetch('https://app.ticketmaster.com/discovery/v2/events.json?city=Edinburgh&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ')
     .then(res => res.json())
@@ -87,13 +79,13 @@ const getUser=()=>{
 
   // routes
 
-  // delete(url) {
-  //   return fetch(url, {
+
+  // const deletePost = (id) => {
+  //   return fetch('http://127.0.0.1:8080/api/events/'+ id, {
   //     method: "DELETE",
   //     headers: {'Content-Type': 'application/json'}
   //   })
   // }
-
 
   const eventPost = (payload) => {
     return fetch('http://127.0.0.1:8080/api/events',{
@@ -111,23 +103,13 @@ const getUser=()=>{
     })
   }
 
-  // const EventPost= ('http://127.0.0.1:8080/api/events', payload) => {
-  //   return fetch(url, {
-  //     method: "POST",
-  //     headers: {'Content-Type': 'application/json'},
-  //     body: JSON.stringify(payload)
-  //   })
-  // }
-  
-  
-  
   
   return (
     <NativeRouter>
       <View style={styles.container}>
         <NavBar/>
       <Routes>
-        <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} fetch={clickRefresh}/>}/>
+        <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
         <Route path="/events" element={<MyEventsPage/>}/>

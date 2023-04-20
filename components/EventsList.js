@@ -2,10 +2,10 @@ import { Text, View, Button } from "react-native";
 import EventItem from "./EventItem";
 import { useState } from "react";
 
-const EventsList = ({events, user, eventPost, patch, javaEvents, fetch}) => {
+const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) => {
 
     let eventNodes = events.map((event) => {
-        return <EventItem event={event} increaseCounter={increaseCounter} user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} fetch={fetch}/>
+        return <EventItem event={event} user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>
     });
 
     let [index, setIndex] = useState(0)
@@ -18,18 +18,11 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, fetch}) => {
         }
         return setIndex(newIndex)
     }
-
-    function handleOnPress(){
-        increaseCounter();
-    }
-
-
-
-
+    
     return(
         <View>
             {eventNodes[index]}
-            <Button onPress={handleOnPress} title="Press me"/>
+            <Button onPress={increaseCounter} title="Press me"/>
             
         </View>
     )
