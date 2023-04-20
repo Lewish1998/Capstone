@@ -19,14 +19,9 @@ const EventsList = ({events}) => {
         return setIndex(newIndex)
     }
 
-
-
-
     let eventNodes = events.map((event, index) => {
         return <EventItem event={event} key={index} index={index}/>
     });
-
-
 
     // let test = events.map((event, index) => {
     //     console.log(event.name)
@@ -41,18 +36,16 @@ const EventsList = ({events}) => {
     const currentIndexRef = useRef(currentIndex)
 
     // ?????
-    const childRefs = useMemo(
-        () =>
-          Array(test.length)
-            .fill(0)
-            .map((i) => React.createRef()),
+    const childRefs = useMemo(() => Array(test.length)
+        .fill(0)
+        .map((i) => React.createRef()),
         []
-      )
+    )
 
-      const updateCurrentIndex = (val) => {
+    const updateCurrentIndex = (val) => {
         setCurrentIndex(val)
         currentIndexRef.current = val
-      }
+    }
 
     const canGoBack = currentIndex < test.length - 1
 
@@ -60,28 +53,28 @@ const EventsList = ({events}) => {
 
     //  set last direction and decrease current index
     const swiped = (direction, nameToDelete, index) => {
-    setLastDirection(direction)
-    updateCurrentIndex(index - 1)
-  }
-
-  const outOfFrame = (name, idx) => {
-    console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current)
-    currentIndexRef.current >= idx && childRefs[idx].current.restoreCard()
-  }
-
-  const swipe = async (dir) => {
-    if (canSwipe && currentIndex < test.length) {
-      await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
+        setLastDirection(direction)
+        updateCurrentIndex(index - 1)
     }
-  }
+
+    const outOfFrame = (name, idx) => {
+        console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current)
+        currentIndexRef.current >= idx && childRefs[idx].current.restoreCard()
+    }
+
+    const swipe = async (dir) => {
+        if (canSwipe && currentIndex < test.length) {
+        await childRefs[currentIndex].current.swipe(dir) // Swipe the card!
+        }
+    }
 
   // increase current index and show card
-  const goBack = async () => {
-    if (!canGoBack) return
-    const newIndex = currentIndex + 1
-    updateCurrentIndex(newIndex)
-    await childRefs[newIndex].current.restoreCard()
-  }
+    const goBack = async () => {
+        if (!canGoBack) return
+        const newIndex = currentIndex + 1
+        updateCurrentIndex(newIndex)
+        await childRefs[newIndex].current.restoreCard()
+    }
 
     function handleOnPress(){
         increaseCounter();
@@ -95,7 +88,7 @@ const EventsList = ({events}) => {
 
 
     return(
-         
+        
         <View style={styles.container}>
             <View style={styles.cardContainer}>
             <Text style={styles.location}><AntDesign name="enviromento" size={24} color="black"/>{name}</Text>
@@ -122,86 +115,75 @@ const EventsList = ({events}) => {
 
 const styles = {
     container: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '100%',
-      width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    width: '100%',
     },
     header: {
-      color: '#000',
-      fontSize: 30,
-      marginBottom: 30,
+    color: '#000',
+    fontSize: 30,
+    marginBottom: 30,
     },
     cardContainer: {
-      width: '90%',
-      maxWidth: 380,
-      height: 700,
+    width: '90%',
+    maxWidth: 380,
+    height: 700,
     //   borderWidth: 5,
     //   borderColor: 'black',
     //   backgroundColor: 'white',
     },
     card: {
-      position: 'absolute',
-      backgroundColor: '#666666',
-      width: '100%',
-      maxWidth: 380,
-      height: 600,
-      shadowOffset:{width:10, height:15},
-      shadowColor: 'black',
-      shadowOpacity: 0.05,
-      shadowRadius: 8,
-      borderRadius: 20,
-      resizeMode: 'cover',
-      top:50
-    },
-
-
-    
+        position: 'absolute',
+        backgroundColor: '#666666',
+        width: '100%',
+        maxWidth: 380,
+        height: 600,
+        shadowOffset:{width:10, height:15},
+        shadowColor: 'black',
+        shadowOpacity: 0.05,
+        shadowRadius: 8,
+        borderRadius: 20,
+        resizeMode: 'cover',
+        top:50,
+    },    
     cardImage: {
-      width: null,
-      height: 400,
-      overflow: 'hidden',
-      borderTopLeftRadius: 20,
-      borderTopRightRadius: 20,
+        width: null,
+        height: 400,
+        overflow: 'hidden',
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
     },
-
-
-
     cardTitle: {
-      position: 'relative',
-      display: 'flex',
-      textAlign: 'center',
-      bottom: 0,
-      margin: 5,
-      color: '#fff',
-      fontSize:16,
+        position: 'relative',
+        display: 'flex',
+        textAlign: 'center',
+        bottom: 0,
+        margin: 5,
+        color: '#fff',
+        fontSize:16,
     },
-
     cardHeading: {
         fontSize: 24,
         color: '#fff'
     },
-
     infoText: {
-        top:10,
-      height: 28,
-      justifyContent: 'center',
-      display: 'flex',
-      zIndex: -100,
+            top:10,
+        height: 28,
+        justifyContent: 'center',
+        display: 'flex',
+        zIndex: -100,
     },
-
     infoIcon:{
         position: 'absolute',
         right: 20,
         bottom: 20,
         opacity: 0.5,
     },
-
     location: {
         top: 10
-    }
-
-  }
+    },
+}
 
 export default EventsList;
