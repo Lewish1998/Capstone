@@ -9,9 +9,9 @@ import { AntDesign } from '@expo/vector-icons';
 const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) => {
 
 
-    let eventNodes = events.map((event) => {
-        return <EventItem event={event} user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>
-    });
+    // let eventNodes = events.map((event) => {
+    //     return <EventItem event={event} user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>
+    // });
 
     let [index, setIndex] = useState(0)
 
@@ -112,10 +112,14 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
                         <Text style={styles.cardTitle}>{event.dates.start.localTime}</Text>
                         <Text style={styles.cardTitle}>{event._embedded.venues[0].name}</Text>
                     </View>
+                    <EventItem event={event} user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>
                 </TinderCard>
+                
             )}
+            
             </View>
-            {lastDirection ? <Text style={styles.infoText}>You swiped {lastDirection}</Text> : <Text style={styles.infoText} />}
+            
+            {/* {lastDirection ? <Text style={styles.infoText}>You swiped {lastDirection}</Text> : <Text style={styles.infoText} />} */}
 
         </View>
             )

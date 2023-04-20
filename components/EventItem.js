@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 
@@ -93,11 +92,6 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh }) 
     <View style={styles.container}>
       <Button onPress={handleInterested} title="test create event object" />
       <Button onPress={handleContact} title="test contactable" />
-      <Image style={styles.image} source={image}></Image>
-      <Text>{name}</Text>
-      <Text>{date}</Text>
-      <Text>{time}</Text>
-      <Text>{venue}</Text>
     </View>
   );
 };
@@ -105,25 +99,8 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh }) 
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    minWidth: "90%",
-    maxWidth: "90%",
-    maxHeight: "90%",
-    alignItems: "center",
-    justifyContent: "center",
-    borderColor: "black",
-    borderWidth: 5,
-
-    backgroundColor: 'gray',
-    borderRadius: 20,
-
-    top: 50,
-    left: 18,
-  },
-
-  image: {
-    width: "80%",
-    height: "80%",
+    position: 'absolute',
+    display: 'flex',
   },
 });
 
