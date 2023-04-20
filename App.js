@@ -8,6 +8,8 @@ import AccountSettings from './components/AccountSettings';
 import MyEventsPage from './components/MyEventsPage';
 import ParametersPage from './components/ParametersPage';
 import { useState, useEffect } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 
 
@@ -108,6 +110,8 @@ const getUser=()=>{
     <NativeRouter>
       <View style={styles.container}>
         <NavBar/>
+        <LinearGradient
+        colors={['#4c669f', '#3b5998', '#192f6a']}>
       <Routes>
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
@@ -116,6 +120,8 @@ const getUser=()=>{
         <Route path="/paramaters" element={<ParametersPage/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
       </Routes>
+      </LinearGradient>
+
       </View>
     </NativeRouter>
   );
@@ -123,9 +129,12 @@ const getUser=()=>{
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    height:'100%',
+    width:'100%',
+    // top:85,
+    // flex: 1,
+    // backgroundColor: '#fff',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
 });

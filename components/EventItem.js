@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 
@@ -101,6 +102,7 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh }) 
   );
 };
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -111,7 +113,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderColor: "black",
     borderWidth: 5,
-    backgroundColor: "gray",
+
+    backgroundColor: 'gray',
+    borderRadius: 20,
+
     top: 50,
     left: 18,
   },

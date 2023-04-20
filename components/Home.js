@@ -14,9 +14,10 @@ const Home = ({events, javaEvents, user, eventPost, patch, clickRefresh}) => {
 const styles = StyleSheet.create({
   container: {
     // flex: 1,
-    // backgroundColor: '#fff',
+    // backgroundColor: '#666666',
     // alignItems: 'center',
     // justifyContent: 'center',
+
   },
 });
 
