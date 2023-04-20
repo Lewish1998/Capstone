@@ -20,16 +20,23 @@ export default function App() {
   const [users,setUsers]=useState([]);
   const [javaEvents,setJavaEvents]=useState([]);
   const [user,setUser]=useState([]);
-
-
+  const [refreshed, setRefreshed] = useState(false);
 
   useEffect(() => {    
     getEvents()
     getJavaEvents()
     getUsers()
     getUser()
-    console.log(user);
+   
   }, [])
+
+  useEffect(() => {    
+    getJavaEvents()
+  }, [refreshed])
+
+  const clickRefresh =() => {
+    setRefreshed(!refreshed);
+  }
 
 const getUser=()=>{
   return fetch('http://127.0.0.1:8080/api/users/1')
@@ -69,7 +76,35 @@ const getUser=()=>{
       console.error(error);
     });
   };
-  
+
+
+
+  // routes
+
+
+  // const deletePost = (id) => {
+  //   return fetch('http://127.0.0.1:8080/api/events/'+ id, {
+  //     method: "DELETE",
+  //     headers: {'Content-Type': 'application/json'}
+  //   })
+  // }
+
+  const eventPost = (payload) => {
+    return fetch('http://127.0.0.1:8080/api/events',{
+      method: "POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    }) 
+  }
+
+  const patch= ( payload,id) =>{
+    return fetch('http://127.0.0.1:8080/api/events/'+ id, {
+      method: "PATCH",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    })
+  }
+
   
   return (
     <NativeRouter>
@@ -78,7 +113,7 @@ const getUser=()=>{
         <LinearGradient
         colors={['#4c669f', '#3b5998', '#192f6a']}>
       <Routes>
-        <Route path="/" element={<Home events={events}/>}/>
+        <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
         <Route path="/events" element={<MyEventsPage/>}/>

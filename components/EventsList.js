@@ -6,9 +6,15 @@ import React from "react";
 import { Ionicons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
-const EventsList = ({events}) => {
+const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) => {
 
-    // let [index, setIndex] = useState(0)
+
+    let eventNodes = events.map((event) => {
+        return <EventItem event={event} user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>
+    });
+
+    let [index, setIndex] = useState(0)
+
 
     function increaseCounter(){
         let newIndex = index += 1;
@@ -19,9 +25,12 @@ const EventsList = ({events}) => {
         return setIndex(newIndex)
     }
 
-    let eventNodes = events.map((event, index) => {
-        return <EventItem event={event} key={index} index={index}/>
-    });
+    
+    //return(
+    //  <View>
+    //    {eventNodes[index]}
+    //  <Button onPress={increaseCounter} title="Press me"/>
+            
 
     // let test = events.map((event, index) => {
     //     console.log(event.name)
@@ -107,6 +116,7 @@ const EventsList = ({events}) => {
             )}
             </View>
             {lastDirection ? <Text style={styles.infoText}>You swiped {lastDirection}</Text> : <Text style={styles.infoText} />}
+
         </View>
             )
         }
