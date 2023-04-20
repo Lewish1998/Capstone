@@ -17,6 +17,7 @@
     "@react-spring/web": "^9.5.5",
     "expo": "~48.0.11",
     "expo-constants": "~14.2.1",
+    "expo-linear-gradient": "~12.1.2",
     "expo-linking": "~4.0.1",
     "expo-router": "^1.5.3",
     "expo-status-bar": "~1.4.4",
@@ -33,8 +34,7 @@
     "react-native-vector-image": "^0.4.1",
     "react-native-web": "~0.18.10",
     "react-router-native": "^6.10.0",
-    "react-tinder-card": "^1.6.2",
-    "expo-linear-gradient": "~12.1.2"
+    "react-tinder-card": "^1.6.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

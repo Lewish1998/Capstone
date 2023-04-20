@@ -112,7 +112,7 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
                         <Text style={styles.cardTitle}>{event.dates.start.localTime}</Text>
                         <Text style={styles.cardTitle}>{event._embedded.venues[0].name}</Text>
                     </View>
-                    <EventItem event={event} user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>
+                    <EventItem style={{zIndex: 10000}}event={event} user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>
                 </TinderCard>
                 
             )}
