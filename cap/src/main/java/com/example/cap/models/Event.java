@@ -18,6 +18,13 @@ public class Event implements Serializable {
 
     @Column(name = "event_api_id")
     private String event_id;
+    @Column(name = "event_name")
+    private String event_name;
+
+    @Column(name = "event_date")
+    private String event_date;
+    @Column(name = "event_time")
+    private String event_time;
 
     @JsonIgnoreProperties(value = {"user_interested", "user_going", "user_contact"})
     @ManyToMany
@@ -49,8 +56,11 @@ public class Event implements Serializable {
     private List<User> event_contact;
 
 
-    public Event(String eventId) {
+    public Event(String eventId, String eventName, String eventDate, String eventTime) {
         this.event_id = eventId;
+        event_name = eventName;
+        event_date = eventDate;
+        event_time = eventTime;
         this.event_interested = new ArrayList<User>();
         this.event_going = new ArrayList<User>();
         this.event_contact = new ArrayList<User>();
@@ -117,5 +127,29 @@ public class Event implements Serializable {
         if (!getEvent_contact().contains(user)) {
             this.getEvent_contact().add(user);
         }
+    }
+
+    public String getEvent_name() {
+        return event_name;
+    }
+
+    public void setEvent_name(String event_name) {
+        this.event_name = event_name;
+    }
+
+    public String getEvent_date() {
+        return event_date;
+    }
+
+    public void setEvent_date(String event_date) {
+        this.event_date = event_date;
+    }
+
+    public String getEvent_time() {
+        return event_time;
+    }
+
+    public void setEvent_time(String event_time) {
+        this.event_time = event_time;
     }
 }

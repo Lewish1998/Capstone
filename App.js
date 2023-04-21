@@ -19,7 +19,7 @@ export default function App() {
   const [javaEvents,setJavaEvents]=useState([]);
   const [user,setUser]=useState([]);
   const [refreshed, setRefreshed] = useState(false);
-
+  const [userInterestEvent,setUserInterestedEvent]=useState([])
 
   useEffect(() => {
     Promise.all([getEvents(), getJavaEvents(), getUsers(), getUser()])
@@ -42,7 +42,9 @@ export default function App() {
   const clickRefresh =() => {
     setRefreshed(!refreshed);
   }
-
+const setTheInterestedEvent=(event)=>{
+  getUserInterested(event)
+}
 const getUser=async ()=>{
   try {
     const res = await fetch('http://127.0.0.1:8080/api/users/1');
@@ -86,6 +88,16 @@ const getUser=async ()=>{
       console.error(error);
     }
   };
+
+  const getUserInterested = async({id})=>{
+    try {
+      const res = await fetch('https://app.ticketmaster.com//discovery/v2/events/'+{id}+'.json?apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ');
+      return await res.json()
+      .then((data)=>{setUserInterestedEvent(data)})
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
 
   // routes
@@ -133,7 +145,7 @@ const getUser=async ()=>{
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
-        <Route path="/events" element={<MyEventsPage/>}/>
+        <Route path="/events" element={<MyEventsPage user={user} setTheInterestedEvent={setTheInterestedEvent} userInterestEvent={userInterestEvent} />}/>
         <Route path="/paramaters" element={<ParametersPage/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
       </Routes>

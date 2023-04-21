@@ -17,7 +17,7 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh }) 
   //if it doesnt exist create a new entry with blank event object like above
   //
   function handleInterested() {
-    console.log(javaEvents)
+
     for (const javaEvent of javaEvents) {
       if (javaEvent.event_id === event.id) {
         if (javaEvent.event_interested.length === 0) {
@@ -44,6 +44,9 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh }) 
         event_contact: [],
         event_going: [],
         event_interested: [user],
+        event_name:event.name,
+        event_date:event.dates.start.localDate,
+        event_time:event.dates.start.localTime
       };
 
       eventPost(payload);
@@ -78,6 +81,9 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh }) 
         event_contact: [user],
         event_going: [],
         event_interested: [],
+                event_name:event.name,
+        event_date:event.dates.start.localDate,
+        event_time:event.dates.start.localTime
       };
 
       eventPost(payload);
