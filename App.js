@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native';
-import { NativeRouter, Routes, Route, json} from "react-router-native";
+import { NativeRouter, Routes, Route } from "react-router-native";
 import Home from './components/Home';
 import AboutPage from './components/AboutPage';
 import NavBar from './NavBar';
@@ -8,8 +8,7 @@ import AccountSettings from './components/AccountSettings';
 import MyEventsPage from './components/MyEventsPage';
 import ParametersPage from './components/ParametersPage';
 import { useState, useEffect } from 'react';
-
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 export default function App() {  
@@ -112,6 +111,7 @@ const getUser=async ()=>{
   
   return (
     <NativeRouter>
+      <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={styles.linearGradient}>
       <View style={styles.container}>
         <NavBar/>
       <Routes>
@@ -123,15 +123,24 @@ const getUser=async ()=>{
         <Route path="/account" element={<AccountSettings/>}/>
       </Routes>
       </View>
+    </LinearGradient>
     </NativeRouter>
   );
 }
 
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+    height:'100%',
+    width:'100%',
+  },
+  linearGradient: {
+    flex: 1,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderRadius: 5,
   },
 });
