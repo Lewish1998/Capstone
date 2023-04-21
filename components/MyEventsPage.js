@@ -27,8 +27,7 @@ const displayUserInterested=user.user_interested.map((interested)=>{
 
 const styles = StyleSheet.create({
   container: {
-
-    flexWrap:"wrap",
+    flex: 1,
     minWidth: "90%",
     maxWidth: "90%",
     maxHeight: "90%",
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
     height: "80%",
   },
   textbox:{
-    flex:20,
+    
     flexDirection:"column",
     width:"100%",
     borderColor: "black",
