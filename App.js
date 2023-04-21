@@ -8,8 +8,6 @@ import AccountSettings from './components/AccountSettings';
 import MyEventsPage from './components/MyEventsPage';
 import ParametersPage from './components/ParametersPage';
 import { useState, useEffect } from 'react';
-import { LinearGradient } from 'expo-linear-gradient';
-
 
 
 
@@ -22,72 +20,83 @@ export default function App() {
   const [user,setUser]=useState([]);
   const [refreshed, setRefreshed] = useState(false);
 
-  useEffect(() => {    
-    getEvents()
-    getJavaEvents()
-    getUsers()
-    getUser()
-   
+
+  useEffect(() => {
+    Promise.all([getEvents(), getJavaEvents(), getUsers(), getUser()])
+    .then(([eventsData, javaEventsData, usersData, userData])=>{
+      setEvents(eventsData._embedded.events);
+      setJavaEvents(javaEventsData);
+      setUsers(usersData);
+      setUser(userData);
+    })
+    .catch(error => {
+      console.error(error);
+    });
   }, [])
 
-  useEffect(() => {    
-    getJavaEvents()
+
+  useEffect(() => {
+    updateJavaEvents()
   }, [refreshed])
 
   const clickRefresh =() => {
     setRefreshed(!refreshed);
   }
 
-const getUser=()=>{
-  return fetch('http://127.0.0.1:8080/api/users/1')
-  .then(res=>res.json())
-  .then(data=>setUser(data)
-  )
-  .catch(error => {
+const getUser=async ()=>{
+  try {
+    const res = await fetch('http://127.0.0.1:8080/api/users/1');
+    return await res.json();
+  } catch (error) {
     console.error(error);
-  });
+  }
 }
-
-  const getUsers=()=>{
-    return fetch('http://127.0.0.1:8080/api/users')
-    .then(res=>res.json())
-    .then(json=>setUsers(json))
-
-    .catch(error => {
+  const getUsers=async ()=>{
+    try {
+      const res = await fetch('http://127.0.0.1:8080/api/users');
+      return await res.json();
+    } catch (error) {
       console.error(error);
-    });
+    }
   }
-  const getJavaEvents=()=>{
-    return fetch('http://127.0.0.1:8080/api/events')
-    .then(res=>res.json())
-    .then(json=>setJavaEvents(json)
-    )
-    .catch(error => {
+  const getJavaEvents=async ()=>{
+    try {
+      const res = await fetch('http://127.0.0.1:8080/api/events');
+      return await res.json();
+    } catch (error) {
       console.error(error);
-    });
+    }
   }
 
-  const getEvents = () => {
-    return fetch('https://app.ticketmaster.com/discovery/v2/events.json?city=Edinburgh&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ')
-    .then(res => res.json())
-    .then(json => setEvents(json._embedded.events)
-)
-    .catch(error => {
+  const updateJavaEvents=async ()=>{
+    try {
+      const res = await fetch('http://127.0.0.1:8080/api/events');
+      return await res.json()
+      .then((data) => setJavaEvents(data))
+    } catch (error) {
       console.error(error);
-    });
+    }
+  }
+
+  const getEvents = async () => {
+    try {
+      const res = await fetch('https://app.ticketmaster.com/discovery/v2/events.json?city=Edinburgh&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ');
+      return await res.json();
+    } catch (error) {
+      console.error(error);
+    }
   };
-
 
 
   // routes
 
-
-  // const deletePost = (id) => {
-  //   return fetch('http://127.0.0.1:8080/api/events/'+ id, {
+  // delete(url) {
+  //   return fetch(url, {
   //     method: "DELETE",
   //     headers: {'Content-Type': 'application/json'}
   //   })
   // }
+
 
   const eventPost = (payload) => {
     return fetch('http://127.0.0.1:8080/api/events',{
@@ -105,13 +114,21 @@ const getUser=()=>{
     })
   }
 
+  // const EventPost= ('http://127.0.0.1:8080/api/events', payload) => {
+  //   return fetch(url, {
+  //     method: "POST",
+  //     headers: {'Content-Type': 'application/json'},
+  //     body: JSON.stringify(payload)
+  //   })
+  // }
+  
+  
+  
   
   return (
     <NativeRouter>
       <View style={styles.container}>
         <NavBar/>
-        <LinearGradient
-        colors={['#4c669f', '#3b5998', '#192f6a']}>
       <Routes>
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
@@ -120,8 +137,6 @@ const getUser=()=>{
         <Route path="/paramaters" element={<ParametersPage/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
       </Routes>
-      </LinearGradient>
-
       </View>
     </NativeRouter>
   );
@@ -129,12 +144,9 @@ const getUser=()=>{
 
 const styles = StyleSheet.create({
   container: {
-    height:'100%',
-    width:'100%',
-    // top:85,
-    // flex: 1,
-    // backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
