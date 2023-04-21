@@ -1,4 +1,4 @@
-import { Text, View, Button } from "react-native";
+import { Text, View, Button, StyleSheet } from "react-native";
 import EventItem from "./EventItem";
 import { useState } from "react";
 
@@ -34,5 +34,7 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
         </View>
     )
 }
+
+
 
 export default EventsList;
