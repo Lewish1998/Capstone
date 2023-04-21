@@ -9,6 +9,7 @@ const NavBar = () => {
   const toggleMenu = () => {
     setMenuOpen(!isMenuOpen)
   }
+  
 
   return (
 
@@ -54,14 +55,14 @@ const styles = StyleSheet.create({
   // Edit here for Nav styling
   menu: {
     position: 'absolute',
-    top: 0,
-    width: 300,
+    top: 130,
+    width: 220,
     height: 300,
+    left: -70,
     backgroundColor: 'gray',
     justifyContent: 'top',
     alignItems: 'center',
-    top: 128,
-    right: 5,
+    
     borderColor: 'black',
     borderWidth: 5,
   },
@@ -70,16 +71,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 40,
   },
   menuItemText: {
-    fontSize: 18,
+    fontSize: 24,
+    padding:5
   },
   burgerIcon: {
     position: 'absolute',
-    top: 100,
-    right: 28,
+    top: 80,
+    left: 150,
     width: 40,
     height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   burgerIconLine: {
     width: 36,

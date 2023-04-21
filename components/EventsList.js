@@ -1,4 +1,4 @@
-import { Text, View, Button, StyleSheet } from "react-native";
+import { Text, View, Button, StyleSheet, Pressable } from "react-native";
 import EventItem from "./EventItem";
 import { useState } from "react";
 
@@ -7,7 +7,16 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
     const [open, setOpen] = useState(true);
 
     let eventNodes = events.map((event) => {
-        return <EventItem event={event} increaseCounter={increaseCounter} user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh} open={open} handleOpen={handleOpen}/>
+        return <EventItem
+         event={event} 
+        increaseCounter={increaseCounter} 
+        user={user} 
+        eventPost={eventPost} 
+        patch={patch} javaEvents={javaEvents} 
+        clickRefresh={clickRefresh} 
+        open={open} 
+        handleOpen={handleOpen}
+        />
     });
 
     let [index, setIndex] = useState(0)
@@ -31,6 +40,15 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
         setOpen(!open);
     }
 
+    function handleOnPressBack(){
+        let newIndex = index -= 1;
+        if (newIndex === -1){
+            newIndex = events.length-1
+            return setIndex(newIndex);
+        }
+        return setIndex(newIndex)
+    }
+
     
 
 
@@ -39,12 +57,38 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
     return(
         <View>
             {eventNodes[index]}
-            <Button onPress={handleOnPress} title="Press me"/>
-            
+            <View style={styles.buttonContainer}>
+                <Pressable style={styles.button} onPress={handleOnPressBack} title="Back">
+                    <Text style={{fontSize:20}}>Back</Text>
+                </Pressable>
+
+                <Pressable style={styles.button} onPress={handleOnPress} title="Next">
+                    <Text style={{fontSize:20}}>Next</Text>
+                </Pressable>
+            </View>
         </View>
     )
 }
 
+const styles = StyleSheet.create({
+    buttonContainer:{
+        top:150,
+        flexDirection:'row',
+        justifyContent: 'center',
+        gap:70
+        
+    },
 
+    button:{
+        borderWidth:1,
+        width: 70,
+        height:40,
+        display:'flex',
+        alignItems: 'center',
+        borderRadius:20,
+        justifyContent: 'center'
+    }
+
+});
 
 export default EventsList;

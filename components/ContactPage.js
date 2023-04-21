@@ -11,9 +11,13 @@ const ContactPage = () => {
 
 
 const styles = StyleSheet.create({
-  container: {
-    height:'100%',
-    width:'100%',
+  container:{
+    borderWidth:2,
+    borderRadius:20,
+    top:150,
+    height:600,
+    padding:10,
+    backgroundColor:'#ffffff'
   }
 })
 

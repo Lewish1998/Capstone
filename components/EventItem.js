@@ -25,7 +25,7 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh, op
   //if it doesnt exist create a new entry with blank event object like above
   //
   function handleInterested() {
-    console.log(javaEvents)
+    // console.log(javaEvents)
     for (const javaEvent of javaEvents) {
       if (javaEvent.event_id === event.id) {
         if (javaEvent.event_interested.length === 0) {
@@ -136,11 +136,9 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh, op
 const styles = StyleSheet.create({
   cardContainer: {
     display: 'flex',
-    width: '100%',
-    maxWidth: 400,
+    width: 400,
     height: 700,
-    // borderWidth: 5,
-    bottom: 50,
+    top:120,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     backgroundColor: '#666666',
@@ -151,7 +149,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   image: {
-    width: 380,
+    width: 400,
     height: 400,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -165,77 +163,5 @@ const styles = StyleSheet.create({
   },
 });
 
-// const styles = StyleSheet.create({
-//   container: {
-      // display: 'flex',
-      // alignItems: 'center',
-      // justifyContent: 'center',
-      // height: '100%',
-      // width: '100%',
-      // },
-//       header: {
-//       color: '#000',
-//       fontSize: 30,
-//       marginBottom: 30,
-//       },
-//       cardContainer: {
-//       width: '90%',
-//       maxWidth: 380,
-//       height: 700,
-//       //   borderWidth: 5,
-//       //   borderColor: 'black',
-//       //   backgroundColor: 'white',
-//       },
-//       card: {
-//           position: 'absolute',
-//           backgroundColor: '#666666',
-//           width: '100%',
-//           maxWidth: 380,
-//           height: 600,
-//           shadowOffset:{width:10, height:15},
-//           shadowColor: 'black',
-//           shadowOpacity: 0.05,
-//           shadowRadius: 8,
-//           borderRadius: 20,
-//           resizeMode: 'cover',
-//           top:50,
-//       },    
-//       cardImage: {
-//           width: null,
-//           height: 400,
-//           overflow: 'hidden',
-//           borderTopLeftRadius: 20,
-//           borderTopRightRadius: 20,
-//       },
-//       cardTitle: {
-//           position: 'relative',
-//           display: 'flex',
-//           textAlign: 'center',
-//           bottom: 0,
-//           margin: 5,
-//           color: '#fff',
-//           fontSize:16,
-//       },
-//       cardHeading: {
-//           fontSize: 24,
-//           color: '#fff'
-//       },
-//       infoText: {
-//               top:10,
-//           height: 28,
-//           justifyContent: 'center',
-//           display: 'flex',
-//           zIndex: -100,
-//       },
-//       infoIcon:{
-//           position: 'absolute',
-//           right: 20,
-//           bottom: 20,
-//           opacity: 0.5,
-//       },
-//       location: {
-//           top: 10
-//       },
-// })
 
 export default EventItem;
