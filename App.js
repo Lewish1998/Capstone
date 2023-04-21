@@ -21,68 +21,56 @@ export default function App() {
   const [refreshed, setRefreshed] = useState(false);
 
 
-
-  useEffect(() => {    
-    getEvents()
-    getJavaEvents()
-    getUsers()
-    getUser()
-   
+  useEffect(() => {
+    Promise.all([getEvents(), getJavaEvents(), getUsers(), getUser()])
+    .then(([eventsData, javaEventsData, usersData, userData])=>{
+      setEvents(eventsData._embedded.events);
+      setJavaEvents(javaEventsData);
+      setUsers(usersData);
+      setUser(userData);
+    })
+    .catch(error => {
+      console.error(error);
+    });
   }, [])
-
-  useEffect(() => {    
-
+  useEffect(() => {
     getJavaEvents()
-
-   
   }, [refreshed])
-
   const clickRefresh =() => {
     setRefreshed(!refreshed);
   }
-
-
-
-const getUser=()=>{
-  return fetch('http://127.0.0.1:8080/api/users/1')
-  .then(res=>res.json())
-  .then(data=>setUser(data)
-  )
-  .catch(error => {
+const getUser=async ()=>{
+  try {
+    const res = await fetch('http://127.0.0.1:8080/api/users/1');
+    return await res.json();
+  } catch (error) {
     console.error(error);
-  });
+  }
 }
-
-  const getUsers=()=>{
-    return fetch('http://127.0.0.1:8080/api/users')
-    .then(res=>res.json())
-    .then(json=>setUsers(json))
-
-    .catch(error => {
+  const getUsers=async ()=>{
+    try {
+      const res = await fetch('http://127.0.0.1:8080/api/users');
+      return await res.json();
+    } catch (error) {
       console.error(error);
-    });
+    }
   }
-  const getJavaEvents=()=>{
-    return fetch('http://127.0.0.1:8080/api/events')
-    .then(res=>res.json())
-    .then(json=>setJavaEvents(json)
-    )
-    .catch(error => {
+  const getJavaEvents=async ()=>{
+    try {
+      const res = await fetch('http://127.0.0.1:8080/api/events');
+      return await res.json();
+    } catch (error) {
       console.error(error);
-    });
+    }
   }
-
-
-  const getEvents = () => {
-    return fetch('https://app.ticketmaster.com/discovery/v2/events.json?city=Edinburgh&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ')
-    .then(res => res.json())
-    .then(json => setEvents(json._embedded.events)
-)
-    .catch(error => {
+  const getEvents = async () => {
+    try {
+      const res = await fetch('https://app.ticketmaster.com/discovery/v2/events.json?city=Edinburgh&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ');
+      return await res.json();
+    } catch (error) {
       console.error(error);
-    });
+    }
   };
-
 
 
   // routes
@@ -127,7 +115,7 @@ const getUser=()=>{
       <View style={styles.container}>
         <NavBar/>
       <Routes>
-        <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} fetch={clickRefresh}/>}/>
+        <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
         <Route path="/events" element={<MyEventsPage/>}/>
