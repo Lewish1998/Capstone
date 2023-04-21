@@ -89,11 +89,10 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh }) 
   return (
     <View style={styles.cardContainer}>
       <Image style={styles.image} source={image}></Image>
-      <Text style={styles.text}>{name}<Text/>
-      <Text>{date}</Text>
-      <Text>{time}</Text>
-      <Text>{venue}</Text>
-      </Text>
+      <Text style={styles.text}>{name}</Text>
+      <Text style={styles.text}>{date}</Text>
+      <Text style={styles.text}>{time}</Text>
+      <Text style={styles.text}>{venue}</Text>
       <Button onPress={handleInterested} title="test create event object" />
       <Button onPress={handleContact} title="test contactable" />
     </View>
