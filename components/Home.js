@@ -1,13 +1,11 @@
 import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import EventsList from './EventsList'
-import EventItem from './EventItem'
+
 
 const Home = ({events, javaEvents, user, eventPost, patch, clickRefresh}) => {
 
-  // console.log(user)
-  // console.log(javaEvents)
-
+ 
 
 
   return (

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 
 const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh }) => {
@@ -17,6 +17,7 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh }) 
   //if it doesnt exist create a new entry with blank event object like above
   //
   function handleInterested() {
+    console.log(javaEvents)
     for (const javaEvent of javaEvents) {
       if (javaEvent.event_id === event.id) {
         if (javaEvent.event_interested.length === 0) {

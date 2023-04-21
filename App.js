@@ -32,12 +32,16 @@ export default function App() {
       console.error(error);
     });
   }, [])
+
+
   useEffect(() => {
-    getJavaEvents()
+    updateJavaEvents()
   }, [refreshed])
+
   const clickRefresh =() => {
     setRefreshed(!refreshed);
   }
+
 const getUser=async ()=>{
   try {
     const res = await fetch('http://127.0.0.1:8080/api/users/1');
@@ -62,6 +66,17 @@ const getUser=async ()=>{
       console.error(error);
     }
   }
+
+  const updateJavaEvents=async ()=>{
+    try {
+      const res = await fetch('http://127.0.0.1:8080/api/events');
+      return await res.json()
+      .then((data) => setJavaEvents(data))
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   const getEvents = async () => {
     try {
       const res = await fetch('https://app.ticketmaster.com/discovery/v2/events.json?city=Edinburgh&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ');
