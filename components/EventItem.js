@@ -1,15 +1,23 @@
 import React from "react";
-// import { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { Linking } from "react-native";
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 
-const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh }) => {
-  // const [eventState, setEventState] = useState([]);
+const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh, open, handleOpen }) => {
+
+  
 
   const name = event.name;
   const date = event.dates.start.localDate;
   const time = event.dates.start.localTime;
   const venue = event._embedded.venues[0].name;
+  const status = event.dates.status.code
+
+  // const genre = if(event.classifications[0].genre.name !== null){return event.classifications[0].genre.name}
+
   const image = event.images[1];
+
+  
 
   // some titles have date and title in the name!
 
@@ -85,17 +93,42 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh }) 
     }
   }
 
-  // console.log(javaEvents);
+
+
+  loadInBrowser = () => {
+    Linking.openURL(event.url).catch(err => console.error("Couldn't load page", err));
+  };
+
 
   return (
-    <View style={styles.cardContainer}>
-      <Image style={styles.image} source={image}></Image>
+    <View>
+
+ {open ? <View style={styles.cardContainer}>
+  <Image style={styles.image} source={image}></Image>
       <Text style={styles.text}>{name}</Text>
       <Text style={styles.text}>{date}</Text>
       <Text style={styles.text}>{time}</Text>
       <Text style={styles.text}>{venue}</Text>
       <Button onPress={handleInterested} title="test create event object" />
       <Button onPress={handleContact} title="test contactable" />
+      <Button onPress={handleOpen} title="more details" />
+
+ </View> :
+  <View style={styles.cardContainer}>
+  <Image style={styles.image} source={image}></Image>
+  <Text style={styles.text}>{name}</Text>
+      <Text style={styles.text}>{date}</Text>
+      <Text style={styles.text}>{time}</Text>
+      {/* {genre !== null ?
+      (<Text style={styles.text}>Classification: {genre}</Text>) : <View></View>} */}
+      <Text style={styles.text}>{venue}</Text>
+      <Text style={styles.text}>Status: {status}</Text>
+      <Button onPress={loadInBrowser} title="BUY TICKETS"/>
+      <Button onPress={handleInterested} title="test create event object" />
+      <Button onPress={handleContact} title="test contactable" />
+      <Button onPress={handleOpen} title="back" />
+  </View>}
+
     </View>
   );
 };
