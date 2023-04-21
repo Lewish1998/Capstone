@@ -8,6 +8,8 @@ import AccountSettings from './components/AccountSettings';
 import MyEventsPage from './components/MyEventsPage';
 import ParametersPage from './components/ParametersPage';
 import { useState, useEffect } from 'react';
+import { LinearGradient } from 'expo-linear-gradient';
+
 
 
 
@@ -19,6 +21,7 @@ export default function App() {
   const [javaEvents,setJavaEvents]=useState([]);
   const [user,setUser]=useState([]);
   const [refreshed, setRefreshed] = useState(false);
+
 
 
   useEffect(() => {
@@ -43,11 +46,13 @@ export default function App() {
     setRefreshed(!refreshed);
   }
 
+
 const getUser=async ()=>{
   try {
     const res = await fetch('http://127.0.0.1:8080/api/users/1');
     return await res.json();
   } catch (error) {
+
     console.error(error);
   }
 }
@@ -67,6 +72,7 @@ const getUser=async ()=>{
       console.error(error);
     }
   }
+
 
   const updateJavaEvents=async ()=>{
     try {
@@ -90,13 +96,13 @@ const getUser=async ()=>{
 
   // routes
 
-  // delete(url) {
-  //   return fetch(url, {
+
+  // const deletePost = (id) => {
+  //   return fetch('http://127.0.0.1:8080/api/events/'+ id, {
   //     method: "DELETE",
   //     headers: {'Content-Type': 'application/json'}
   //   })
   // }
-
 
   const eventPost = (payload) => {
     return fetch('http://127.0.0.1:8080/api/events',{
@@ -114,21 +120,13 @@ const getUser=async ()=>{
     })
   }
 
-  // const EventPost= ('http://127.0.0.1:8080/api/events', payload) => {
-  //   return fetch(url, {
-  //     method: "POST",
-  //     headers: {'Content-Type': 'application/json'},
-  //     body: JSON.stringify(payload)
-  //   })
-  // }
-  
-  
-  
   
   return (
     <NativeRouter>
       <View style={styles.container}>
         <NavBar/>
+        <LinearGradient
+        colors={['#4c669f', '#3b5998', '#192f6a']}>
       <Routes>
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
@@ -137,6 +135,8 @@ const getUser=async ()=>{
         <Route path="/paramaters" element={<ParametersPage/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
       </Routes>
+      </LinearGradient>
+
       </View>
     </NativeRouter>
   );
@@ -144,9 +144,12 @@ const getUser=async ()=>{
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    height:'100%',
+    width:'100%',
+    // top:85,
+    // flex: 1,
+    // backgroundColor: '#fff',
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },
 });

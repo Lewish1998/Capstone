@@ -1,5 +1,4 @@
 import React from "react";
-// import { useState, useEffect } from "react";
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 
 const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh }) => {
@@ -13,8 +12,8 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh }) 
 
   // some titles have date and title in the name!
 
-  //for loop through event_id in database and if it exists set that as the state and then update that object
-  //if it doesnt exist create a new entry with blank event object like above
+  //for loop through event_id in database and if it exists update the db
+  //if it doesnt exist create a new entry with blank event object + user and update the db
   //
   function handleInterested() {
     console.log(javaEvents)
@@ -28,13 +27,16 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh }) 
 
             if (checkUser.id !== user.id) {
               javaEvent.event_interested.push(user);
+
+              // do we want to make this a toggle so you can click once to add then once to remove?
+              // 
               patch(javaEvent, javaEvent.id);
+
             }
           }
         }
       }
     }
-
     const eventExists = javaEvents.some(
       (javaEvent) => javaEvent.event_id === event.id
     );
@@ -63,12 +65,12 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh }) 
             if (checkUser.id !== user.id) {
               javaEvent.event_interested.push(user);
               patch(javaEvent, javaEvent.id);
+
             }
           }
         }
       }
     }
-
     const eventExists = javaEvents.some(
       (javaEvent) => javaEvent.event_id === event.id
     );
@@ -85,39 +87,21 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh }) 
     }
   }
 
-  // console.log(javaEvents);
+
 
   return (
     <View style={styles.container}>
       <Button onPress={handleInterested} title="test create event object" />
       <Button onPress={handleContact} title="test contactable" />
-      <Image style={styles.image} source={image}></Image>
-      <Text>{name}</Text>
-      <Text>{date}</Text>
-      <Text>{time}</Text>
-      <Text>{venue}</Text>
     </View>
   );
 };
 
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    minWidth: "90%",
-    maxWidth: "90%",
-    maxHeight: "90%",
-    alignItems: "center",
-    justifyContent: "center",
-    borderColor: "black",
-    borderWidth: 5,
-    backgroundColor: "gray",
-    top: 50,
-    left: 18,
-  },
-
-  image: {
-    width: "80%",
-    height: "80%",
+    position: 'absolute',
+    display: 'flex',
   },
 });
 
