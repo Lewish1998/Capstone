@@ -5,7 +5,7 @@ import EventsList from './EventsList'
 
 const Home = ({events, javaEvents, user, eventPost, patch, clickRefresh}) => {
 
-
+ 
 
 
   return (
