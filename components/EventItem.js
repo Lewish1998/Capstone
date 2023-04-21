@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 
-const EventItem = ({ event, user, eventPost, patch, javaEvents, fetch }) => {
+const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh }) => {
   // const [eventState, setEventState] = useState([]);
 
   const name = event.name;
@@ -46,7 +46,7 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, fetch }) => {
       };
 
       eventPost(payload);
-      fetch();
+      clickRefresh();
     }
   }
 
@@ -80,7 +80,7 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, fetch }) => {
       };
 
       eventPost(payload);
-      fetch();
+      clickRefresh();
     }
   }
 

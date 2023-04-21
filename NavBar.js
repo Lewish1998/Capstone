@@ -12,7 +12,7 @@ const NavBar = () => {
 
   return (
 
-    <View style={styles.container}>
+  <View style={styles.container}>
 
     {/* <Text style={styles.content}>NavBar</Text> */}
     {isMenuOpen && (
