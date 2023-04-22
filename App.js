@@ -132,7 +132,6 @@ const getUser=async ()=>{
   //   })
   // }
 
-
   const eventPost = (payload) => {
     return fetch('http://127.0.0.1:8080/api/events',{
       method: "POST",
@@ -169,7 +168,7 @@ const getUser=async ()=>{
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
-        <Route path="/events" element={<MyEventsPage userInterestedEvents={userInterestedEvents}  updateUserInterested={updateUserInterested} />}/>
+        <Route path="/events" element={<MyEventsPage setUserInterestedEvents={setUserInterestedEvents} user={user} userInterestedEvents={userInterestedEvents}  updateUserInterested={updateUserInterested} patch={patch}  />}/>
         <Route path="/paramaters" element={<ParametersPage/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
       </Routes>

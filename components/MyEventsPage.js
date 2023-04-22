@@ -3,12 +3,17 @@ import React from 'react'
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 import { useState, useEffect } from 'react';
 
-const MyEventsPage = ({userInterestedEvents,updateUserInterested}) => {
+const MyEventsPage = ({setUserInterestedEvents,user,userInterestedEvents,updateUserInterested,patch}) => {
   
 
   useEffect(() => {
     updateUserInterested();
   }, []);
+
+  function handleDelete(id){
+    const newInterestedEvents = userInterestedEvents.filter(interested => interested.id !== id);
+    setUserInterestedEvents(newInterestedEvents);
+  }
 
 
 const displayUserInterested=userInterestedEvents.map((interested)=>{
@@ -17,7 +22,7 @@ const displayUserInterested=userInterestedEvents.map((interested)=>{
       <Text style={styles.textbox}>{interested.event_name}</Text>
       <Text style={styles.textbox}>{interested.event_date}</Text>
       <Text style={styles.textbox}>{interested.event_time}</Text>
-      <Button title='Delete'/>     
+      <Button onPress={() => handleDelete(interested.id)} title='Delete'/>     
       <Button title='Going'/>
       <Button title='Contact'/>
 
