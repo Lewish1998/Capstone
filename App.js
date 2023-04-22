@@ -21,7 +21,8 @@ export default function App() {
   const [javaEvents,setJavaEvents]=useState([]);
   const [user,setUser]=useState([]);
   const [refreshed, setRefreshed] = useState(false);
-  const [userInterestEvent,setUserInterestedEvent]=useState([])
+  // const [userInterestEvent,setUserInterestedEvent]=useState([])
+  const [userInterestedEvents,setUserInterestedEvents]=useState([])
 
   useEffect(() => {
     Promise.all([getEvents(), getJavaEvents(), getUsers(), getUser()])
@@ -30,6 +31,7 @@ export default function App() {
       setJavaEvents(javaEventsData);
       setUsers(usersData);
       setUser(userData);
+      console.log(user.name);
     })
     .catch(error => {
       console.error(error);
@@ -38,15 +40,25 @@ export default function App() {
 
 
   useEffect(() => {
-    updateJavaEvents()
+    Promise.all([updateJavaEvents()])
+    .then(([javaEventsData])=>{
+    setJavaEvents(javaEventsData)
+
+    })    .catch(error => {
+      console.error(error);
+    });
   }, [refreshed])
+
 
   const clickRefresh =() => {
     setRefreshed(!refreshed);
   }
+
+  
 const setTheInterestedEvent=(event)=>{
   getUserInterested(event)
 }
+
 const getUser=async ()=>{
   try {
     const res = await fetch('http://127.0.0.1:8080/api/users/1');
@@ -55,6 +67,16 @@ const getUser=async ()=>{
     console.error(error);
   }
 }
+
+
+ const updateUserInterested=async ()=>{
+    try {
+      const res = await fetch('http://127.0.0.1:8080/api/users/1');
+      return await res.json().then((data)=>setUserInterestedEvents(data.user_interested))
+    } catch (error) {
+      console.error(error);
+    }
+  }
   const getUsers=async ()=>{
     try {
       const res = await fetch('http://127.0.0.1:8080/api/users');
@@ -76,7 +98,6 @@ const getUser=async ()=>{
     try {
       const res = await fetch('http://127.0.0.1:8080/api/events');
       return await res.json()
-      .then((data) => setJavaEvents(data))
     } catch (error) {
       console.error(error);
     }
@@ -148,7 +169,7 @@ const getUser=async ()=>{
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
-        <Route path="/events" element={<MyEventsPage user={user} setTheInterestedEvent={setTheInterestedEvent} userInterestEvent={userInterestEvent} />}/>
+        <Route path="/events" element={<MyEventsPage userInterestedEvents={userInterestedEvents}  updateUserInterested={updateUserInterested} />}/>
         <Route path="/paramaters" element={<ParametersPage/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
       </Routes>

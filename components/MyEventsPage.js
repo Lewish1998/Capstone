@@ -3,10 +3,15 @@ import React from 'react'
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 import { useState, useEffect } from 'react';
 
-const MyEventsPage = ({user,userInterestEvent,setTheInterestedEvent}) => {
+const MyEventsPage = ({userInterestedEvents,updateUserInterested}) => {
+  
 
-  // console.log(user.user_interested[0].event_name);
-const displayUserInterested=user.user_interested.map((interested)=>{
+  useEffect(() => {
+    updateUserInterested();
+  }, []);
+
+
+const displayUserInterested=userInterestedEvents.map((interested)=>{
     return<View key={interested.id} >
 {/* {console.log(interested.name)} */}
       <Text style={styles.textbox}>{interested.event_name}</Text>
@@ -16,14 +21,14 @@ const displayUserInterested=user.user_interested.map((interested)=>{
       <Button title='Going'/>
       <Button title='Contact'/>
 
+
     </View>
   })
 
 
   return (
-    <View style={styles.containerJam}>
+    <View style={styles.container}>
 
-      <Text style={{fontSize:36, textAlign:'center', paddingBottom:20}}>Events</Text>
 
       <Text>{displayUserInterested}</Text>
 
@@ -52,7 +57,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 5,
     backgroundColor: "gray",
-    bottom:200
+    bottom:2
   },
 
   image: {
