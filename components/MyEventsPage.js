@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 import { useState, useEffect } from 'react';
 
@@ -18,15 +19,33 @@ const displayUserInterested=user.user_interested.map((interested)=>{
     </View>
   })
 
+
   return (
-    <View style={styles.container}>
+    <View style={styles.containerJam}>
+
+      <Text style={{fontSize:36, textAlign:'center', paddingBottom:20}}>Events</Text>
+
       <Text>{displayUserInterested}</Text>
+
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
+
+  container:{
+    borderWidth:2,
+    borderRadius:20,
+    top:120,
+    height:700,
+    width:400,
+    padding:10,
+    backgroundColor:'#ffffff'
+  }
+})
+
+
+  containerJam: {
     flex: 1,
     minWidth: "90%",
     maxWidth: "90%",
@@ -54,4 +73,5 @@ const styles = StyleSheet.create({
   
   },
 });
+
 export default MyEventsPage;

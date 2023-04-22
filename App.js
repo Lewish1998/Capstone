@@ -13,6 +13,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 export default function App() {  
   
+  // stops all console logs
+  console.log = function() {}
+
   const [events, setEvents] = useState([]);
   const [users,setUsers]=useState([]);
   const [javaEvents,setJavaEvents]=useState([]);
@@ -158,11 +161,11 @@ const getUser=async ()=>{
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    height:'100%',
-    width:'100%',
+    // height:'100%',
+    // width:'100%',
   },
   linearGradient: {
     flex: 1,
