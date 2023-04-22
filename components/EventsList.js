@@ -1,11 +1,13 @@
-import { Text, View, Button } from "react-native";
+import { Text, View, Button, StyleSheet } from "react-native";
 import EventItem from "./EventItem";
 import { useState } from "react";
 
 const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) => {
 
+    const [open, setOpen] = useState(true);
+
     let eventNodes = events.map((event) => {
-        return <EventItem event={event} increaseCounter={increaseCounter} user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>
+        return <EventItem event={event} increaseCounter={increaseCounter} user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh} open={open} handleOpen={handleOpen}/>
     });
 
     let [index, setIndex] = useState(0)
@@ -21,7 +23,15 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
 
     function handleOnPress(){
         increaseCounter();
+        setOpen(true);
+     
     }
+
+    function handleOpen(){
+        setOpen(!open);
+    }
+
+    
 
 
 
@@ -34,5 +44,7 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
         </View>
     )
 }
+
+
 
 export default EventsList;
