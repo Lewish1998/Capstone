@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native';
-import Form from './Form';
+
 
 // const ContactPage = () => {
 //   return (
@@ -13,7 +13,7 @@ import Form from './Form';
 const ContactPage = () => {
   return (
     <View>
-      <Form/>
+   
     </View>
   )
 }

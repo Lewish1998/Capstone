@@ -144,8 +144,8 @@ const styles = StyleSheet.create({
   cardContainer: {
     display: 'flex',
     width: 400,
-    height: 700,
-    top:120,
+    height: 650,
+    top:40,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     backgroundColor: '#666666',

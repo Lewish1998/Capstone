@@ -41,9 +41,7 @@ const styles = StyleSheet.create({
     width:400,
     padding:10,
     backgroundColor:'#ffffff'
-  }
-})
-
+  },
 
   containerJam: {
     flex: 1,

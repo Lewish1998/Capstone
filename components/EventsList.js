@@ -1,4 +1,4 @@
-import { Text, View, Button, StyleSheet, Pressable } from "react-native";
+import { Text, View, Button, StyleSheet, Pressable, SafeAreaView } from "react-native";
 import EventItem from "./EventItem";
 import { useState } from "react";
 
@@ -55,7 +55,7 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
 
 
     return(
-        <View>
+        <SafeAreaView>
             {eventNodes[index]}
             <View style={styles.buttonContainer}>
                 <Pressable style={styles.button} onPress={handleOnPressBack} title="Back">
@@ -66,13 +66,13 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
                     <Text style={{fontSize:20}}>Next</Text>
                 </Pressable>
             </View>
-        </View>
+        </SafeAreaView>
     )
 }
 
 const styles = StyleSheet.create({
     buttonContainer:{
-        top:150,
+        top:60,
         flexDirection:'row',
         justifyContent: 'center',
         gap:70
