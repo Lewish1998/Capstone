@@ -41,6 +41,7 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
     }
 
     function handleOnPressBack(){
+        setOpen(true);
         let newIndex = index -= 1;
         if (newIndex === -1){
             newIndex = events.length-1
