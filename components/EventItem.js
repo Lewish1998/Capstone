@@ -69,21 +69,35 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh, op
   function handleContact() {
     for (const javaEvent of javaEvents) {
       if (javaEvent.event_id === event.id) {
-        if (javaEvent.event_contact.length === 0) {
+        if (javaEvent.event_contact.length === 0 && javaEvent.event_interested.length === 0) {
+          javaEvent.event_contact.push(user);
+          javaEvent.event_interested.push(user);
+          patch(javaEvent, javaEvent.id);
+
+         } else if(javaEvent.event_contact.length === 0 ){
           javaEvent.event_contact.push(user);
           patch(javaEvent, javaEvent.id);
-        } else {
+         } else {
           for (const checkUser of javaEvent.event_contact) {
             if (checkUser.id !== user.id) {
+
+              for(const checkInterested of javaEvent.event){
+                if (checkInterested.id !== user.id) {
+                  javaEvent.event_interested.push(user);
+                }
+              }
               javaEvent.event_contact.push(user);
+
               patch(javaEvent, javaEvent.id);
             }else{
               const results = javaEvent.event_contact.filter((checkUser) => checkUser.id != user.id)
+
               javaEvent.event_contact = results;
               patch(javaEvent, javaEvent.id);
             }
           }
         }
+
       }
     }
 
