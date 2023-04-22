@@ -14,27 +14,13 @@ const styles = StyleSheet.create({
   container:{
     borderWidth:2,
     borderRadius:20,
-    top:150,
-    height:600,
+    top:120,
+    height:700,
+    width:400,
     padding:10,
     backgroundColor:'#ffffff'
   }
 
-  // const styles = StyleSheet.create({
-  //   cardContainer: {
-  //     display: 'flex',
-  //     width: 400,
-  //     height: 700,
-  //     top:120,
-  //     borderTopLeftRadius: 20,
-  //     borderTopRightRadius: 20,
-  //     backgroundColor: '#666666',
-  //     shadowOffset:{width:10, height:15},
-  //     shadowColor: 'black',
-  //     shadowOpacity: 0.05,
-  //     shadowRadius: 8,
-  //     borderRadius: 20,
-  //   },
 })
 
 export default AboutPage

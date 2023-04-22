@@ -62,9 +62,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'gray',
     justifyContent: 'top',
     alignItems: 'center',
-    
     borderColor: 'black',
-    borderWidth: 5,
+    borderWidth: 2,
+    borderRadius:20
   },
   menuItem: {
     paddingVertical: 20,
