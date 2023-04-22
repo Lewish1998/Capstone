@@ -85,7 +85,7 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh, op
         event_id: event.id,
         event_contact: [user],
         event_going: [],
-        event_interested: [],
+        event_interested: [user],
       };
 
       eventPost(payload);
