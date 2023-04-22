@@ -3,27 +3,34 @@ import React from 'react'
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 import { useState, useEffect } from 'react';
 
-const MyEventsPage = ({setUserInterestedEvents,user,userInterestedEvents,updateUserInterested,patch}) => {
-  
+const MyEventsPage = ({setUserInterestedEvents,user,userInterestedEvents,updateUserInterested,patchUser}) => {
 
+  if (user) {
+    console.log(user);
+  }
   useEffect(() => {
     updateUserInterested();
+
   }, []);
 
   function handleDelete(id){
     const newInterestedEvents = userInterestedEvents.filter(interested => interested.id !== id);
     setUserInterestedEvents(newInterestedEvents);
+    updateUserInterested(userInterestedEvents)
+    user.user_interested=newInterestedEvents
+    patchUser(user,user.id)
   }
 
 
 const displayUserInterested=userInterestedEvents.map((interested)=>{
     return<View key={interested.id} >
 {/* {console.log(interested.name)} */}
+{  console.log("heelo")}
       <Text style={styles.textbox}>{interested.event_name}</Text>
       <Text style={styles.textbox}>{interested.event_date}</Text>
       <Text style={styles.textbox}>{interested.event_time}</Text>
       <Button onPress={() => handleDelete(interested.id)} title='Delete'/>     
-      <Button title='Going'/>
+      <Button onPress={()=> console.log("heelo")} title='Going'/>
       <Button title='Contact'/>
 
 
