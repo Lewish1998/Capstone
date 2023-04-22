@@ -37,6 +37,10 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh, op
             if (checkUser.id !== user.id) {
               javaEvent.event_interested.push(user);
               patch(javaEvent, javaEvent.id);
+            }else{
+              const results = javaEvent.event_interested.filter((checkUser) => checkUser.id != user.id)
+              javaEvent.event_interested = results;
+              patch(javaEvent, javaEvent.id);
             }
           }
         }
