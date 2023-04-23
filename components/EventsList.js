@@ -1,10 +1,12 @@
 import { Text, View, Button, StyleSheet, Pressable, SafeAreaView } from "react-native";
 import EventItem from "./EventItem";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) => {
 
     const [open, setOpen] = useState(true);
+   
+  
 
     let eventNodes = events.map((event) => {
         return <EventItem
@@ -16,6 +18,8 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
         clickRefresh={clickRefresh} 
         open={open} 
         handleOpen={handleOpen}
+        handleOnPress ={handleOnPress}
+        handleOnPressBack = {handleOnPressBack}
         />
     });
 
@@ -33,6 +37,7 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
     function handleOnPress(){
         increaseCounter();
         setOpen(true);
+
      
     }
 

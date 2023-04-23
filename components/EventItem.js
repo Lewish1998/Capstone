@@ -12,16 +12,48 @@ const EventItem = ({
   clickRefresh,
   open,
   handleOpen,
+  handleOnPressBack,
+  handleOnPress
 }) => {
   const name = event.name;
   const date = event.dates.start.localDate;
   const time = event.dates.start.localTime;
   const venue = event._embedded.venues[0].name;
   const status = event.dates.status.code;
+  const image = event.images[1];
+
+  const [interest , setInterest]= useState(false);
+  const [contact , setContact]= useState(false);
+
+  useEffect(() => {
+    interestAndContact();
+  },[handleOnPressBack, handleOnPress])
+
+  function interestAndContact(){
+    for (const javaEvent of javaEvents) {
+      if (javaEvent.event_id === event.id) {
+        const isInterested = javaEvent.event_interested.some((userI) => userI.id === user.id);
+        const isContact = javaEvent.event_contact.some((userI) => userI.id === user.id);
+        if(isInterested){
+          setInterest(true)
+        }else{
+          setInterest(false)
+        }
+        if(isContact){
+          setContact(true)
+        }else{
+          setContact(false)
+        }
+
+      }
+    }
+  }
+
+
 
   // const genre = if(event.classifications[0].genre.name !== null){return event.classifications[0].genre.name}
 
-  const image = event.images[1];
+ 
 
   // some titles have date and title in the name!
 
@@ -37,12 +69,14 @@ const EventItem = ({
         if (!interestedUserExists) {
           javaEvent.event_interested.push(user);
           patch(javaEvent, javaEvent.id);
+          interestAndContact();
         } else {
           const results = javaEvent.event_interested.filter(
             (checkUser) => checkUser.id != user.id
           );
           javaEvent.event_interested = results;
           patch(javaEvent, javaEvent.id);
+          interestAndContact();
         }
       }
     }
@@ -63,6 +97,7 @@ const EventItem = ({
 
       eventPost(payload);
       clickRefresh();
+      interestAndContact();
     }
   }
 
@@ -80,15 +115,18 @@ const EventItem = ({
           javaEvent.event_contact.push(user);
           javaEvent.event_interested.push(user);
           patch(javaEvent, javaEvent.id);
+          interestAndContact();
         } else if (!contactUserExists) {
           javaEvent.event_contact.push(user);
           patch(javaEvent, javaEvent.id);
+          interestAndContact();
         } else if (contactUserExists) {
           const results = javaEvent.event_contact.filter(
             (checkUser) => checkUser.id != user.id
           );
           javaEvent.event_contact = results;
           patch(javaEvent, javaEvent.id);
+          interestAndContact();
         }
       }
     }
@@ -109,6 +147,7 @@ const EventItem = ({
 
       eventPost(payload);
       clickRefresh();
+      interestAndContact();
     }
   }
 
@@ -117,7 +156,7 @@ const EventItem = ({
       console.error("Couldn't load page", err)
     );
   };
-
+  
   return (
     <View>
       {open ? (
@@ -127,9 +166,11 @@ const EventItem = ({
           <Text style={styles.text}>{date}</Text>
           <Text style={styles.text}>{time}</Text>
           <Text style={styles.text}>{venue}</Text>
-          <Button onPress={handleInterested} title="test create event object" />
-          <Button onPress={handleContact} title="test contactable" />
-          <Button onPress={handleOpen} title="more details" />
+          <View style={styles.buttons}>
+          <Button onPress={handleOpen} title="Info" />
+          <Button style={styles.contact} color={contact ? "orchid" : "palegreen"} onPress={handleContact} title="Contact" />
+          <Button  style={styles.interest} color={interest ? "crimson" : "yellow"} onPress={handleInterested} title="Interest" />
+          </View>
         </View>
       ) : (
         <View style={styles.cardContainer}>
@@ -142,9 +183,11 @@ const EventItem = ({
           <Text style={styles.text}>{venue}</Text>
           <Text style={styles.text}>Status: {status}</Text>
           <Button onPress={loadInBrowser} title="BUY TICKETS" />
-          <Button onPress={handleInterested} title="test create event object" />
-          <Button onPress={handleContact} title="test contactable" />
-          <Button onPress={handleOpen} title="back" />
+          <View style={styles.buttons}>
+          <Button onPress={handleOpen} title="Back" />
+          <Button style={styles.contact} color={contact ? "orchid" : "palegreen"} onPress={handleContact} title="Contact" />
+          <Button style={styles.interest} color={interest ? "crimson" : "yellow" } onPress={handleInterested} title="Interest"  />
+          </View>
         </View>
       )}
     </View>
@@ -179,6 +222,17 @@ const styles = StyleSheet.create({
     display: "flex",
     alignItems: "center",
   },
+  buttons: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  interest: {
+    color: "firebrick"
+  },
+  contact: {
+  color: "yellow"
+  }
 });
 
 export default EventItem;
