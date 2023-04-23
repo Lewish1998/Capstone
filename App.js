@@ -17,11 +17,12 @@ export default function App() {
   console.log = function() {}
 
   const [events, setEvents] = useState([]);
-  const [users,setUsers]=useState([]);
-  const [javaEvents,setJavaEvents]=useState([]);
-  const [user,setUser]=useState([]);
+  const [users,setUsers] = useState([]);
+  const [javaEvents,setJavaEvents] = useState([]);
+  const [user,setUser] = useState([]);
   const [refreshed, setRefreshed] = useState(false);
-  const [userInterestEvent,setUserInterestedEvent]=useState([])
+  const [userInterestEvent,setUserInterestedEvent] = useState([]);
+  const [searchInput, setSearchInput] = useState('')
 
   useEffect(() => {
     Promise.all([getEvents(), getJavaEvents(), getUsers(), getUser()])
@@ -82,6 +83,7 @@ const getUser=async ()=>{
     }
   }
 
+  // WORKING HARDCODED EDINBRUGH
   const getEvents = async () => {
     try {
       const res = await fetch('https://app.ticketmaster.com/discovery/v2/events.json?city=Edinburgh&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ');
@@ -90,6 +92,16 @@ const getUser=async ()=>{
       console.error(error);
     }
   };
+
+  // const getEvents = async (input) => {
+  //   try {
+  //     const res = await fetch('https://app.ticketmaster.com/discovery/v2/events.json?city='+{input}+'&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ');
+  //     return await res.json()
+  //     .then((data)=>{setEvents(data)})
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   const getUserInterested = async({id})=>{
     try {
@@ -135,6 +147,11 @@ const getUser=async ()=>{
   //     body: JSON.stringify(payload)
   //   })
   // }
+
+  const handleInputChange = (text) => {
+    const city = 'https://app.ticketmaster.com/discovery/v2/events.json?city='+{text}+'&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ'
+    setSearchInput(city)
+  }
   
   
   
@@ -143,6 +160,7 @@ const getUser=async ()=>{
     <NativeRouter>
       <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={styles.linearGradient}>
       <View style={styles.container}>
+        <ParametersPage/>
         <NavBar/>
       <Routes>
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
@@ -166,6 +184,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // height:'100%',
     // width:'100%',
+    // backgroundColor: 'red',
   },
   linearGradient: {
     flex: 1,

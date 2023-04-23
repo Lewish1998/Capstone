@@ -108,7 +108,7 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh, op
 
 
   return (
-    <View>
+    <View style={styles.container}>
 
  {open ? <View style={styles.cardContainer}>
   <Image style={styles.image} source={image}></Image>
@@ -141,11 +141,14 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh, op
 };
 
 const styles = StyleSheet.create({
+  container: {
+    // backgroundColor: 'red',
+    top: 55,
+  },
   cardContainer: {
     display: 'flex',
     width: 400,
     height: 650,
-    top:40,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     backgroundColor: '#666666',
