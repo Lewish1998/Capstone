@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Linking } from "react-native";
+import { Linking, Pressable } from "react-native";
 import { Text, View, Image, Button, StyleSheet } from "react-native";
+import Contactable from "./Contactable";
 
 const EventItem = ({
   event,
@@ -20,10 +21,13 @@ const EventItem = ({
   const venue = event._embedded.venues[0].name;
   const status = event.dates.status.code;
   const image = event.images[1];
+ 
 
   const [interest , setInterest]= useState(false);
   const [contact , setContact]= useState(false);
   const [contactNo , setContactNo]= useState(0);
+  const [contactList, setContactList] = useState(null);
+  const [toggleContact, setToggleContact] = useState(true);
 
   useEffect(() => {
     interestAndContact();
@@ -36,6 +40,19 @@ const EventItem = ({
   useEffect(() => {
     willingContactNo();
   },[handleContact])
+
+  function handleToggleContact (){
+    setToggleContact(false)
+  }
+
+  function willingUsers () {
+    const javaEvent = javaEvents.find(javaEvent => javaEvent.event_id === event.id);
+    if(javaEvent){
+    setContactList(javaEvent.event_contact)
+    } else{
+      setContactList(null)
+    }
+  }
 
 
   function willingContactNo(){
@@ -173,7 +190,7 @@ const EventItem = ({
       console.error("Couldn't load page", err)
     );
   };
-  
+ 
   return (
     <View>
       {open ? (
@@ -189,7 +206,7 @@ const EventItem = ({
           <Button  style={styles.interest} color={interest ? "crimson" : "yellow"} onPress={handleInterested} title="Interest" />
           </View>
         </View>
-      ) : (
+      ) : toggleContact ? (
         <View style={styles.cardContainer}>
           <Image style={styles.image} source={image}></Image>
           <Text style={styles.text}>{name}</Text>
@@ -197,7 +214,7 @@ const EventItem = ({
           <Text style={styles.text}>{time}</Text>
           <Text style={styles.text}>{venue}</Text>
           <Text style={styles.text}>Status: {status}</Text>
-          <Text style={styles.text}>People Willing to be Contacted:{contactNo}</Text>
+          <Button style={styles.text}  onPress={handleToggleContact} title= {`People Willing to be Contacted: ${contactNo}`}/>
           <Button onPress={loadInBrowser} title="BUY TICKETS" />
           <View style={styles.buttons}>
           <Button onPress={handleOpen} title="Back" />
@@ -205,7 +222,8 @@ const EventItem = ({
           <Button style={styles.interest} color={interest ? "crimson" : "yellow" } onPress={handleInterested} title="Interest"  />
           </View>
         </View>
-      )}
+      ):(<Contactable/>)}
+      
     </View>
   );
 };
