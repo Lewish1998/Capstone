@@ -21,7 +21,6 @@ export default function App() {
   const [javaEvents,setJavaEvents]=useState([]);
   const [user,setUser]=useState([]);
   const [refreshed, setRefreshed] = useState(false);
-  // const [userInterestEvent,setUserInterestedEvent]=useState([])
   const [userInterestedEvents,setUserInterestedEvents]=useState([])
 
   useEffect(() => {
@@ -54,7 +53,7 @@ export default function App() {
     setRefreshed(!refreshed);
   }
 
-  
+  // will use this and getUserIntrested for the card in myEvents for more info
 const setTheInterestedEvent=(event)=>{
   getUserInterested(event)
 }
@@ -68,7 +67,8 @@ const getUser=async ()=>{
   }
 }
 
-
+// does a fetch on user 1 (hard coded) and set their interested events as userInterestedEvents
+// passed to myEvents and does a fetch everytime you go to that page
  const updateUserInterested=async ()=>{
     try {
       const res = await fetch('http://127.0.0.1:8080/api/users/1');
@@ -112,6 +112,7 @@ const getUser=async ()=>{
     }
   };
 
+  // will be used to get single event card in myEvents
   const getUserInterested = async({id})=>{
     try {
       const res = await fetch('https://app.ticketmaster.com//discovery/v2/events/'+{id}+'.json?apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ');
@@ -148,6 +149,7 @@ const getUser=async ()=>{
     })
   }
 
+  // updates user
   const patchUser=(payload,id)=>{
     return fetch('http://127.0.0.1:8080/api/users/'+ id, {
       method: "PATCH",
@@ -176,7 +178,7 @@ const getUser=async ()=>{
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
-        <Route path="/events" element={<MyEventsPage setUserInterestedEvents={setUserInterestedEvents} user={user} userInterestedEvents={userInterestedEvents}  updateUserInterested={updateUserInterested} patchUser={patchUser}  />}/>
+        <Route path="/events" element={<MyEventsPage clickRefresh={clickRefresh} refreshed={refreshed} getUser={getUser} setUserInterestedEvents={setUserInterestedEvents} user={user} userInterestedEvents={userInterestedEvents}  updateUserInterested={updateUserInterested} patchUser={patchUser}  />}/>
         <Route path="/paramaters" element={<ParametersPage/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
       </Routes>

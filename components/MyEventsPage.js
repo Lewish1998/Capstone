@@ -1,92 +1,57 @@
-import React from 'react'
-
-import { Text, View, Image, Button, StyleSheet } from "react-native";
+import React from 'react';
+import { Text, View, Button, StyleSheet } from 'react-native';
 import { useState, useEffect } from 'react';
 
-const MyEventsPage = ({setUserInterestedEvents,user,userInterestedEvents,updateUserInterested,patchUser}) => {
-
-  if (user) {
-    console.log(user);
-  }
+const MyEventsPage = ({ clickRefresh, refreshed, setUserInterestedEvents, user, userInterestedEvents, updateUserInterested, patchUser }) => {
   useEffect(() => {
     updateUserInterested();
+  }, [refreshed]);
 
-  }, []);
-
-  function handleDelete(id){
-    const newInterestedEvents = userInterestedEvents.filter(interested => interested.id !== id);
-    setUserInterestedEvents(newInterestedEvents);
-    updateUserInterested(userInterestedEvents)
-    user.user_interested=newInterestedEvents
-    patchUser(user,user.id)
+  async function handleDelete(id) {
+    try {
+      user.user_interested = userInterestedEvents.filter(interested => interested.id !== id);
+      
+      await patchUser(user, user.id);
+      updateUserInterested();
+    } catch (error) {
+      console.error('Error deleting event:', error);
+    }
   }
 
-
-const displayUserInterested=userInterestedEvents.map((interested)=>{
-    return<View key={interested.id} >
-{/* {console.log(interested.name)} */}
-{  console.log("heelo")}
-      <Text style={styles.textbox}>{interested.event_name}</Text>
-      <Text style={styles.textbox}>{interested.event_date}</Text>
-      <Text style={styles.textbox}>{interested.event_time}</Text>
-      <Button onPress={() => handleDelete(interested.id)} title='Delete'/>     
-      <Button onPress={()=> console.log("heelo")} title='Going'/>
-      <Button title='Contact'/>
-
-
-    </View>
-  })
-
+  const displayUserInterested = userInterestedEvents.map(interested => {
+    return (
+      <View key={interested.id}>
+        <Text style={styles.textbox}>{interested.event_name}</Text>
+        <Text style={styles.textbox}>{interested.event_date}</Text>
+        <Text style={styles.textbox}>{interested.event_time}</Text>
+        <Button onPress={() => handleDelete(interested.id).then(clickRefresh())} title="Remove" />
+        <Button title="Info" />
+        <Button title="Contact" />
+      </View>
+    );
+  });
 
   return (
     <View style={styles.container}>
-
-
-      <Text>{displayUserInterested}</Text>
-
+      {displayUserInterested}
     </View>
-  )
-}
+  );
+};
 
 const styles = StyleSheet.create({
-
-  container:{
-    borderWidth:2,
-    borderRadius:20,
-    top:120,
-    height:700,
-    width:400,
-    padding:10,
-    backgroundColor:'#ffffff'
+  container: {
+    borderWidth: 2,
+    borderRadius: 20,
+    top: 120,
+    height: 700,
+    width: 400,
+    padding: 10,
+    backgroundColor: '#ffffff'
   },
-
-  containerJam: {
-    flex: 1,
-    minWidth: "90%",
-    maxWidth: "90%",
-    maxHeight: "90%",
-    justifyContent: "center",
-    borderColor: "black",
-    borderWidth: 5,
-    backgroundColor: "gray",
-    bottom:2
-  },
-
-  image: {
-    width: "80%",
-    height: "80%",
-  },
-  textbox:{
-    
-    flexDirection:"column",
-    width:"100%",
-    borderColor: "black",
-    borderWidth: 5,
-    backgroundColor: "gray",
-    justifyContent: "space-around",
-    alignContent:"stretch"
-  
-  },
+  textbox: {
+    margin: 5,
+    fontSize: 16
+  }
 });
 
 export default MyEventsPage;
