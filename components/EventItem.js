@@ -23,6 +23,7 @@ const EventItem = ({
 
   const [interest , setInterest]= useState(false);
   const [contact , setContact]= useState(false);
+  const [contactNo , setContactNo]= useState(0);
 
   useEffect(() => {
     interestAndContact();
@@ -32,10 +33,25 @@ const EventItem = ({
     interestAndContact();
   },[handleInterested])
 
+  useEffect(() => {
+    willingContactNo();
+  },[handleContact])
+
+
+  function willingContactNo(){
+    const javaEvent = javaEvents.find(javaEvent => javaEvent.event_id === event.id);
+      if (javaEvent) {
+        const number = javaEvent.event_contact.length;
+        setContactNo(number)
+      }else{
+        setContactNo(0);
+  
+    }
+  }
+
   
 
   function interestAndContact(){
-    
     const javaEvent = javaEvents.find(javaEvent => javaEvent.event_id === event.id);
     if(javaEvent){
       const isInterested = javaEvent.event_interested.some((userI) => userI.id === user.id);
@@ -179,10 +195,9 @@ const EventItem = ({
           <Text style={styles.text}>{name}</Text>
           <Text style={styles.text}>{date}</Text>
           <Text style={styles.text}>{time}</Text>
-          {/* {genre !== null ?
-      (<Text style={styles.text}>Classification: {genre}</Text>) : <View></View>} */}
           <Text style={styles.text}>{venue}</Text>
           <Text style={styles.text}>Status: {status}</Text>
+          <Text style={styles.text}>People Willing to be Contacted:{contactNo}</Text>
           <Button onPress={loadInBrowser} title="BUY TICKETS" />
           <View style={styles.buttons}>
           <Button onPress={handleOpen} title="Back" />
