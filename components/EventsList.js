@@ -8,9 +8,7 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
     let [index, setIndex] = useState(0);
     const[toggle, setToggle] = useState(true);
 
-    // useEffect(() => {
-    //     setToggle(!toggle);
-    //   },[])
+ 
 
     let eventNodes = events.map((event) => {
         return <EventItem

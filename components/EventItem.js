@@ -28,13 +28,21 @@ const EventItem = ({
     interestAndContact();
   },[toggle])
 
+  useEffect(() => {
+    interestAndContact();
+  },[handleInterested])
+
+  
+
   function interestAndContact(){
+    
     const javaEvent = javaEvents.find(javaEvent => javaEvent.event_id === event.id);
     if(javaEvent){
       const isInterested = javaEvent.event_interested.some((userI) => userI.id === user.id);
       const isContact = javaEvent.event_contact.some((userI) => userI.id === user.id);
       setContact(isContact);
       setInterest(isInterested);
+      
     }else{
       setContact(false)
       setInterest(false)
