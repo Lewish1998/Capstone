@@ -17,20 +17,16 @@ export default function App() {
   console.log = function() {}
 
   const [events, setEvents] = useState([]);
-  const [users,setUsers]=useState([]);
   const [javaEvents,setJavaEvents]=useState([]);
   const [user,setUser]=useState([]);
   const [refreshed, setRefreshed] = useState(false);
-  const [userInterestedEvents,setUserInterestedEvents]=useState([])
 
   useEffect(() => {
-    Promise.all([getEvents(), getJavaEvents(), getUsers(), getUser()])
-    .then(([eventsData, javaEventsData, usersData, userData])=>{
+    Promise.all([getEvents(), getJavaEvents(), getUser()])
+    .then(([eventsData, javaEventsData, userData])=>{
       setEvents(eventsData._embedded.events);
       setJavaEvents(javaEventsData);
-      setUsers(usersData);
       setUser(userData);
-      console.log(user.name);
     })
     .catch(error => {
       console.error(error);
@@ -39,10 +35,10 @@ export default function App() {
 
 
   useEffect(() => {
-    Promise.all([updateJavaEvents()])
-    .then(([javaEventsData])=>{
+    Promise.all([getJavaEvents(), getUser()])
+    .then(([javaEventsData,userData])=>{
     setJavaEvents(javaEventsData)
-
+    setUser(userData)
     })    .catch(error => {
       console.error(error);
     });
@@ -67,16 +63,6 @@ const getUser=async ()=>{
   }
 }
 
-// does a fetch on user 1 (hard coded) and set their interested events as userInterestedEvents
-// passed to myEvents and does a fetch everytime you go to that page
- const updateUserInterested=async ()=>{
-    try {
-      const res = await fetch('http://127.0.0.1:8080/api/users/1');
-      return await res.json().then((data)=>setUserInterestedEvents(data.user_interested))
-    } catch (error) {
-      console.error(error);
-    }
-  }
   const getUsers=async ()=>{
     try {
       const res = await fetch('http://127.0.0.1:8080/api/users');
@@ -89,15 +75,6 @@ const getUser=async ()=>{
     try {
       const res = await fetch('http://127.0.0.1:8080/api/events');
       return await res.json();
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  const updateJavaEvents=async ()=>{
-    try {
-      const res = await fetch('http://127.0.0.1:8080/api/events');
-      return await res.json()
     } catch (error) {
       console.error(error);
     }
@@ -178,7 +155,7 @@ const getUser=async ()=>{
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
-        <Route path="/events" element={<MyEventsPage clickRefresh={clickRefresh} refreshed={refreshed} getUser={getUser} setUserInterestedEvents={setUserInterestedEvents} user={user} userInterestedEvents={userInterestedEvents}  updateUserInterested={updateUserInterested} patchUser={patchUser}  />}/>
+        <Route path="/events" element={<MyEventsPage clickRefresh={clickRefresh}  user={user} patchUser={patchUser}  />}/>
         <Route path="/paramaters" element={<ParametersPage/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
       </Routes>
