@@ -6,8 +6,6 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
     clickRefresh();
   }, []);
  
-
-
   const handleDelete = async (id) => {
     try {
       const updatedUser = { ...user };
@@ -71,14 +69,15 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
       <Text style={styles.textbox}>{going.event_date}</Text>
       <Text style={styles.textbox}>{going.event_time}</Text>
       <Button onPress={() => handleDelete(going.id)} title="Remove" />
-      <Button title="Going" onPress={() => handleNotGoing(going.id)} />
+      <Button title="Not Going" onPress={() => handleNotGoing(going.id)} />
       <Button title="Contact" />
     </View>
   ));
 
   return <View style={styles.container}>
-    <Text>Going</Text>
+ 
     <ScrollView style={styles.scrollView}>
+    <Text>Going</Text>
     <View>{displayUserGoing}</View>
     <Text></Text>
     <Text>Interested</Text>
