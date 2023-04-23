@@ -7,10 +7,10 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
     const [open, setOpen] = useState(true);
     let [index, setIndex] = useState(0);
     const[toggle, setToggle] = useState(true);
-    
-    useEffect(() => {
-        setToggle(!toggle);
-      },[])
+
+    // useEffect(() => {
+    //     setToggle(!toggle);
+    //   },[])
 
     let eventNodes = events.map((event) => {
         return <EventItem
@@ -52,6 +52,7 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
     }
 
     function handleOnPressBack(){
+        setToggle(!toggle);
         setOpen(true);
         let newIndex = index -= 1;
         if (newIndex === -1){

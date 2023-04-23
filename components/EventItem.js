@@ -12,9 +12,7 @@ const EventItem = ({
   clickRefresh,
   open,
   handleOpen,
-  toggle,
-  handleOnPressBack,
-  handleOnPress
+  toggle
 }) => {
   const name = event.name;
   const date = event.dates.start.localDate;
@@ -31,25 +29,17 @@ const EventItem = ({
   },[toggle])
 
   function interestAndContact(){
-    for (const javaEvent of javaEvents) {
-      if (javaEvent.event_id === event.id) {
-        const isInterested = javaEvent.event_interested.some((userI) => userI.id === user.id);
-        const isContact = javaEvent.event_contact.some((userI) => userI.id === user.id);
-        if(isInterested){
-          setInterest(true)
-        }else{
-          setInterest(false)
-        }
-        if(isContact){
-          setContact(true)
-        }else{
-          setContact(false)
-        }
-
-      }
+    const javaEvent = javaEvents.find(javaEvent => javaEvent.event_id === event.id);
+    if(javaEvent){
+      const isInterested = javaEvent.event_interested.some((userI) => userI.id === user.id);
+      const isContact = javaEvent.event_contact.some((userI) => userI.id === user.id);
+      setContact(isContact);
+      setInterest(isInterested);
+    }else{
+      setContact(false)
+      setInterest(false)
     }
   }
-
 
 
   // const genre = if(event.classifications[0].genre.name !== null){return event.classifications[0].genre.name}
@@ -71,6 +61,7 @@ const EventItem = ({
           javaEvent.event_interested.push(user);
           patch(javaEvent, javaEvent.id);
           interestAndContact();
+         
         } else {
           const results = javaEvent.event_interested.filter(
             (checkUser) => checkUser.id != user.id
@@ -78,6 +69,7 @@ const EventItem = ({
           javaEvent.event_interested = results;
           patch(javaEvent, javaEvent.id);
           interestAndContact();
+        
         }
       }
     }
