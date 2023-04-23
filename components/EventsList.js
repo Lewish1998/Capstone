@@ -7,6 +7,7 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
     const [open, setOpen] = useState(true);
     let [index, setIndex] = useState(0);
     const[toggle, setToggle] = useState(true);
+    const [toggleContact, setToggleContact] = useState(true);
 
  
 
@@ -20,13 +21,15 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
         clickRefresh={clickRefresh} 
         open={open} 
         handleOpen={handleOpen}
-        // handleOnPress ={handleOnPress}
-        // handleOnPressBack = {handleOnPressBack}
         toggle={toggle}
+        toggleContact={toggleContact}
+        toggleContactChange={toggleContactChange}
         />
     });
 
-    
+    function toggleContactChange(){
+        setToggleContact(!toggleContact)
+    }
 
     function increaseCounter(){
         let newIndex = index += 1;

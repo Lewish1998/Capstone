@@ -13,7 +13,9 @@ const EventItem = ({
   clickRefresh,
   open,
   handleOpen,
-  toggle
+  toggle,
+  toggleContact,
+  toggleContactChange
 }) => {
   const name = event.name;
   const date = event.dates.start.localDate;
@@ -27,7 +29,7 @@ const EventItem = ({
   const [contact , setContact]= useState(false);
   const [contactNo , setContactNo]= useState(0);
   const [contactList, setContactList] = useState(null);
-  const [toggleContact, setToggleContact] = useState(true);
+
 
   useEffect(() => {
     interestAndContact();
@@ -42,8 +44,13 @@ const EventItem = ({
   },[handleContact])
 
   function handleToggleContact (){
-    setToggleContact(false)
+    willingUsers();
+    toggleContactChange();
   }
+
+ function toPassDown(){
+  toggleContactChange();
+ }
 
   function willingUsers () {
     const javaEvent = javaEvents.find(javaEvent => javaEvent.event_id === event.id);
@@ -222,7 +229,7 @@ const EventItem = ({
           <Button style={styles.interest} color={interest ? "crimson" : "yellow" } onPress={handleInterested} title="Interest"  />
           </View>
         </View>
-      ):(<Contactable/>)}
+      ):(<Contactable contactList={contactList} toPassDown={toPassDown}/>)}
       
     </View>
   );
