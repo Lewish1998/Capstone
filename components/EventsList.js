@@ -5,8 +5,12 @@ import { useState, useEffect } from "react";
 const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) => {
 
     const [open, setOpen] = useState(true);
-   
-  
+    let [index, setIndex] = useState(0);
+    const[toggle, setToggle] = useState(true);
+    
+    useEffect(() => {
+        setToggle(!toggle);
+      },[])
 
     let eventNodes = events.map((event) => {
         return <EventItem
@@ -18,12 +22,13 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
         clickRefresh={clickRefresh} 
         open={open} 
         handleOpen={handleOpen}
-        handleOnPress ={handleOnPress}
-        handleOnPressBack = {handleOnPressBack}
+        // handleOnPress ={handleOnPress}
+        // handleOnPressBack = {handleOnPressBack}
+        toggle={toggle}
         />
     });
 
-    let [index, setIndex] = useState(0)
+    
 
     function increaseCounter(){
         let newIndex = index += 1;
@@ -37,6 +42,7 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
     function handleOnPress(){
         increaseCounter();
         setOpen(true);
+        setToggle(!toggle);
 
      
     }
@@ -50,8 +56,10 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
         let newIndex = index -= 1;
         if (newIndex === -1){
             newIndex = events.length-1
+    
             return setIndex(newIndex);
         }
+
         return setIndex(newIndex)
     }
 

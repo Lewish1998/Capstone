@@ -12,6 +12,7 @@ const EventItem = ({
   clickRefresh,
   open,
   handleOpen,
+  toggle,
   handleOnPressBack,
   handleOnPress
 }) => {
@@ -27,7 +28,7 @@ const EventItem = ({
 
   useEffect(() => {
     interestAndContact();
-  },[handleOnPressBack, handleOnPress])
+  },[toggle])
 
   function interestAndContact(){
     for (const javaEvent of javaEvents) {
