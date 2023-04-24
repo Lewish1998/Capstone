@@ -14,18 +14,15 @@ const NavBar = () => {
   return (
 
   <View style={styles.container}>
-
-    {/* <Text style={styles.content}>NavBar</Text> */}
     {isMenuOpen && (
       <View style={styles.menu}>
         <TouchableOpacity style={styles.menuItem}>
-          {/* <Text style={styles.menuItemText}>Hello</Text> */}
-        <Link to="/"><Text style={styles.menuItemText}>Home</Text></Link>        
-        <Link to="/events"><Text style={styles.menuItemText}>My Events</Text></Link>
-        <Link to="/paramaters"><Text style={styles.menuItemText}>Paramaters</Text></Link>
-        <Link to="/about"><Text style={styles.menuItemText}>About</Text></Link>
-        <Link to="/contact"><Text style={styles.menuItemText}>Contact</Text></Link>
-        <Link to="/account"><Text style={styles.menuItemText}>Account</Text></Link>
+          <Link to="/" onPress={toggleMenu} ><Text style={styles.menuItemText}>Home</Text></Link>        
+          <Link to="/events" onPress={toggleMenu}><Text style={styles.menuItemText}>My Events</Text></Link>
+          <Link to="/paramaters" onPress={toggleMenu}><Text style={styles.menuItemText}>Paramaters</Text></Link>
+          <Link to="/about" onPress={toggleMenu}><Text style={styles.menuItemText}>About</Text></Link>
+          <Link to="/contact" onPress={toggleMenu}><Text style={styles.menuItemText}>Contact</Text></Link>
+          <Link to="/account" onPress={toggleMenu}><Text style={styles.menuItemText}>Account</Text></Link>
         </TouchableOpacity>
       </View>
     )}
@@ -39,6 +36,15 @@ const NavBar = () => {
     </View>
   )
 }
+
+
+
+
+
+
+
+
+
 
 const styles = StyleSheet.create({
   container: {
