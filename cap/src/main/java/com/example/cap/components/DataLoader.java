@@ -44,10 +44,10 @@ public class DataLoader implements ApplicationRunner {
 //        eventRepository.save(event4);
 //
 //
-        event1.addGoing(user1);
-        event1.addGoing(user1);
+        event1.addGoing(user2);
+//        event1.addGoing(user1);
         event1.addInterested(user1);
-        event1.addContact(user1);
+        event1.addContact(user2);
         eventRepository.save(event1);
 //
 //        user2.addContact(event2);
