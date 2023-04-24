@@ -149,7 +149,8 @@ const getUser=async ()=>{
   const handleInputChange = (text) => {
     const city = 'https://app.ticketmaster.com/discovery/v2/events.json?city='+ text +'&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ'
     setSearchInput(city)
-    // console.log(city)
+    getEvents(searchInput)
+    
   }
   
   

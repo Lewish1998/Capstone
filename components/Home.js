@@ -29,10 +29,10 @@ return (
 
 const styles = StyleSheet.create({
 location: {
-  position: 'absolute',
-  top: 68,
-  left: 10,
-  fontSize: 26,
+  // position: 'absolute',
+  // top: 68,
+  // left: 10,
+  // fontSize: 26,
 },
 });
 
