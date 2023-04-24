@@ -52,10 +52,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 1,
+    
   },
   content: {
     fontSize: 24,
     marginBottom: 20,
+    
   },
 
   // Edit here for Nav styling
@@ -70,7 +72,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderColor: 'black',
     borderWidth: 2,
-    borderRadius:20
+    borderRadius:20,
   },
   menuItem: {
     paddingVertical: 20,
@@ -78,7 +80,9 @@ const styles = StyleSheet.create({
   },
   menuItemText: {
     fontSize: 24,
-    padding:5
+    padding:5,
+    color: 'white',
+    opacity:1
   },
   burgerIcon: {
     position: 'absolute',

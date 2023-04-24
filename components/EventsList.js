@@ -1,6 +1,8 @@
 import { Text, View, Button, StyleSheet, Pressable, SafeAreaView, TouchableOpacity } from "react-native";
 import EventItem from "./EventItem";
 import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faBackward, faForward } from "@fortawesome/free-solid-svg-icons";
 
 
 const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) => {
@@ -79,11 +81,13 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
             {eventNodes[index]}
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleOnPressBack} title="Back">
-                    <Text style={{fontSize:20}}>Back</Text>
+                    {/* <Text style={{fontSize:20}}>Back</Text> */}
+                    <View><FontAwesomeIcon icon={faBackward} /></View>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.button} onPress={handleOnPress} title="Next">
-                    <Text style={{fontSize:20}}>Next</Text>
+                    {/* <Text style={{fontSize:20}}>Next</Text> */}
+                    <View><FontAwesomeIcon icon={faForward} /></View>
                 </TouchableOpacity>
             </View>
         </View>

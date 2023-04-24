@@ -2,6 +2,10 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Linking, Pressable } from "react-native";
 import { Text, View, Image, Button, StyleSheet } from "react-native";
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import {faInfoCircle, faLocationPin } from '@fortawesome/free-solid-svg-icons';
+import { TouchableOpacity } from "react-native-web";
+
 
 const EventItem = ({
   event,
@@ -219,27 +223,35 @@ const EventItem = ({
   };
 
   return (
-
     <View>
-    <Text style={styles.location}>{city}</Text>
+    <Text style={styles.location}>
+      <View>
+        <FontAwesomeIcon icon={faLocationPin} size={24}/>
+      </View>
+      {city}
+    </Text>
+
       {open ? (
         <View style={styles.cardContainer}>
           <Image style={styles.image} source={image}></Image>
           <Text style={styles.heading}>{name}</Text>
-          <Text style={styles.text}>{date}</Text>
-          <Text style={styles.text}>{time}</Text>
-          <Text style={styles.text}>{venue}</Text>
+          <Text style={styles.text}>Date: {date}</Text>
+          <Text style={styles.text}>Time: {time}</Text>
+          <Text style={styles.text}>Venue: {venue}</Text>
           <View style={styles.buttons}>
-            <Button onPress={handleOpen} title="Info" />
+            <Button onPress={handleOpen} title="Info"> </Button>
+            {/* TouchableOpacity isn't working for icons for some reason */}
+            {/* <TouchableOpacity onPress={handleOpen}><Text>Test</Text></TouchableOpacity> */}
+
             <Button
               style={styles.contact}
-              color={contact ? "orchid" : "palegreen"}
+              color={contact ? "lightgreen" : "red"}
               onPress={handleContact}
               title="Contact"
             />
             <Button
               style={styles.interest}
-              color={interest ? "crimson" : "yellow"}
+              color={interest ? "lightgreen" : "red"}
               onPress={handleInterested}
               title="Interest"
             />
@@ -295,6 +307,7 @@ const EventItem = ({
         </View>
       )}
     </View>
+  
   );
 };
 
@@ -306,11 +319,11 @@ const styles = StyleSheet.create({
     top: 120,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    backgroundColor: "#666666",
-    shadowOffset: { width: 10, height: 15 },
+    backgroundColor: "#999999",
+    shadowOffset: { width: 0, height: 0 },
     shadowColor: "black",
-    shadowOpacity: 0.05,
-    shadowRadius: 8,
+    shadowOpacity: 1,
+    shadowRadius: 15,
     borderRadius: 20,
   },
   image: {
@@ -345,10 +358,11 @@ const styles = StyleSheet.create({
   },
   location: {
     position: 'absolute',
-    top: 10,
+    top: 80,
     left: 10,
     fontSize: 26,
-    color: "yellow",
+    color: "black",
+    textDecorationLine: 'underline'
   },
   heading: {
     fontSize: 34,

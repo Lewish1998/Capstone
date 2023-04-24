@@ -1,9 +1,12 @@
 import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 
+
+
 const AboutPage = () => {
   return (
    <View style={styles.container}>
+  
       <Text style={{fontSize:36, textAlign:'center', paddingBottom:20}}>About Page</Text>
       <Text style={{fontSize:24}}>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
    </View>

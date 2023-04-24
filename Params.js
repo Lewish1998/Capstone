@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-native";
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faSliders } from '@fortawesome/free-solid-svg-icons';
 
 const Params = () => {
 
@@ -9,12 +11,18 @@ const Params = () => {
   return (
 
   <View style={styles.container}>
+    <TouchableOpacity>
+      <View>
+        
+        {/* Button is clicking but not changinng to the link...
+        Will try to make a function I can call when the button clicked to change pages? */}
 
-    <TouchableOpacity style={styles.burgerIcon}>
-      <Link  to="/paramaters"><Text style={styles.burgerIconLine}>Paramaters</Text></Link>
+      <FontAwesomeIcon style={styles.burgerIcon} icon={faSliders} size={30}>
+        <Link to="/paramaters"/>
+      </FontAwesomeIcon>
+      </View>
     </TouchableOpacity>
-
-    </View>
+  </View>
   )
 }
 
@@ -44,7 +52,7 @@ const styles = StyleSheet.create({
   },
   burgerIcon: {
     position: 'absolute',
-    top: 70,
+    top: 67,
     left: 100,
     width: 40,
     height: 40,
