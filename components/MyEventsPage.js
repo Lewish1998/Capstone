@@ -51,34 +51,33 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
     }
   };
 
-  const handleContact=async(id)=>{
-    try{ 
-      const updatedUser= {...user}
-      if(user.user_contact.find((event => event.id === id))){
+  const handleContact = async (id) => {
+    try {
+      const updatedUser = { ...user };
+      console.log(updatedUser.user_going.some(event => event.id === id))
+      if (updatedUser.user_contact.some(event => event.id === id)) {
         updatedUser.user_contact = updatedUser.user_contact.filter(contact => contact.id !== id);
         await patchUser(updatedUser, user.id);
         clickRefresh();
-  
-    }
-    else{
-      if(user.user_going.find((event => event.id === id))){
-        const eventSwapped = updatedUser.user_going.find(event => event.id === id);
-        updatedUser.user_contact = [...updatedUser.user_contact,eventSwapped]
-        await patchUser(updatedUser, user.id);
-        clickRefresh();
+      } else {
+        if (updatedUser.user_going.some(event => event.id === id)) {
+          const eventSwapped = updatedUser.user_going.find(event => event.id === id);
+          updatedUser.user_contact = [...updatedUser.user_contact, eventSwapped];
+          await patchUser(updatedUser, user.id);
+          clickRefresh();
+        } else {
+          const eventSwapped = updatedUser.user_interested.find(event => event.id === id);
+          updatedUser.user_contact = [...updatedUser.user_contact, eventSwapped];
+          await patchUser(updatedUser, user.id);
+          clickRefresh();
+        }
+        
       }
-      else{
-        const eventSwapped = updatedUser.user_interested.find(event => event.id === id);
-        updatedUser.user_contact = [...updatedUser.user_contact,eventSwapped]
-        await patchUser(updatedUser, user.id);
-        clickRefresh();
-
-      }
-    }
-    }catch (error) {
+    } catch (error) {
       console.error('Error moving event to "Interested":', error);
     }
   }
+  
 
   [open,setOpen]=useState(true)
 
@@ -109,7 +108,7 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
       <Text style={styles.textbox}>{going.event_time}</Text>
       <Button onPress={() => handleDelete(going.id)} title="Remove" />
       <Button title="Not Going" onPress={() => handleNotGoing(going.id)} />
-      <Button title="Contact" />
+      <Button title="Contact" onPress={() => handleContact(going.id)} />
       <Button title='More Info' onPress={()=>{onClickMoreInfo}}/>
     </View>
   ));
