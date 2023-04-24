@@ -222,7 +222,7 @@ const EventItem = ({
       {open ? (
         <View style={styles.cardContainer}>
           <Image style={styles.image} source={image}></Image>
-          <Text style={styles.text}>{name}</Text>
+          <Text style={styles.heading}>{name}</Text>
           <Text style={styles.text}>{date}</Text>
           <Text style={styles.text}>{time}</Text>
           <Text style={styles.text}>{venue}</Text>
@@ -245,7 +245,7 @@ const EventItem = ({
       ) : toggleContact ? (
         <View style={styles.cardContainer}>
           <Image style={styles.image} source={image}></Image>
-          <Text style={styles.text}>{name}</Text>
+          <Text style={styles.heading}>{name}</Text>
           <Text style={styles.text}>{date}</Text>
           <Text style={styles.text}>{time}</Text>
           <Text style={styles.text}>{venue}</Text>
@@ -296,15 +296,11 @@ const EventItem = ({
 };
 
 const styles = StyleSheet.create({
-  container: {
-    // backgroundColor: 'red',
-    top: 55,
-  },
   cardContainer: {
     display: "flex",
-    width: 400,
-    height: 650,
-    top: 40,
+    width: 360,
+    height: 600,
+    top: 120,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     backgroundColor: "#666666",
@@ -315,28 +311,40 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   image: {
-    width: 400,
-    height: 400,
+    width: 360,
+    height: 260,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
   text: {
     top: 10,
     height: 28,
+    textAlign: "center",
     justifyContent: "center",
     display: "flex",
     alignItems: "center",
+    fontSize:20,
+    gap: 30
   },
   buttons: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
+    position: "absolute",
+    bottom: 10,
+    flexDirection: 'row',
+    left: 50,
+    gap: 30
+  
   },
   interest: {
     color: "firebrick",
   },
   contact: {
     color: "yellow",
+  },
+  heading: {
+    fontSize: 34,
+    fontWeight: "bold",
+    color: "black",
+    textAlign:'center'
   },
 });
 

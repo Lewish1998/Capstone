@@ -9,6 +9,7 @@ import MyEventsPage from './components/MyEventsPage';
 import ParametersPage from './components/ParametersPage';
 import { useState, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import Params from './Params';
 
 
 export default function App() {  
@@ -152,14 +153,15 @@ const getUser=async ()=>{
     // console.log(city)
   }
   
-  
-  
+
+
   
   return (
     <NativeRouter>
       <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={styles.linearGradient}>
       <View style={styles.container}>
-        <NavBar/>
+          <Params/>
+          <NavBar/>
       <Routes>
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
