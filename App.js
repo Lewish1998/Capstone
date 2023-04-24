@@ -23,11 +23,12 @@ export default function App() {
   const [searchInput, setSearchInput] = useState('')
 
   useEffect(() => {
-    Promise.all([getEvents(), getJavaEvents(), getUser()])
-    .then(([eventsData, javaEventsData, userData])=>{
+    Promise.all([ getUser(),getEvents(), getJavaEvents()])
+    .then(([userData, eventsData, javaEventsData])=>{
+      setUser(userData);
       setEvents(eventsData._embedded.events);
       setJavaEvents(javaEventsData);
-      setUser(userData);
+  
     })
     .catch(error => {
       console.error(error);
@@ -36,15 +37,20 @@ export default function App() {
 
 
   useEffect(() => {
-    Promise.all([getJavaEvents(), getUser()])
-    .then(([javaEventsData,userData])=>{
+    Promise.all([getJavaEvents(), getUser(), getUpdatedEvents()])
+    .then(([javaEventsData,userData, updatedEventData])=>{
     setJavaEvents(javaEventsData)
     setUser(userData)
+    console.log(updatedEventData._embedded.events)
+    setEvents(updatedEventData._embedded.events)
     })    .catch(error => {
       console.error(error);
     });
   }, [refreshed])
 
+  useEffect(() => {
+    setSearchInput(user.location)
+  }, [])
 
   const clickRefresh =() => {
     setRefreshed(!refreshed);
@@ -85,6 +91,16 @@ const getUser=async ()=>{
   const getEvents = async () => {
     try {
       const res = await fetch('https://app.ticketmaster.com/discovery/v2/events.json?city=Edinburgh&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ');
+      return await res.json();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getUpdatedEvents = async (location) => {
+    try {
+      console.log(location)
+      const res = await fetch('https://app.ticketmaster.com/discovery/v2/events.json?city='+location+'&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ');
       return await res.json();
     } catch (error) {
       console.error(error);
@@ -148,9 +164,11 @@ const getUser=async ()=>{
 
   const handleInputChange = (text) => {
     const city = 'https://app.ticketmaster.com/discovery/v2/events.json?city='+ text +'&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ'
-    setSearchInput(city)
-    getEvents(searchInput)
-    
+    const updatedUser={...user}
+    updatedUser.location=text
+    patchUser(updatedUser, user.id);
+
+    setSearchInput(city)    
   }
   
   
@@ -166,7 +184,7 @@ const getUser=async ()=>{
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
         <Route path="/events" element={<MyEventsPage clickRefresh={clickRefresh}  user={user} patchUser={patchUser}  />}/>
-        <Route path="/paramaters" element={<ParametersPage passHandlePress={handleInputChange}/>}/>
+        <Route path="/paramaters" element={<ParametersPage passHandlePress={handleInputChange} clickRefresh={clickRefresh}/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
       </Routes>
       </View>
