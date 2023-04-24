@@ -21,6 +21,7 @@ export default function App() {
   const [user,setUser]=useState([]);
   const [refreshed, setRefreshed] = useState(false);
   const [searchInput, setSearchInput] = useState('')
+  const [userLocation,setUserLocation]=useState("")
 
   useEffect(() => {
     Promise.all([ getUser(),getEvents(), getJavaEvents()])
@@ -37,11 +38,10 @@ export default function App() {
 
 
   useEffect(() => {
-    Promise.all([getJavaEvents(), getUser(), getUpdatedEvents()])
+    Promise.all([getJavaEvents(), getUser(), getUpdatedEvents(userLocation)])
     .then(([javaEventsData,userData, updatedEventData])=>{
     setJavaEvents(javaEventsData)
     setUser(userData)
-    console.log(updatedEventData._embedded.events)
     setEvents(updatedEventData._embedded.events)
     })    .catch(error => {
       console.error(error);
@@ -97,15 +97,6 @@ const getUser=async ()=>{
     }
   };
 
-  const getUpdatedEvents = async (location) => {
-    try {
-      console.log(location)
-      const res = await fetch('https://app.ticketmaster.com/discovery/v2/events.json?city='+location+'&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ');
-      return await res.json();
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
 
   // will be used to get single event card in myEvents
@@ -162,15 +153,22 @@ const getUser=async ()=>{
   //   })
   // }
 
-  const handleInputChange = (text) => {
-    const city = 'https://app.ticketmaster.com/discovery/v2/events.json?city='+ text +'&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ'
-    const updatedUser={...user}
-    updatedUser.location=text
-    patchUser(updatedUser, user.id);
+  // const handleInputChange =async(text) => {
+  //   const updatedUser={...user}
+  //   updatedUser.location=text
+  //   patchUser(updatedUser, user.id);  
+  //   console.log(user.location);
+  // }
 
-    setSearchInput(city)    
-  }
-  
+  const getUpdatedEvents = async (location) => {
+    try {
+      const res = await fetch('https://app.ticketmaster.com/discovery/v2/events.json?city='+location+'&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ')
+      return await res.json();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   
   
   
@@ -184,7 +182,7 @@ const getUser=async ()=>{
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
         <Route path="/events" element={<MyEventsPage clickRefresh={clickRefresh}  user={user} patchUser={patchUser}  />}/>
-        <Route path="/paramaters" element={<ParametersPage passHandlePress={handleInputChange} clickRefresh={clickRefresh}/>}/>
+        <Route path="/paramaters" element={<ParametersPage  clickRefresh={clickRefresh} user={user} patchUser={patchUser} setUserLocation={setUserLocation}/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
       </Routes>
       </View>

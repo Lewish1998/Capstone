@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Text, View, StyleSheet, Pressable, TextInput, Button, TouchableOpacity } from 'react-native'
 
-const ParametersPage = ({ passHandlePress, clickRefresh }) => {
+const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUserLocation }) => {
 
   const [inputValue, setInputValue] = useState('');
 
@@ -10,7 +10,10 @@ const ParametersPage = ({ passHandlePress, clickRefresh }) => {
   }
 
   const handleOnPress = () => {
-    passHandlePress(inputValue)
+    const updatedUser={...user}
+    updatedUser.location=inputValue
+    setUserLocation(updatedUser.location)
+    patchUser(updatedUser, user.id); 
     clickRefresh()
   }
 
