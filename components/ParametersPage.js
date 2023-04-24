@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Text, View, StyleSheet, Pressable, TextInput, Button, TouchableOpacity } from 'react-native'
-
+import { Link } from "react-router-native";
 const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUserLocation }) => {
 
   const [inputValue, setInputValue] = useState('');
@@ -27,7 +27,7 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUserLo
           onChangeText={handleOnChange}
         />
       </View>
-      <Button color="" title='submit' onPress={handleOnPress}/>
+      <Link to='/'color="" title='submit' onPress={handleOnPress}><Text>Submit</Text></Link>
     </TouchableOpacity>
   )
 }

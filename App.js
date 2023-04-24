@@ -23,6 +23,8 @@ export default function App() {
   const [searchInput, setSearchInput] = useState('')
   const [userLocation,setUserLocation]=useState("")
 
+
+
   useEffect(() => {
     Promise.all([ getUser(),getEvents(), getJavaEvents()])
     .then(([userData, eventsData, javaEventsData])=>{
@@ -50,6 +52,7 @@ export default function App() {
 
   useEffect(() => {
     setSearchInput(user.location)
+    console.log(user.location);
   }, [])
 
   const clickRefresh =() => {
@@ -111,15 +114,6 @@ const getUser=async ()=>{
   }
 
 
-  // routes
-
-  // delete(url) {
-  //   return fetch(url, {
-  //     method: "DELETE",
-  //     headers: {'Content-Type': 'application/json'}
-  //   })
-  // }
-
   const eventPost = (payload) => {
     return fetch('http://127.0.0.1:8080/api/events',{
       method: "POST",
@@ -144,21 +138,6 @@ const getUser=async ()=>{
       body: JSON.stringify(payload)
     })
   }
-
-  // const EventPost= ('http://127.0.0.1:8080/api/events', payload) => {
-  //   return fetch(url, {
-  //     method: "POST",
-  //     headers: {'Content-Type': 'application/json'},
-  //     body: JSON.stringify(payload)
-  //   })
-  // }
-
-  // const handleInputChange =async(text) => {
-  //   const updatedUser={...user}
-  //   updatedUser.location=text
-  //   patchUser(updatedUser, user.id);  
-  //   console.log(user.location);
-  // }
 
   const getUpdatedEvents = async (location) => {
     try {
