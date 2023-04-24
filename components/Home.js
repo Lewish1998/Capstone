@@ -1,16 +1,14 @@
-import React from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, Button, Pressable} from 'react-native'
 import EventsList from './EventsList'
 
 
 const Home = ({events, javaEvents, user, eventPost, patch, clickRefresh}) => {
 
- 
 
 
   return (
-    <View style={styles.container}>
-        {/* <Text>Home Screen</Text> */}
+    <View styles={styles.container}>
         <EventsList events={events} user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>
     </View>
   )
@@ -18,10 +16,7 @@ const Home = ({events, javaEvents, user, eventPost, patch, clickRefresh}) => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
-    // backgroundColor: '#fff',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    // backgroundColor: 'red',
   },
 });
 

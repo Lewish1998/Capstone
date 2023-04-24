@@ -1,25 +1,55 @@
-import React from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import React, { useState } from 'react'
+import { Text, View, StyleSheet, Pressable, TextInput, Button, TouchableOpacity } from 'react-native'
 
-const ParametersPage = () => {
+const ParametersPage = ({ passHandlePress }) => {
+
+  const [inputValue, setInputValue] = useState('');
+
+  const handleOnChange = (text) => {
+    setInputValue(text)
+  }
+
+  const handleOnPress = () => {
+    passHandlePress(inputValue)
+    // console.log(inputValue)
+  }
+
   return (
-    <View style={styles.container}>
-        <Text style={{fontSize:36, textAlign:'center', paddingBottom:20}}>Paramaters</Text>
-      
-    </View>
+    <TouchableOpacity>
+      <View style={styles.container}>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter city"
+          value={inputValue}
+          onChangeText={handleOnChange}
+        />
+      </View>
+      <Button color="" title='submit' onPress={handleOnPress}/>
+    </TouchableOpacity>
   )
 }
 
+
 const styles = StyleSheet.create({
-  container:{
-    borderWidth:2,
-    borderRadius:20,
-    top:120,
-    height:700,
-    width:400,
-    padding:10,
-    backgroundColor:'#ffffff'
-  }
+    container:{
+      borderWidth:2,
+      borderRadius:20,
+      top:120,
+      height:100,
+      width:400,
+      backgroundColor:'#ffffff'
+      },
+    input: {
+      // flex: 1,
+      zIndex:100,
+      fontSize: 18,
+      paddingLeft: 10,
+      backgroundColor: '#fff',
+      top: 50,
+    },
+    button: {
+      
+    },
 })
 
 export default ParametersPage;

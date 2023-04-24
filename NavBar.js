@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   },
   burgerIcon: {
     position: 'absolute',
-    top: 80,
+    top: 70,
     left: 150,
     width: 40,
     height: 40,

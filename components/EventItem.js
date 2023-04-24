@@ -203,6 +203,7 @@ const EventItem = ({
   };
  
   return (
+
     <View>
       {open ? (
         <View style={styles.cardContainer}>
@@ -257,6 +258,10 @@ const EventItem = ({
 };
 
 const styles = StyleSheet.create({
+  container: {
+    // backgroundColor: 'red',
+    top: 55,
+  },
   cardContainer: {
     display: "flex",
     width: 400,

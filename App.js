@@ -12,7 +12,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 
 export default function App() {  
-  
+
   // stops all console logs
   // console.log = function() {}
 
@@ -20,6 +20,7 @@ export default function App() {
   const [javaEvents,setJavaEvents]=useState([]);
   const [user,setUser]=useState([]);
   const [refreshed, setRefreshed] = useState(false);
+  const [searchInput, setSearchInput] = useState('')
 
   useEffect(() => {
     Promise.all([getEvents(), getJavaEvents(), getUser()])
@@ -80,6 +81,7 @@ const getUser=async ()=>{
     }
   }
 
+
   const getEvents = async () => {
     try {
       const res = await fetch('https://app.ticketmaster.com/discovery/v2/events.json?city=Edinburgh&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ');
@@ -88,6 +90,7 @@ const getUser=async ()=>{
       console.error(error);
     }
   };
+
 
   // will be used to get single event card in myEvents
   const getUserInterested = async({id})=>{
@@ -118,7 +121,7 @@ const getUser=async ()=>{
     }) 
   }
 
-  const patch= ( payload,id) =>{
+  const patch = (payload, id) =>{
     return fetch('http://127.0.0.1:8080/api/events/'+ id, {
       method: "PATCH",
       headers: {'Content-Type': 'application/json'},
@@ -142,6 +145,12 @@ const getUser=async ()=>{
   //     body: JSON.stringify(payload)
   //   })
   // }
+
+  const handleInputChange = (text) => {
+    const city = 'https://app.ticketmaster.com/discovery/v2/events.json?city='+ text +'&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ'
+    setSearchInput(city)
+    // console.log(city)
+  }
   
   
   
@@ -156,7 +165,7 @@ const getUser=async ()=>{
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
         <Route path="/events" element={<MyEventsPage clickRefresh={clickRefresh}  user={user} patchUser={patchUser}  />}/>
-        <Route path="/paramaters" element={<ParametersPage/>}/>
+        <Route path="/paramaters" element={<ParametersPage passHandlePress={handleInputChange}/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
       </Routes>
       </View>
@@ -173,6 +182,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     // height:'100%',
     // width:'100%',
+    // backgroundColor: 'red',
   },
   linearGradient: {
     flex: 1,
