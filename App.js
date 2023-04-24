@@ -14,7 +14,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 export default function App() {  
   
   // stops all console logs
-  console.log = function() {}
+  // console.log = function() {}
 
   const [events, setEvents] = useState([]);
   const [javaEvents,setJavaEvents]=useState([]);
