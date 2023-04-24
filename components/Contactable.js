@@ -15,7 +15,7 @@ const Contactable = (contactList, toPassDown) => {
 
 
     const handleGoBack= ()=>{
-       
+       //why is toPassDown an object and not a function?
     }
 
   return (

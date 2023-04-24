@@ -50,9 +50,12 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
 
     function handleOpen(){
         setOpen(!open);
+        setToggleContact(true);
+
     }
 
     function handleOnPressBack(){
+        setToggleContact(true);
         setToggle(!toggle);
         setOpen(true);
         let newIndex = index -= 1;

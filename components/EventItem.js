@@ -48,7 +48,7 @@ const EventItem = ({
     toggleContactChange();
   }
 
- function toPassDown(){
+ function handleGoBack(){
   toggleContactChange();
  }
 
@@ -229,7 +229,11 @@ const EventItem = ({
           <Button style={styles.interest} color={interest ? "crimson" : "yellow" } onPress={handleInterested} title="Interest"  />
           </View>
         </View>
-      ):(<Contactable contactList={contactList} toPassDown={toPassDown}/>)}
+      ):(
+        <View style={styles.cardContainer}>
+          <Text>test</Text>
+          <Button onPress={handleGoBack} title="back to details"/>
+        </View>)}
       
     </View>
   );
