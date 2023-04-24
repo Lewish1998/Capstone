@@ -22,6 +22,8 @@ const EventItem = ({
   const venue = event._embedded.venues[0].name;
   const status = event.dates.status.code;
   const image = event.images[1];
+  const city = event._embedded.venues[0].city.name;
+
 
   const [interest, setInterest] = useState(false);
   const [contact, setContact] = useState(false);
@@ -219,6 +221,7 @@ const EventItem = ({
   return (
 
     <View>
+    <Text style={styles.location}>{city}</Text>
       {open ? (
         <View style={styles.cardContainer}>
           <Image style={styles.image} source={image}></Image>
@@ -338,6 +341,13 @@ const styles = StyleSheet.create({
     color: "firebrick",
   },
   contact: {
+  color: "yellow"
+  },
+  location: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    fontSize: 26,
     color: "yellow",
   },
   heading: {

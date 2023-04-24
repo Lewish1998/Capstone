@@ -22,13 +22,17 @@ export default function App() {
   const [user,setUser]=useState([]);
   const [refreshed, setRefreshed] = useState(false);
   const [searchInput, setSearchInput] = useState('')
+  const [userLocation,setUserLocation]=useState("")
+
+
 
   useEffect(() => {
-    Promise.all([getEvents(), getJavaEvents(), getUser()])
-    .then(([eventsData, javaEventsData, userData])=>{
+    Promise.all([ getUser(),getEvents(), getJavaEvents()])
+    .then(([userData, eventsData, javaEventsData])=>{
+      setUser(userData);
       setEvents(eventsData._embedded.events);
       setJavaEvents(javaEventsData);
-      setUser(userData);
+  
     })
     .catch(error => {
       console.error(error);
@@ -37,15 +41,20 @@ export default function App() {
 
 
   useEffect(() => {
-    Promise.all([getJavaEvents(), getUser()])
-    .then(([javaEventsData,userData])=>{
+    Promise.all([getJavaEvents(), getUser(), getUpdatedEvents(userLocation)])
+    .then(([javaEventsData,userData, updatedEventData])=>{
     setJavaEvents(javaEventsData)
     setUser(userData)
+    setEvents(updatedEventData._embedded.events)
     })    .catch(error => {
       console.error(error);
     });
   }, [refreshed])
 
+  useEffect(() => {
+    setSearchInput(user.location)
+    console.log(user.location);
+  }, [])
 
   const clickRefresh =() => {
     setRefreshed(!refreshed);
@@ -93,6 +102,7 @@ const getUser=async ()=>{
   };
 
 
+
   // will be used to get single event card in myEvents
   const getUserInterested = async({id})=>{
     try {
@@ -104,15 +114,6 @@ const getUser=async ()=>{
     }
   }
 
-
-  // routes
-
-  // delete(url) {
-  //   return fetch(url, {
-  //     method: "DELETE",
-  //     headers: {'Content-Type': 'application/json'}
-  //   })
-  // }
 
   const eventPost = (payload) => {
     return fetch('http://127.0.0.1:8080/api/events',{
@@ -139,22 +140,16 @@ const getUser=async ()=>{
     })
   }
 
-  // const EventPost= ('http://127.0.0.1:8080/api/events', payload) => {
-  //   return fetch(url, {
-  //     method: "POST",
-  //     headers: {'Content-Type': 'application/json'},
-  //     body: JSON.stringify(payload)
-  //   })
-  // }
+  const getUpdatedEvents = async (location) => {
+    try {
+      const res = await fetch('https://app.ticketmaster.com/discovery/v2/events.json?city='+location+'&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ')
+      return await res.json();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
-  const handleInputChange = (text) => {
-    const city = 'https://app.ticketmaster.com/discovery/v2/events.json?city='+ text +'&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ'
-    setSearchInput(city)
-    // console.log(city)
-  }
-  
-
-
+ 
   
   return (
     <NativeRouter>
@@ -167,7 +162,7 @@ const getUser=async ()=>{
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
         <Route path="/events" element={<MyEventsPage clickRefresh={clickRefresh}  user={user} patchUser={patchUser}  />}/>
-        <Route path="/paramaters" element={<ParametersPage passHandlePress={handleInputChange}/>}/>
+        <Route path="/paramaters" element={<ParametersPage  clickRefresh={clickRefresh} user={user} patchUser={patchUser} setUserLocation={setUserLocation}/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
       </Routes>
       </View>

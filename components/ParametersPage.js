@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-native";
 import { Text, View, StyleSheet, Pressable, TextInput, Button, TouchableOpacity } from 'react-native'
-
-const ParametersPage = ({ passHandlePress }) => {
+import { Link } from "react-router-native";
+const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUserLocation }) => {
 
   const [inputValue, setInputValue] = useState('');
 
@@ -12,8 +12,11 @@ const ParametersPage = ({ passHandlePress }) => {
   }
 
   const handleOnPress = () => {
-    passHandlePress(inputValue)
-    console.log(inputValue)
+    const updatedUser={...user}
+    updatedUser.location=inputValue
+    setUserLocation(updatedUser.location)
+    patchUser(updatedUser, user.id); 
+    clickRefresh()
   }
 
   return (
@@ -29,8 +32,9 @@ const ParametersPage = ({ passHandlePress }) => {
           <Link  to="/"><Text>Submit</Text></Link>
         </TouchableOpacity>
       </View>
+      <Link to='/'color="" title='submit' onPress={handleOnPress}><Text>Submit</Text></Link>
+    </TouchableOpacity>
 
-      
   )
 }
 
