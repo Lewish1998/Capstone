@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Linking, Pressable } from "react-native";
 import { Text, View, Image, Button, StyleSheet } from "react-native";
-import Contactable from "./Contactable";
+
 
 const EventItem = ({
   event,
@@ -28,7 +28,7 @@ const EventItem = ({
   const [interest , setInterest]= useState(false);
   const [contact , setContact]= useState(false);
   const [contactNo , setContactNo]= useState(0);
-  const [contactList, setContactList] = useState(null);
+  const [contactList, setContactList] = useState([]);
 
 
   useEffect(() => {
@@ -43,6 +43,10 @@ const EventItem = ({
     willingContactNo();
   },[handleContact])
 
+  useEffect(() => {
+    willingUsers();
+  },[open])
+
   function handleToggleContact (){
     willingUsers();
     toggleContactChange();
@@ -52,12 +56,13 @@ const EventItem = ({
   toggleContactChange();
  }
 
+
   function willingUsers () {
     const javaEvent = javaEvents.find(javaEvent => javaEvent.event_id === event.id);
     if(javaEvent){
     setContactList(javaEvent.event_contact)
     } else{
-      setContactList(null)
+      setContactList([])
     }
   }
 
@@ -232,6 +237,19 @@ const EventItem = ({
       ):(
         <View style={styles.cardContainer}>
           <Text>test</Text>
+
+          <View>
+      {contactList.length > 0 ? (
+        contactList.map(contact => (
+          <View key={contact.id}>
+            <Text>Name: {contact.name}</Text>
+            <Text>Email: {contact.email}</Text>
+          </View>
+        ))
+      ) : (
+        <Text>No contacts found.</Text>
+      )}
+    </View>
           <Button onPress={handleGoBack} title="back to details"/>
         </View>)}
       
