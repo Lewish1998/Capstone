@@ -1,49 +1,40 @@
 import React, { useState } from 'react'
 import { Text, View, StyleSheet, Pressable, TextInput, Button, TouchableOpacity } from 'react-native'
 
-const ParametersPage = () => {
+const ParametersPage = ({ passHandlePress }) => {
 
   const [inputValue, setInputValue] = useState('');
 
-  const handleSubmit = (text) => {
+  const handleOnChange = (text) => {
     setInputValue(text)
-    onInputChange(text)
+    // console.log(inputValue)
+  }
+
+  const handleOnPress = () => {
+    passHandlePress(inputValue)
   }
 
   return (
-    // <View style={styles.container}>
-    //     <Text style={{fontSize:36, textAlign:'center', paddingBottom:20}}>Paramaters</Text>
-      
-    // </View>
-
     <TouchableOpacity>
-      {/* <View style={styles.inputContainer}> */}
-      <TextInput style={styles.input} placeholder="Enter city" value={inputValue} onChangeText={(text) => setInputValue(text)}/>
-      {/* <Pressable><Text>Submit</Text></Pressable> */}
-      {/* </View> */}
+      <View style={styles.container}>
+      <TextInput style={styles.input} placeholder="Enter city" value={inputValue} onChangeText={handleOnChange}/>
+      </View>
+      
+      <Button color="" title='submit' onPress={handleOnPress}/>
     </TouchableOpacity>
   )
+  
 }
 
 const styles = StyleSheet.create({
-  // container:{
-  //   borderWidth:2,
-  //   borderRadius:20,
-  //   top:120,
-  //   height:700,
-  //   width:400,
-  //   padding:10,
-  //   backgroundColor:'#ffffff'
-  //   },
-    inputContainer: {
-      flexDirection: 'row',
-      backgroundColor: '#fff',
-      borderRadius: 5,
-      margin: 10,
-      padding: 5,
-      top: 50,
-      width: '100%',
-    },
+    container:{
+      borderWidth:2,
+      borderRadius:20,
+      top:120,
+      height:100,
+      width:400,
+      backgroundColor:'#ffffff'
+      },
     input: {
       // flex: 1,
       zIndex:100,
@@ -51,6 +42,9 @@ const styles = StyleSheet.create({
       paddingLeft: 10,
       backgroundColor: '#fff',
       top: 50,
+    },
+    button: {
+      
     },
 })
 

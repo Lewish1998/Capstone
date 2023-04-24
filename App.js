@@ -12,9 +12,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 
 export default function App() {  
-  
-  // stops all console logs
-  console.log = function() {}
 
   const [events, setEvents] = useState([]);
   const [users,setUsers] = useState([]);
@@ -132,7 +129,7 @@ const getUser=async ()=>{
     }) 
   }
 
-  const patch= ( payload,id) =>{
+  const patch = (payload, id) =>{
     return fetch('http://127.0.0.1:8080/api/events/'+ id, {
       method: "PATCH",
       headers: {'Content-Type': 'application/json'},
@@ -160,14 +157,13 @@ const getUser=async ()=>{
     <NativeRouter>
       <LinearGradient colors={['#4c669f', '#3b5998', '#192f6a']} style={styles.linearGradient}>
       <View style={styles.container}>
-        <ParametersPage/>
         <NavBar/>
       <Routes>
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
         <Route path="/events" element={<MyEventsPage user={user} setTheInterestedEvent={setTheInterestedEvent} userInterestEvent={userInterestEvent} />}/>
-        <Route path="/paramaters" element={<ParametersPage/>}/>
+        <Route path="/paramaters" element={<ParametersPage passHandlePress={handleInputChange}/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
       </Routes>
       </View>
