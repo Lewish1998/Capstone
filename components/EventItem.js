@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { Linking, Pressable } from "react-native";
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 
-
 const EventItem = ({
   event,
   user,
