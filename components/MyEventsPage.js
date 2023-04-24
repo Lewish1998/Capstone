@@ -51,6 +51,35 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
     }
   };
 
+  const handleContact=async(id)=>{
+    try{ 
+      const updatedUser= {...user}
+      if(user.user_contact.find((event => event.id === id))){
+        updatedUser.user_contact = updatedUser.user_contact.filter(contact => contact.id !== id);
+        await patchUser(updatedUser, user.id);
+        clickRefresh();
+  
+    }
+    else{
+      if(user.user_going.find((event => event.id === id))){
+        const eventSwapped = updatedUser.user_going.find(event => event.id === id);
+        updatedUser.user_contact = [...updatedUser.user_contact,eventSwapped]
+        await patchUser(updatedUser, user.id);
+        clickRefresh();
+      }
+      else{
+        const eventSwapped = updatedUser.user_interested.find(event => event.id === id);
+        updatedUser.user_contact = [...updatedUser.user_contact,eventSwapped]
+        await patchUser(updatedUser, user.id);
+        clickRefresh();
+
+      }
+    }
+    }catch (error) {
+      console.error('Error moving event to "Interested":', error);
+    }
+  }
+
   [open,setOpen]=useState(true)
 
   onClickMoreInfo=async()=>{
@@ -68,7 +97,7 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
       <Text style={styles.textbox}>{interested.event_time}</Text>
       <Button onPress={() => handleDelete(interested.id)} title="Remove" />
       <Button title="Going" onPress={() => handleGoing(interested.id)}  />
-      <Button title="Contact" />
+      <Button title="Contact" onPress={() => handleContact(interested.id)}/>
       <Button title='More Info' onPress={()=>{onClickMoreInfo}} />
     </View>
   ));
@@ -86,6 +115,7 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
   ));
 
   return <View style={styles.container}>
+
  
     <ScrollView style={styles.scrollView}>
     <Text>Going</Text>
