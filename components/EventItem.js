@@ -5,7 +5,10 @@ import { Text, View, Image, Button, StyleSheet } from "react-native";
 
 const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh, open, handleOpen }) => {
 
-  
+  useEffect(() => {
+    clickRefresh();
+  }, []);
+
 
   const name = event.name;
   const date = event.dates.start.localDate;
@@ -25,6 +28,7 @@ const EventItem = ({ event, user, eventPost, patch, javaEvents, clickRefresh, op
   //if it doesnt exist create a new entry with blank event object like above
   //
   function handleInterested() {
+
 
     for (const javaEvent of javaEvents) {
       if (javaEvent.event_id === event.id) {
