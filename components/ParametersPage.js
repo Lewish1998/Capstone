@@ -7,24 +7,28 @@ const ParametersPage = ({ passHandlePress }) => {
 
   const handleOnChange = (text) => {
     setInputValue(text)
-    // console.log(inputValue)
   }
 
   const handleOnPress = () => {
     passHandlePress(inputValue)
+    // console.log(inputValue)
   }
 
   return (
     <TouchableOpacity>
       <View style={styles.container}>
-      <TextInput style={styles.input} placeholder="Enter city" value={inputValue} onChangeText={handleOnChange}/>
+        <TextInput
+          style={styles.input}
+          placeholder="Enter city"
+          value={inputValue}
+          onChangeText={handleOnChange}
+        />
       </View>
-      
       <Button color="" title='submit' onPress={handleOnPress}/>
     </TouchableOpacity>
   )
-  
 }
+
 
 const styles = StyleSheet.create({
     container:{
