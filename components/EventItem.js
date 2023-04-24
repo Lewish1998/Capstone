@@ -14,7 +14,7 @@ const EventItem = ({
   handleOpen,
   toggle,
   toggleContact,
-  toggleContactChange
+  toggleContactChange,
 }) => {
   const name = event.name;
   const date = event.dates.start.localDate;
@@ -22,81 +22,87 @@ const EventItem = ({
   const venue = event._embedded.venues[0].name;
   const status = event.dates.status.code;
   const image = event.images[1];
- 
 
-  const [interest , setInterest]= useState(false);
-  const [contact , setContact]= useState(false);
-  const [contactNo , setContactNo]= useState(0);
+  const [interest, setInterest] = useState(false);
+  const [contact, setContact] = useState(false);
+  const [contactNo, setContactNo] = useState(0);
   const [contactList, setContactList] = useState([]);
 
+  useEffect(() => {
+    interestAndContact();
+  }, [toggle]);
 
   useEffect(() => {
     interestAndContact();
-  },[toggle])
-
-  useEffect(() => {
-    interestAndContact();
-  },[handleInterested])
+  }, [handleInterested]);
 
   useEffect(() => {
     willingContactNo();
-  },[handleContact])
+  }, [handleContact]);
 
   useEffect(() => {
     willingUsers();
-  },[open])
+  }, [open]);
 
-  function handleToggleContact (){
+  function handleToggleContact() {
     willingUsers();
     toggleContactChange();
   }
 
- function handleGoBack(){
-  toggleContactChange();
- }
+  function handleGoBack() {
+    toggleContactChange();
+  }
 
-
-  function willingUsers () {
-    const javaEvent = javaEvents.find(javaEvent => javaEvent.event_id === event.id);
-    if(javaEvent){
-    setContactList(javaEvent.event_contact)
-    } else{
-      setContactList([])
+  function willingUsers() {
+    const javaEvent = javaEvents.find(
+      (javaEvent) => javaEvent.event_id === event.id
+    );
+    if (javaEvent) {
+      setContactList(javaEvent.event_contact);
+    } else {
+      setContactList([]);
     }
   }
 
-
-  function willingContactNo(){
-    const javaEvent = javaEvents.find(javaEvent => javaEvent.event_id === event.id);
-      if (javaEvent) {
-        const number = javaEvent.event_contact.length;
-        setContactNo(number)
-      }else{
-        setContactNo(0);
-  
+  function willingContactNo() {
+    const javaEvent = javaEvents.find(
+      (javaEvent) => javaEvent.event_id === event.id
+    );
+    if (javaEvent) {
+      const number = javaEvent.event_contact.length;
+      setContactNo(number);
+    } else {
+      setContactNo(0);
     }
   }
 
-  
-
-  function interestAndContact(){
-    const javaEvent = javaEvents.find(javaEvent => javaEvent.event_id === event.id);
-    if(javaEvent){
-      const isInterested = javaEvent.event_interested.some((userI) => userI.id === user.id);
-      const isContact = javaEvent.event_contact.some((userI) => userI.id === user.id);
+  function interestAndContact() {
+    const javaEvent = javaEvents.find(
+      (javaEvent) => javaEvent.event_id === event.id
+    );
+    if (javaEvent) {
+      const isInterested = javaEvent.event_interested.some(
+        (userI) => userI.id === user.id
+      );
+      const isContact = javaEvent.event_contact.some(
+        (userI) => userI.id === user.id
+      );
+      const isGoing = javaEvent.event_going.some(
+        (userI) => userI.id === user.id
+      );
       setContact(isContact);
-      setInterest(isInterested);
-      
+      if(isInterested || isGoing){
+      setInterest(true);
     }else{
-      setContact(false)
       setInterest(false)
+      }
+    } else {
+      setContact(false);
+      setInterest(false);
     }
   }
-
 
   // const genre = if(event.classifications[0].genre.name !== null){return event.classifications[0].genre.name}
-
- 
 
   // some titles have date and title in the name!
 
@@ -104,95 +110,103 @@ const EventItem = ({
   //if it doesnt exist create a new entry with blank event object like above
   //
   function handleInterested() {
-    for (const javaEvent of javaEvents) {
-      if (javaEvent.event_id === event.id) {
-        const interestedUserExists = javaEvent.event_interested.some(
-          (userI) => userI.id === user.id
-        );
-        if (!interestedUserExists) {
-          javaEvent.event_interested.push(user);
-          patch(javaEvent, javaEvent.id);
-          interestAndContact();
-         
-        } else {
-          const results = javaEvent.event_interested.filter(
-            (checkUser) => checkUser.id != user.id
-          );
-          javaEvent.event_interested = results;
-          patch(javaEvent, javaEvent.id);
-          interestAndContact();
-        
-        }
-      }
-    }
-
-    const eventExists = javaEvents.some(
+    const javaEvent = javaEvents.find(
       (javaEvent) => javaEvent.event_id === event.id
     );
-    if (!eventExists) {
-      const payload = {
-        event_id: event.id,
-        event_contact: [],
-        event_going: [],
-        event_interested: [user],
-        event_name: event.name,
-        event_date: event.dates.start.localDate,
-        event_time: event.dates.start.localTime,
-      };
+    if (javaEvent) {
+      const goingUserExists = javaEvent.event_going.some(
+        (userI) => userI.id === user.id
+      );
+      const interestedUserExists = javaEvent.event_interested.some(
+        (userI) => userI.id === user.id
+      );
 
-      eventPost(payload);
-      clickRefresh();
-      interestAndContact();
+      if(!goingUserExists){
+      if (!interestedUserExists) {
+        javaEvent.event_interested.push(user);
+        patch(javaEvent, javaEvent.id);
+        interestAndContact();
+      } else {
+        const results = javaEvent.event_interested.filter(
+          (checkUser) => checkUser.id != user.id
+        );
+        javaEvent.event_interested = results;
+        patch(javaEvent, javaEvent.id);
+        interestAndContact();
+      }
+    } else {
+      return
+    }
+    } else {
+      const eventExists = javaEvents.some(
+        (javaEvent) => javaEvent.event_id === event.id
+      );
+      if (!eventExists) {
+        const payload = {
+          event_id: event.id,
+          event_contact: [],
+          event_going: [],
+          event_interested: [user],
+          event_name: event.name,
+          event_date: event.dates.start.localDate,
+          event_time: event.dates.start.localTime,
+        };
+
+        eventPost(payload);
+        clickRefresh();
+        interestAndContact();
+      }
     }
   }
 
   function handleContact() {
-    for (const javaEvent of javaEvents) {
-      if (javaEvent.event_id === event.id) {
-        const interestedUserExists = javaEvent.event_interested.some(
-          (userI) => userI.id === user.id
-        );
-        const contactUserExists = javaEvent.event_contact.some(
-          (userI) => userI.id === user.id
-        );
-
-        if (!interestedUserExists && !contactUserExists) {
-          javaEvent.event_contact.push(user);
-          javaEvent.event_interested.push(user);
-          patch(javaEvent, javaEvent.id);
-          interestAndContact();
-        } else if (!contactUserExists) {
-          javaEvent.event_contact.push(user);
-          patch(javaEvent, javaEvent.id);
-          interestAndContact();
-        } else if (contactUserExists) {
-          const results = javaEvent.event_contact.filter(
-            (checkUser) => checkUser.id != user.id
-          );
-          javaEvent.event_contact = results;
-          patch(javaEvent, javaEvent.id);
-          interestAndContact();
-        }
-      }
-    }
-
-    const eventExists = javaEvents.some(
+    const javaEvent = javaEvents.find(
       (javaEvent) => javaEvent.event_id === event.id
     );
-    if (!eventExists) {
-      const payload = {
-        event_id: event.id,
-        event_contact: [user],
-        event_going: [],
-        event_interested: [user],
-        event_name: event.name,
-        event_date: event.dates.start.localDate,
-        event_time: event.dates.start.localTime,
-      };
+    if (javaEvent) {
+      const interestedUserExists = javaEvent.event_interested.some(
+        (userI) => userI.id === user.id
+      );
+      const contactUserExists = javaEvent.event_contact.some(
+        (userI) => userI.id === user.id
+      );
 
-      eventPost(payload);
-      clickRefresh();
-      interestAndContact();
+      if (!interestedUserExists && !contactUserExists) {
+        javaEvent.event_contact.push(user);
+        javaEvent.event_interested.push(user);
+        patch(javaEvent, javaEvent.id);
+        interestAndContact();
+      } else if (!contactUserExists) {
+        javaEvent.event_contact.push(user);
+        patch(javaEvent, javaEvent.id);
+        interestAndContact();
+      } else if (contactUserExists) {
+        const results = javaEvent.event_contact.filter(
+          (checkUser) => checkUser.id != user.id
+        );
+        javaEvent.event_contact = results;
+        patch(javaEvent, javaEvent.id);
+        interestAndContact();
+      }
+    } else {
+      const eventExists = javaEvents.some(
+        (javaEvent) => javaEvent.event_id === event.id
+      );
+      if (!eventExists) {
+        const payload = {
+          event_id: event.id,
+          event_contact: [user],
+          event_going: [],
+          event_interested: [user],
+          event_name: event.name,
+          event_date: event.dates.start.localDate,
+          event_time: event.dates.start.localTime,
+        };
+
+        eventPost(payload);
+        clickRefresh();
+        interestAndContact();
+      }
     }
   }
 
@@ -201,7 +215,7 @@ const EventItem = ({
       console.error("Couldn't load page", err)
     );
   };
- 
+
   return (
 
     <View>
@@ -213,9 +227,19 @@ const EventItem = ({
           <Text style={styles.text}>{time}</Text>
           <Text style={styles.text}>{venue}</Text>
           <View style={styles.buttons}>
-          <Button onPress={handleOpen} title="Info" />
-          <Button style={styles.contact} color={contact ? "orchid" : "palegreen"} onPress={handleContact} title="Contact" />
-          <Button  style={styles.interest} color={interest ? "crimson" : "yellow"} onPress={handleInterested} title="Interest" />
+            <Button onPress={handleOpen} title="Info" />
+            <Button
+              style={styles.contact}
+              color={contact ? "orchid" : "palegreen"}
+              onPress={handleContact}
+              title="Contact"
+            />
+            <Button
+              style={styles.interest}
+              color={interest ? "crimson" : "yellow"}
+              onPress={handleInterested}
+              title="Interest"
+            />
           </View>
         </View>
       ) : toggleContact ? (
@@ -226,33 +250,47 @@ const EventItem = ({
           <Text style={styles.text}>{time}</Text>
           <Text style={styles.text}>{venue}</Text>
           <Text style={styles.text}>Status: {status}</Text>
-          <Button style={styles.text}  onPress={handleToggleContact} title= {`People Willing to be Contacted: ${contactNo}`}/>
+          <Button
+            style={styles.text}
+            onPress={handleToggleContact}
+            title={`People Willing to be Contacted: ${contactNo}`}
+          />
           <Button onPress={loadInBrowser} title="BUY TICKETS" />
           <View style={styles.buttons}>
-          <Button onPress={handleOpen} title="Back" />
-          <Button style={styles.contact} color={contact ? "orchid" : "palegreen"} onPress={handleContact} title="Contact" />
-          <Button style={styles.interest} color={interest ? "crimson" : "yellow" } onPress={handleInterested} title="Interest"  />
+            <Button onPress={handleOpen} title="Back" />
+            <Button
+              style={styles.contact}
+              color={contact ? "orchid" : "palegreen"}
+              onPress={handleContact}
+              title="Contact"
+            />
+            <Button
+              style={styles.interest}
+              color={interest ? "crimson" : "yellow"}
+              onPress={handleInterested}
+              title="Interest"
+            />
           </View>
         </View>
-      ):(
+      ) : (
         <View style={styles.cardContainer}>
           <Text>test</Text>
 
           <View>
-      {contactList.length > 0 ? (
-        contactList.map(contact => (
-          <View key={contact.id}>
-            <Text>Name: {contact.name}</Text>
-            <Text>Email: {contact.email}</Text>
+            {contactList.length > 0 ? (
+              contactList.map((contact) => (
+                <View key={contact.id}>
+                  <Text>Name: {contact.name}</Text>
+                  <Text>Email: {contact.email}</Text>
+                </View>
+              ))
+            ) : (
+              <Text>No contacts found.</Text>
+            )}
           </View>
-        ))
-      ) : (
-        <Text>No contacts found.</Text>
+          <Button onPress={handleGoBack} title="back to details" />
+        </View>
       )}
-    </View>
-          <Button onPress={handleGoBack} title="back to details"/>
-        </View>)}
-      
     </View>
   );
 };
@@ -295,11 +333,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
   },
   interest: {
-    color: "firebrick"
+    color: "firebrick",
   },
   contact: {
-  color: "yellow"
-  }
+    color: "yellow",
+  },
 });
 
 export default EventItem;
