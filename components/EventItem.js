@@ -87,8 +87,15 @@ const EventItem = ({
       const isContact = javaEvent.event_contact.some(
         (userI) => userI.id === user.id
       );
+      const isGoing = javaEvent.event_going.some(
+        (userI) => userI.id === user.id
+      );
       setContact(isContact);
-      setInterest(isInterested);
+      if(isInterested || isGoing){
+      setInterest(true);
+    }else{
+      setInterest(false)
+      }
     } else {
       setContact(false);
       setInterest(false);
@@ -107,9 +114,14 @@ const EventItem = ({
       (javaEvent) => javaEvent.event_id === event.id
     );
     if (javaEvent) {
+      const goingUserExists = javaEvent.event_going.some(
+        (userI) => userI.id === user.id
+      );
       const interestedUserExists = javaEvent.event_interested.some(
         (userI) => userI.id === user.id
       );
+
+      if(!goingUserExists){
       if (!interestedUserExists) {
         javaEvent.event_interested.push(user);
         patch(javaEvent, javaEvent.id);
@@ -122,6 +134,9 @@ const EventItem = ({
         patch(javaEvent, javaEvent.id);
         interestAndContact();
       }
+    } else {
+      return
+    }
     } else {
       const eventExists = javaEvents.some(
         (javaEvent) => javaEvent.event_id === event.id
