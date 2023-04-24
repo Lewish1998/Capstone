@@ -76,7 +76,6 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
 
     return(
         <View>
-            <Text style={{position:'absolute', top:90, left: 30}}>Location?</Text>
             {eventNodes[index]}
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleOnPressBack} title="Back">
