@@ -10,11 +10,13 @@ import ParametersPage from './components/ParametersPage';
 import { useState, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 
-
+const date = new Date();
+const withoutMs = date.toISOString().split('.')[0] + 'Z';
+console.log(withoutMs); 
 export default function App() {  
 
   // stops all console logs
-  console.log = function() {}
+  // console.log = function() {}
 
   const [events, setEvents] = useState([]);
   const [javaEvents,setJavaEvents]=useState([]);
@@ -39,7 +41,7 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    Promise.all([getJavaEvents(), getUser(), getUpdatedEvents(userLocation)])
+    Promise.all([getJavaEvents(), getUser(), getUpdatedEvents(userLocation,withoutMs)])
     .then(([javaEventsData,userData, updatedEventData])=>{
     setJavaEvents(javaEventsData)
     setUser(userData)
@@ -100,10 +102,10 @@ const getUser=async ()=>{
     })
   }
 
-  const getUpdatedEvents = async (location) => {
+  const getUpdatedEvents = async (location,withoutMs) => {
     if(location){
     try {
-      const res = await fetch('https://app.ticketmaster.com/discovery/v2/events.json?sort=date,asc&size=70&city='+location+'&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ')
+      const res = await fetch('https://app.ticketmaster.com/discovery/v2/events.json?startdateTime='+withoutMs+'&sort=date,asc&size=70&city='+location+'&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ')
       return await res.json();
     } 
     catch (error) {
