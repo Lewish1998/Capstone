@@ -8,6 +8,7 @@ const ParametersPage = ({ passHandlePress }) => {
 
   const handleOnChange = (text) => {
     setInputValue(text)
+    console.log(text)
   }
 
   const handleOnPress = () => {
