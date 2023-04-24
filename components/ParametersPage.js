@@ -7,7 +7,6 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUserLo
 
   const handleOnChange = (text) => {
     setInputValue(text)
-    console.log(text)
   }
 
   const handleOnPress = () => {
@@ -27,8 +26,8 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUserLo
           onChangeText={handleOnChange}
         />
 
-        <TouchableOpacity title='submit' onPress={handleOnPress}>
-          <Link  to="/"><Text>Submit</Text></Link>
+        <TouchableOpacity title='submit' >
+          <Link  to="/" onPress={handleOnPress}><Text>Submit</Text></Link>
         </TouchableOpacity>
       </View>
 
