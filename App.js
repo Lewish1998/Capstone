@@ -13,20 +13,20 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 export default function App() {  
 
+  // stops all console logs
+  // console.log = function() {}
+
   const [events, setEvents] = useState([]);
-  const [users,setUsers] = useState([]);
-  const [javaEvents,setJavaEvents] = useState([]);
-  const [user,setUser] = useState([]);
+  const [javaEvents,setJavaEvents]=useState([]);
+  const [user,setUser]=useState([]);
   const [refreshed, setRefreshed] = useState(false);
-  const [userInterestEvent,setUserInterestedEvent] = useState([]);
   const [searchInput, setSearchInput] = useState('')
 
   useEffect(() => {
-    Promise.all([getEvents(), getJavaEvents(), getUsers(), getUser()])
-    .then(([eventsData, javaEventsData, usersData, userData])=>{
+    Promise.all([getEvents(), getJavaEvents(), getUser()])
+    .then(([eventsData, javaEventsData, userData])=>{
       setEvents(eventsData._embedded.events);
       setJavaEvents(javaEventsData);
-      setUsers(usersData);
       setUser(userData);
     })
     .catch(error => {
@@ -36,15 +36,25 @@ export default function App() {
 
 
   useEffect(() => {
-    updateJavaEvents()
+    Promise.all([getJavaEvents(), getUser()])
+    .then(([javaEventsData,userData])=>{
+    setJavaEvents(javaEventsData)
+    setUser(userData)
+    })    .catch(error => {
+      console.error(error);
+    });
   }, [refreshed])
+
 
   const clickRefresh =() => {
     setRefreshed(!refreshed);
   }
+
+  // will use this and getUserIntrested for the card in myEvents for more info
 const setTheInterestedEvent=(event)=>{
   getUserInterested(event)
 }
+
 const getUser=async ()=>{
   try {
     const res = await fetch('http://127.0.0.1:8080/api/users/1');
@@ -53,6 +63,7 @@ const getUser=async ()=>{
     console.error(error);
   }
 }
+
   const getUsers=async ()=>{
     try {
       const res = await fetch('http://127.0.0.1:8080/api/users');
@@ -70,17 +81,7 @@ const getUser=async ()=>{
     }
   }
 
-  const updateJavaEvents=async ()=>{
-    try {
-      const res = await fetch('http://127.0.0.1:8080/api/events');
-      return await res.json()
-      .then((data) => setJavaEvents(data))
-    } catch (error) {
-      console.error(error);
-    }
-  }
 
-  // WORKING HARDCODED EDINBRUGH
   const getEvents = async () => {
     try {
       const res = await fetch('https://app.ticketmaster.com/discovery/v2/events.json?city=Edinburgh&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ');
@@ -90,16 +91,8 @@ const getUser=async ()=>{
     }
   };
 
-  // const getEvents = async (input) => {
-  //   try {
-  //     const res = await fetch('https://app.ticketmaster.com/discovery/v2/events.json?city='+{input}+'&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ');
-  //     return await res.json()
-  //     .then((data)=>{setEvents(data)})
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
+  // will be used to get single event card in myEvents
   const getUserInterested = async({id})=>{
     try {
       const res = await fetch('https://app.ticketmaster.com//discovery/v2/events/'+{id}+'.json?apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ');
@@ -120,7 +113,6 @@ const getUser=async ()=>{
   //   })
   // }
 
-
   const eventPost = (payload) => {
     return fetch('http://127.0.0.1:8080/api/events',{
       method: "POST",
@@ -131,6 +123,15 @@ const getUser=async ()=>{
 
   const patch = (payload, id) =>{
     return fetch('http://127.0.0.1:8080/api/events/'+ id, {
+      method: "PATCH",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    })
+  }
+
+  // updates user
+  const patchUser=(payload,id)=>{
+    return fetch('http://127.0.0.1:8080/api/users/'+ id, {
       method: "PATCH",
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(payload)
@@ -163,7 +164,7 @@ const getUser=async ()=>{
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
-        <Route path="/events" element={<MyEventsPage user={user} setTheInterestedEvent={setTheInterestedEvent} userInterestEvent={userInterestEvent} />}/>
+        <Route path="/events" element={<MyEventsPage clickRefresh={clickRefresh}  user={user} patchUser={patchUser}  />}/>
         <Route path="/paramaters" element={<ParametersPage passHandlePress={handleInputChange}/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
       </Routes>

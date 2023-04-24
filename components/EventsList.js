@@ -1,10 +1,15 @@
 import { Text, View, Button, StyleSheet, Pressable, SafeAreaView } from "react-native";
 import EventItem from "./EventItem";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) => {
 
     const [open, setOpen] = useState(true);
+    let [index, setIndex] = useState(0);
+    const[toggle, setToggle] = useState(true);
+    const [toggleContact, setToggleContact] = useState(true);
+
+ 
 
     let eventNodes = events.map((event) => {
         return <EventItem
@@ -16,10 +21,15 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
         clickRefresh={clickRefresh} 
         open={open} 
         handleOpen={handleOpen}
+        toggle={toggle}
+        toggleContact={toggleContact}
+        toggleContactChange={toggleContactChange}
         />
     });
 
-    let [index, setIndex] = useState(0)
+    function toggleContactChange(){
+        setToggleContact(!toggleContact)
+    }
 
     function increaseCounter(){
         let newIndex = index += 1;
@@ -33,19 +43,28 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
     function handleOnPress(){
         increaseCounter();
         setOpen(true);
+        setToggle(!toggle);
+
      
     }
 
     function handleOpen(){
         setOpen(!open);
+        setToggleContact(true);
+
     }
 
     function handleOnPressBack(){
+        setToggleContact(true);
+        setToggle(!toggle);
+        setOpen(true);
         let newIndex = index -= 1;
         if (newIndex === -1){
             newIndex = events.length-1
+    
             return setIndex(newIndex);
         }
+
         return setIndex(newIndex)
     }
 
