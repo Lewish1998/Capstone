@@ -226,7 +226,7 @@ const EventItem = ({
     <View>
     <Text style={styles.location}>
       <View>
-        <FontAwesomeIcon icon={faLocationPin} size={24}/>
+        <FontAwesomeIcon icon={faLocationPin} size={18}/>
       </View>
       {city}
     </Text>
@@ -389,7 +389,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 80,
     left: 10,
-    fontSize: 26,
+    fontSize: 20,
     color: "black",
     textDecorationLine: 'underline'
   },
