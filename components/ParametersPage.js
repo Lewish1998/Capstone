@@ -1,18 +1,25 @@
-import React, { useState } from 'react'
-import { Text, View, StyleSheet, Pressable, TextInput, Button, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { Text, View, StyleSheet, Pressable, TextInput, Button, TouchableOpacity, Animated } from 'react-native'
 import { Link } from "react-router-native";
-import { motion } from "framer-motion";
-import { useInView } from'react-intersection-observer';
+import { useRef } from 'react';
+
 
 
 const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUserLocation }) => {
   
-  // motion test
-  const [ref, inView] = useInView({
-    threshold: 0.5,
-    triggerOnce: true,
-  });
 
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const fadeIn = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 2000,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  useEffect(() => {
+    fadeIn();
+  }, []);
 
 
   const [inputValue, setInputValue] = useState('');
@@ -29,17 +36,12 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUserLo
     clickRefresh()
   }
 
-  
   return (
-    <View>
-      <motion.div
-      ref={ref}
-      initial={inView?{x:0, opacity:1}:{x:100, opacity:0}}
-      transition={{duration: 1, ease:'easeInOut'}}
-      >
       <View style={styles.container}>
-        
+        <Animated.View style={[styles.fadingContainer, {opacity:fadeAnim}]}>
           <Text style={styles.text}>Change Current Location...</Text>
+
+
         <TextInput
           style={styles.input}
           placeholder="Enter city"
@@ -47,13 +49,11 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUserLo
           onChangeText={handleOnChange}
         />
 
-
         <TouchableOpacity title='submit'>
           <Link  to="/" onPress={handleOnPress}><Text style={{position:'absolute', fontSize:20, left:270, borderRadius:3}}>Submit</Text></Link>
         </TouchableOpacity>
+        </Animated.View>
       </View>
-    </motion.div>
-    </View>
   )
 }
 
