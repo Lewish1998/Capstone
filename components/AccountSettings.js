@@ -1,13 +1,30 @@
 import React from 'react';
 import { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
+import { useNavigate } from "react-router-native";
 
-const AccountSettings = () => {
-
+const AccountSettings = ({user, patchUser, clickRefresh}) => {
+  const navigate = useNavigate();
   const [updateEmail, setUpdateEmail] = useState("");
   const [updatePassword, setUpdatePassword] = useState("");
   const [updateLocation, setUpdateLocation] = useState("");
   const[updateName, setUpdateName] = useState("");
+  
+  const handleAccountUpdate= () => {
+    if(updateEmail.length === 0 || updatePassword.length === 0 || updateLocation.length === 0 || updateName.length === 0 ){
+        alert("Please Complete All Fields")
+    } else{
+       user.name = updateName
+       user.email = updateEmail
+       user.location = updateLocation
+       user.password = updatePassword 
+
+      patchUser(user,user.id)
+      clickRefresh(); 
+      navigate("/");
+
+    }
+}
 
 
   return (
@@ -20,7 +37,7 @@ const AccountSettings = () => {
       <View style={styles.inputView}>
             <TextInput
               style={styles.TextInput}
-              placeholder="Name"
+              placeholder={user.name}
               placeholderTextColor="#003f5c"
               onChangeText={(data) => setUpdateName(data.toLowerCase())}
             />
@@ -29,7 +46,7 @@ const AccountSettings = () => {
           <View style={styles.inputView}>
             <TextInput
               style={styles.TextInput}
-              placeholder="Email"
+              placeholder={user.email}
               placeholderTextColor="#003f5c"
               onChangeText={(data) => setUpdateEmail(data.toLowerCase())}
             />
@@ -38,7 +55,7 @@ const AccountSettings = () => {
           <View style={styles.inputView}>
             <TextInput
               style={styles.TextInput}
-              placeholder="Location"
+              placeholder={user.location}
               placeholderTextColor="#003f5c"
               onChangeText={(data) => setUpdateLocation(data.toLowerCase())}
             />
@@ -55,8 +72,8 @@ const AccountSettings = () => {
           </View>
 
 
-          <TouchableOpacity style={styles.loginBtn} >
-            <Text style={styles.loginText}> Register</Text>
+          <TouchableOpacity style={styles.loginBtn} onPress={handleAccountUpdate} >
+            <Text style={styles.loginText}> Confirm</Text>
           </TouchableOpacity>
 
 

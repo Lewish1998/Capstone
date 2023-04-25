@@ -12,7 +12,6 @@ const Register = ({userPost, getUsers}) => {
 
 
     
-    
     const handleRegister = () => {
         if(regEmail.length === 0 || regPassword.length === 0 || location.length === 0 || name.length === 0 ){
             alert("Please Complete All Fields")
@@ -28,7 +27,7 @@ const Register = ({userPost, getUsers}) => {
                 };
 
             userPost(payload);
-            getUsers();
+            getUsers()
             navigate("/login");
             
         }
@@ -43,7 +42,7 @@ const Register = ({userPost, getUsers}) => {
               style={styles.TextInput}
               placeholder="Name"
               placeholderTextColor="#003f5c"
-              onChangeText={(data) => setName(data.toUpperCase())}
+              onChangeText={(data) => setName(data.toLowerCase())}
             />
           </View>
           
@@ -61,7 +60,7 @@ const Register = ({userPost, getUsers}) => {
               style={styles.TextInput}
               placeholder="Location"
               placeholderTextColor="#003f5c"
-              onChangeText={(data) => setLocation(data.toUpperCase())}
+              onChangeText={(data) => setLocation(data.toLowerCase())}
             />
           </View>
 
