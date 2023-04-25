@@ -1,6 +1,9 @@
-import { Text, View, Button, StyleSheet, Pressable, SafeAreaView, TouchableOpacity } from "react-native";
+import { Text, View, Button, StyleSheet, Pressable, SafeAreaView, TouchableOpacity, Animated } from "react-native";
 import EventItem from "./EventItem";
 import { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faBackward, faForward } from "@fortawesome/free-solid-svg-icons";
+import AnimatedView from "react-native-animated-view";
 
 
 const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) => {
@@ -71,7 +74,18 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
 
     
 
+    // Animation Testing
+    // const FadeInView = props => {
+    //     const fadeAnim = useRef(new Animated.Value(0)).current;
 
+    //     useEffect(() => {
+    //       Animated.timing(fadeAnim, {
+    //         toValue:1,
+    //         duration: 10000,
+    //         useNativeDriver: true,
+    //       }).start();
+    //     }, [fadeAnim])
+    // }
 
 
     return(
@@ -79,11 +93,15 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
             {eventNodes[index]}
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleOnPressBack} title="Back">
-                    <Text style={{fontSize:20}}>Back</Text>
+                    {/* <Text style={{fontSize:20}}>Back</Text> */}
+                    <View><FontAwesomeIcon icon={faBackward} /></View>
                 </TouchableOpacity>
 
+
+
                 <TouchableOpacity style={styles.button} onPress={handleOnPress} title="Next">
-                    <Text style={{fontSize:20}}>Next</Text>
+                    {/* <Text style={{fontSize:20}}>Next</Text> */}
+                    <View><FontAwesomeIcon icon={faForward} /></View>
                 </TouchableOpacity>
             </View>
         </View>
@@ -91,6 +109,7 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
 }
 
 const styles = StyleSheet.create({
+    
     buttonContainer:{
         top:150,
         flexDirection:'row',
@@ -108,7 +127,8 @@ const styles = StyleSheet.create({
         borderRadius:20,
         justifyContent: 'center',
         backgroundColor: '#666666',
-    }
+    },
+    
 
 });
 

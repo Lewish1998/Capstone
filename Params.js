@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-native";
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, Animated } from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faHeartBroken, faSliders } from '@fortawesome/free-solid-svg-icons';
 
 const Params = () => {
 
@@ -9,12 +11,15 @@ const Params = () => {
   return (
 
   <View style={styles.container}>
-
-    <TouchableOpacity style={styles.burgerIcon}>
-      <Link  to="/paramaters"><Text style={styles.burgerIconLine}>Paramaters</Text></Link>
+   
+    <TouchableOpacity>
+      <View>
+      <Link to="/paramaters">
+      <FontAwesomeIcon style={styles.burgerIcon} icon={faSliders} size={30}/>
+      </Link>
+      </View>
     </TouchableOpacity>
-
-    </View>
+  </View>
   )
 }
 
@@ -44,7 +49,7 @@ const styles = StyleSheet.create({
   },
   burgerIcon: {
     position: 'absolute',
-    top: 70,
+    top: 67,
     left: 100,
     width: 40,
     height: 40,
