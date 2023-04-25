@@ -24,13 +24,13 @@ public class DataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) {
-        User user1 = new User("Jamie", "Glasgow", "jamie@gmail.com");
+        User user1 = new User("Jamie", "1234", "Glasgow", "jamie@gmail.com");
         userRepository.save(user1);
-        User user2 = new User("Mathias", "Glasgow", "mathias@gmail.com");
+        User user2 = new User("Mathias", "1234", "Glasgow", "mathias@gmail.com");
         userRepository.save(user2);
-        User user3 = new User("Connor", "Glasgow", "connor@gmail.com");
+        User user3 = new User("Connor", "1234", "Glasgow", "connor@gmail.com");
         userRepository.save(user3);
-        User user4 = new User("Lewis", "Glasgow", "lewis@gmail.com");
+        User user4 = new User("Lewis", "1234", "Glasgow", "lewis@gmail.com");
         userRepository.save(user4);
 
 
