@@ -153,7 +153,7 @@ const getUser=async ()=>{
   
   return (
     <NativeRouter>
-      <LinearGradient colors={['#999999', '#ffffff', '#999999']} style={styles.linearGradient}>
+      <LinearGradient colors={['#ffffff', '#ffffff', '#999999']} style={styles.linearGradient}>
       <View style={styles.container}>
           <Params/>
           <NavBar/>

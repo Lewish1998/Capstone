@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import { Linking, Pressable } from "react-native";
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import {faInfoCircle, faLocationPin } from '@fortawesome/free-solid-svg-icons';
-import { TouchableOpacity } from "react-native-web";
+import {faHeart, faHeartBroken, faInfoCircle, faLocationPin, faSliders } from '@fortawesome/free-solid-svg-icons';
+import { TouchableOpacity } from "react-native";
 
 
 const EventItem = ({
@@ -240,21 +240,19 @@ const EventItem = ({
           <Text style={styles.text}>Venue: {venue}</Text>
           <View style={styles.buttons}>
             <Button onPress={handleOpen} title="Info"> </Button>
-            {/* TouchableOpacity isn't working for icons for some reason */}
-            {/* <TouchableOpacity onPress={handleOpen}><Text>Test</Text></TouchableOpacity> */}
-
             <Button
               style={styles.contact}
               color={contact ? "lightgreen" : "red"}
               onPress={handleContact}
               title="Contact"
             />
-            <Button
-              style={styles.interest}
-              color={interest ? "lightgreen" : "red"}
-              onPress={handleInterested}
-              title="Interest"
-            />
+            <View>
+             <TouchableOpacity onPress={handleInterested}>
+              <View>
+                <FontAwesomeIcon icon={faHeart} size={50} color={interest ? "red" : "black"}/>
+              </View>
+            </TouchableOpacity>
+            </View>
           </View>
         </View>
       ) : toggleContact ? (
@@ -265,11 +263,16 @@ const EventItem = ({
           <Text style={styles.text}>{time}</Text>
           <Text style={styles.text}>{venue}</Text>
           <Text style={styles.text}>Status: {status}</Text>
+
+        
           <Button
             style={styles.text}
             onPress={handleToggleContact}
             title={`People Willing to be Contacted: ${contactNo}`}
           />
+
+
+
           <Button onPress={loadInBrowser} title="BUY TICKETS" />
           <View style={styles.buttons}>
             <Button onPress={handleOpen} title="Back" />
@@ -279,12 +282,13 @@ const EventItem = ({
               onPress={handleContact}
               title="Contact"
             />
-            <Button
-              style={styles.interest}
-              color={interest ? "crimson" : "yellow"}
-              onPress={handleInterested}
-              title="Interest"
-            />
+              <View>
+             <TouchableOpacity onPress={handleInterested}>
+              <View>
+                <FontAwesomeIcon icon={faHeart} size={50} color={interest ? "red" : "darkgrey"}/>
+              </View>
+            </TouchableOpacity>
+            </View>
           </View>
         </View>
       ) : (

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from "react-router-native";
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, Animated } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import { faSliders } from '@fortawesome/free-solid-svg-icons';
+import { faHeartBroken, faSliders } from '@fortawesome/free-solid-svg-icons';
 
 const Params = () => {
 
@@ -11,15 +11,12 @@ const Params = () => {
   return (
 
   <View style={styles.container}>
+   
     <TouchableOpacity>
       <View>
-        
-        {/* Button is clicking but not changinng to the link...
-        Will try to make a function I can call when the button clicked to change pages? */}
-
-      <FontAwesomeIcon style={styles.burgerIcon} icon={faSliders} size={30}>
-        <Link to="/paramaters"/>
-      </FontAwesomeIcon>
+      <Link to="/paramaters">
+      <FontAwesomeIcon style={styles.burgerIcon} icon={faSliders} size={30}/>
+      </Link>
       </View>
     </TouchableOpacity>
   </View>
