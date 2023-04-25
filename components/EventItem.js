@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Linking, Pressable } from "react-native";
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import {faHeart, faHeartBroken, faInfoCircle, faLocationPin, faSliders } from '@fortawesome/free-solid-svg-icons';
+import {faArrowRotateBack, faBackspace, faBackward, faBackwardStep, faEnvelope, faEnvelopeOpen, faEnvelopeSquare, faHeart, faHeartBroken, faInfoCircle, faLocationPin, faSliders } from '@fortawesome/free-solid-svg-icons';
 import { TouchableOpacity } from "react-native";
 
 
@@ -239,13 +239,24 @@ const EventItem = ({
           <Text style={styles.text}>Time: {time}</Text>
           <Text style={styles.text}>Venue: {venue}</Text>
           <View style={styles.buttons}>
-            <Button onPress={handleOpen} title="Info"> </Button>
-            <Button
-              style={styles.contact}
-              color={contact ? "lightgreen" : "red"}
-              onPress={handleContact}
-              title="Contact"
-            />
+
+
+          <View>
+             <TouchableOpacity onPress={handleOpen}>
+              <View>
+                <FontAwesomeIcon icon={faInfoCircle} size={50}/>
+              </View>
+            </TouchableOpacity>
+            </View>
+
+            <View style={styles.contact}>
+             <TouchableOpacity onPress={handleContact}>
+              <View>
+                <FontAwesomeIcon icon={contact?faEnvelope:faEnvelopeOpen} size={50}  color={contact?"orchid":"palegreen"}/>
+              </View>
+            </TouchableOpacity>
+            </View>
+
             <View>
              <TouchableOpacity onPress={handleInterested}>
               <View>
@@ -255,6 +266,7 @@ const EventItem = ({
             </View>
           </View>
         </View>
+
       ) : toggleContact ? (
         <View style={styles.cardContainer}>
           <Image style={styles.image} source={image}></Image>
@@ -264,24 +276,30 @@ const EventItem = ({
           <Text style={styles.text}>{venue}</Text>
           <Text style={styles.text}>Status: {status}</Text>
 
-        
           <Button
             style={styles.text}
             onPress={handleToggleContact}
-            title={`People Willing to be Contacted: ${contactNo}`}
+            title={`Who's going?: ${contactNo}`}
           />
-
-
 
           <Button onPress={loadInBrowser} title="BUY TICKETS" />
           <View style={styles.buttons}>
-            <Button onPress={handleOpen} title="Back" />
-            <Button
-              style={styles.contact}
-              color={contact ? "orchid" : "palegreen"}
-              onPress={handleContact}
-              title="Contact"
-            />
+          <View>
+             <TouchableOpacity onPress={handleOpen}>
+              <View>
+                <FontAwesomeIcon icon={faArrowRotateBack} size={50}/>
+              </View>
+            </TouchableOpacity>
+          </View>
+
+            <View style={styles.contact}>
+             <TouchableOpacity onPress={handleContact}>
+              <View>
+                <FontAwesomeIcon icon={contact?faEnvelope:faEnvelopeOpen} size={50} color={contact?"orchid":"palegreen"}/>
+              </View>
+            </TouchableOpacity>
+            </View>
+
               <View>
              <TouchableOpacity onPress={handleInterested}>
               <View>
@@ -307,7 +325,14 @@ const EventItem = ({
               <Text>No contacts found.</Text>
             )}
           </View>
-          <Button onPress={handleGoBack} title="back to details" />
+
+          <View>
+             <TouchableOpacity onPress={handleGoBack}>
+              <View>
+                <FontAwesomeIcon icon={faArrowRotateBack} size={50}/>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
       )}
     </View>
@@ -348,10 +373,10 @@ const styles = StyleSheet.create({
   },
   buttons: {
     position: "absolute",
-    bottom: 10,
+    bottom: 20,
     flexDirection: 'row',
-    left: 50,
-    gap: 30
+    left: 40,
+    gap: 65
   
   },
   interest: {

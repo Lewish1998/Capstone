@@ -9,6 +9,7 @@ import MyEventsPage from './components/MyEventsPage';
 import ParametersPage from './components/ParametersPage';
 import { useState, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
+import Params from './Params';
 
 const date = new Date();
 const withoutMs = date.toISOString().split('.')[0] + 'Z';
@@ -127,6 +128,7 @@ const getUser=async ()=>{
       <LinearGradient colors={['#ffffff', '#ffffff', '#999999']} style={styles.linearGradient}>
       <View style={styles.container}>
         <NavBar onclick={clickRefresh}/>
+        <Params/>
       <Routes>
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
@@ -144,12 +146,8 @@ const getUser=async ()=>{
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    // height:'100%',
-    // width:'100%',
-    // backgroundColor: 'red',
   },
   linearGradient: {
     flex: 1,
