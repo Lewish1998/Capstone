@@ -11,6 +11,7 @@ import { useState, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import Params from './Params';
 import LoginPage from './components/LoginPage';
+import Register from './components/Register';
 
 
 
@@ -26,13 +27,13 @@ const withoutMs = date.toISOString().split('.')[0] + 'Z';
   const [user,setUser]=useState([]);
   const [refreshed, setRefreshed] = useState(false);
   const [searchInput, setSearchInput] = useState('')
-  const [userLocation,setUserLocation]=useState("Glasgow")
+  const [userLocation,setUserLocation]=useState("")
   const [users,setUsers]=useState([])
 
 
 
   useEffect(() => {
-    Promise.all([ getUser(user.id), getJavaEvents()],getUsers())
+    Promise.all([ getUser(user.id), getJavaEvents(),getUsers()])
     .then(([userData, javaEventsData,usersData])=>{
       setUser(userData);
       setJavaEvents(javaEventsData);
@@ -41,10 +42,11 @@ const withoutMs = date.toISOString().split('.')[0] + 'Z';
     .catch(error => {
       console.error(error);
     });
+    
   }, [])
 
   useEffect(() => {
-    Promise.all([getJavaEvents(), getUser(user.id), getUpdatedEvents(userLocation,withoutMs)])
+    Promise.all([getJavaEvents(), getUser(user.id), getUpdatedEvents(user.location,withoutMs)])
     .then(([javaEventsData,userData, updatedEventData])=>{
     setJavaEvents(javaEventsData)
     setUser(userData)
@@ -52,12 +54,14 @@ const withoutMs = date.toISOString().split('.')[0] + 'Z';
     })    .catch(error => {
       console.error(error);
     });
+
   }, [refreshed])
+
 
   useEffect(() => {
     setSearchInput(user.location)
   }, [])
-console.log(user);
+
   const clickRefresh =() => {
     setRefreshed(!refreshed);
   }
@@ -90,6 +94,15 @@ const getUsers=async ()=>{
 
   const eventPost = (payload) => {
     return fetch('http://127.0.0.1:8080/api/events',{
+      method: "POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    }) 
+  }
+
+
+  const userPost = (payload) => {
+    return fetch('http://127.0.0.1:8080/api/users',{
       method: "POST",
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(payload)
@@ -142,12 +155,13 @@ const getUsers=async ()=>{
         <NavBar onclick={clickRefresh}/>
         <Params/>
       <Routes>
-        <Route path="/login" element={<LoginPage setUser={setUser}/>}/>  
+        <Route path="/login" element={<LoginPage setUser={setUser} clickRefresh={clickRefresh} setUserLocation={setUserLocation} user={user}/>}/>  
+        <Route path="/register" element={<Register userPost={userPost} getUsers={getUsers}/>}/>
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
         <Route path="/events" element={<MyEventsPage clickRefresh={clickRefresh}  user={user} patchUser={patchUser}  />}/>
-        <Route path="/paramaters" element={<ParametersPage  clickRefresh={clickRefresh} user={user} patchUser={patchUser} setUserLocation={setUserLocation}/>}/>
+        <Route path="/paramaters" element={<ParametersPage  clickRefresh={clickRefresh} user={user} patchUser={patchUser} setUser={setUser}/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
       </Routes>
       </View>

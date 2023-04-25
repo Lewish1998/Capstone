@@ -1,3 +1,4 @@
+import { useReducedMotion } from "@react-spring/native";
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
@@ -11,10 +12,12 @@ import {
 import { Link } from "react-router-native";
 
 
-const LoginPage = ({ setUser }) => {
+
+const LoginPage = ({ setUser, clickRefresh, setUserLocation, user }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [users, setUsers] = useState([]);
+  const [login, setLogin] = useState(false);
 
   useEffect(() => {
     getUsers();
@@ -26,18 +29,33 @@ const LoginPage = ({ setUser }) => {
       .then((data) => setUsers(data));
   };
 
-  const handlePress = () => {
+  useEffect(() => {
+    loginUser();
+  }, [password]);
+
+
+  const loginUser = () => {
     const userToLogin = users.filter((user) => user.email === email.toLowerCase());
     if (userToLogin.length > 0) {
       if (userToLogin[0].password === password.toLowerCase()) {
         setUser(userToLogin[0]);
-      } else {
-        alert("Password is Incorrect");
-      }
-    } else {
-      alert("Email is wrong, have you registered?");
+        setLogin(true);
+        setUserLocation(user.location);
+        clickRefresh();
     }
-  };
+  }
+}
+
+
+
+  const handlePress = () => {
+    setEmail("")
+    setPassword("")
+        alert("Email or Password is Incorrect");
+  }
+
+
+
 
   return (
     <View style={styles.container}>
@@ -50,6 +68,7 @@ const LoginPage = ({ setUser }) => {
           onChangeText={(email) => setEmail(email.toLowerCase())}
         />
       </View>
+   
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
@@ -62,9 +81,19 @@ const LoginPage = ({ setUser }) => {
       <TouchableOpacity onPress={() => console.log("Forgot Password")}>
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
-      <Link to="/" style={styles.loginBtn} onPress={handlePress}>
+
+    {login?
+      <Link to="/" style={styles.loginBtn} >
         <Text style={styles.loginText}>LOGIN</Text>
       </Link>
+      :
+      <Link style={styles.loginBtn} onPress={handlePress}>
+        <Text style={styles.loginText}>LOGIN</Text>
+      </Link>
+    }
+    
+    <Link to="/register" style={styles.inputView}><Text style={styles.loginText}>Register</Text></Link>
+    
     </View>
   );
 };
@@ -92,14 +121,16 @@ const styles = StyleSheet.create({
     height: 50,
     flex: 1,
     padding: 10,
-    marginLeft: 20,
+    width: "50%",
   },
   forgot_button: {
     height: 30,
     marginBottom: 30,
   },
   loginBtn: {
+
     width: 100,
+
     borderRadius: 25,
     height: 50,
     alignItems: "center",
