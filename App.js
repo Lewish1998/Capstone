@@ -140,7 +140,7 @@ const getUsers=async ()=>{
       <View style={styles.container}>
       <Image source={require("./images/Oot'N'Aboot-logos_black.png")} style={{position:'absolute', width: 120, height: 80, top: 30}}/>
         <NavBar onclick={clickRefresh}/>
-        <Params/>
+        
       <Routes>
         <Route path="/login" element={<LoginPage setUser={setUser}/>}/>  
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
