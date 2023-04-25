@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Linking, Pressable } from "react-native";
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import {faArrowRotateBack, faBackspace, faBackward, faBackwardStep, faEnvelope, faEnvelopeOpen, faEnvelopeSquare, faHeart, faHeartBroken, faInfoCircle, faLocationPin, faSliders } from '@fortawesome/free-solid-svg-icons';
+import {faArrowRotateBack, faEnvelope, faEnvelopeOpen, faHeart, faInfoCircle, faLocationPin, } from '@fortawesome/free-solid-svg-icons';
 import { TouchableOpacity, Animated } from "react-native";
 
 
@@ -136,7 +136,11 @@ const EventItem = ({
         const results = javaEvent.event_interested.filter(
           (checkUser) => checkUser.id != user.id
         );
+        const contactResult = javaEvent.event_contact.filter(
+          (checkUser) => checkUser.id != user.id
+        );
         javaEvent.event_interested = results;
+        javaEvent.event_contact = contactResult;
         patch(javaEvent, javaEvent.id);
         interestAndContact();
       }
