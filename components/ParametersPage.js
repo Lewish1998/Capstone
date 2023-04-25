@@ -18,6 +18,7 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUserLo
     clickRefresh()
   }
 
+  
   return (
       <View style={styles.container}>
         
@@ -31,7 +32,6 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUserLo
 
 
         <TouchableOpacity title='submit'>
-
           <Link  to="/" onPress={handleOnPress}><Text style={{position:'absolute', fontSize:20, left:270, borderRadius:3}}>Submit</Text></Link>
         </TouchableOpacity>
       </View>

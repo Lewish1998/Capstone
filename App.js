@@ -10,7 +10,9 @@ import ParametersPage from './components/ParametersPage';
 import { useState, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import Params from './Params';
+import Test from './components/Test';
 import LoginPage from './components/LoginPage';
+
 
 
 export default function App() {  
@@ -149,7 +151,10 @@ const getUsers=async ()=>{
         <Route path="/events" element={<MyEventsPage clickRefresh={clickRefresh}  user={user} patchUser={patchUser}  />}/>
         <Route path="/paramaters" element={<ParametersPage  clickRefresh={clickRefresh} user={user} patchUser={patchUser} setUserLocation={setUserLocation}/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
-        
+
+        <Route path="/test" element={<Test/>}/>
+
+
       </Routes>
       </View>
     </LinearGradient>
