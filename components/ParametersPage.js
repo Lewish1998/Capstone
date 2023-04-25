@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Text, View, StyleSheet, Image, TextInput, Button, TouchableOpacity } from 'react-native'
 import { Link } from "react-router-native";
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faLocationPin } from '@fortawesome/free-solid-svg-icons';
 
 const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUser }) => {
 
@@ -22,7 +24,16 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUser }
   
   return (
     
-      <View style={styles.container}>
+    <View>
+      <Text style={styles.location}>
+        <View>
+          <FontAwesomeIcon icon={faLocationPin} size={22} color={'#6026F0'}/>
+        </View>
+      {user.location}
+    </Text>
+
+    <View style={styles.container}>
+        
         <View>
           <Image source={require("../images/Oot'N'Aboot-logos_black.png")} style={{position:'absolute', width: 120, height: 80, left:120, bottom: 10}}/>
         </View>
@@ -38,6 +49,7 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUser }
         <TouchableOpacity title='submit'>
           <Link  to="/" onPress={handleOnPress}><Text style={{position:'absolute', fontSize:20, left:270, borderRadius:3}}>Submit</Text></Link>
         </TouchableOpacity>
+      </View>
       </View>
 
 
@@ -67,7 +79,16 @@ const styles = StyleSheet.create({
     color:'#111111',
     textAlign:'center',
     textDecorationLine:'underline',
-  }
+  },
+  location: {
+    position: 'absolute',
+    top: 80,
+    left: 10,
+    fontSize: 22,
+    color: "white",
+    fontWeight:'bold',
+    paddingLeft:5
+  },
 })
 
 export default ParametersPage;

@@ -92,8 +92,9 @@ const LoginPage = ({ setUser, clickRefresh, setUserLocation, user }) => {
         <Text style={styles.loginText}>LOGIN</Text>
       </Link>
     }
-    
-    <Link to="/register" style={styles.inputView}><Text style={styles.loginText}>Register</Text></Link>
+    <Link to="/register" style={styles.loginBtn}>
+      <Text style={styles.loginText}>Register</Text>
+    </Link>
     
     </View>
   );
@@ -135,7 +136,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
+    marginTop: 25,
     backgroundColor: "#FF1493",
   },
   loginText: {

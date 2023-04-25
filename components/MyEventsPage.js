@@ -126,12 +126,12 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
     // Location information
   <View >
 
-    <Text style={styles.location}>
+  <Text style={styles.location}>
       <View>
-        <FontAwesomeIcon icon={faLocationPin} size={18}/>
+        <FontAwesomeIcon icon={faLocationPin} size={22} color={'#6026F0'}/>
       </View>
-      {user.location}
-    </Text>
+    {user.location}
+  </Text>
   
   <View style={[styles.container]}>
     <View>
@@ -189,9 +189,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 80,
     left: 10,
-    fontSize: 20,
-    color: "black",
-    textDecorationLine: 'underline'
+    fontSize: 22,
+    color: "white",
+    fontWeight:'bold',
+    paddingLeft:5
   },
 });
 
