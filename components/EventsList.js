@@ -94,14 +94,14 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
             <View style={styles.buttonContainer}>
                 <TouchableOpacity style={styles.button} onPress={handleOnPressBack} title="Back">
                     {/* <Text style={{fontSize:20}}>Back</Text> */}
-                    <View><FontAwesomeIcon icon={faBackward} /></View>
+                    <View><FontAwesomeIcon icon={faBackward} color={'#2894FA'}/></View>
                 </TouchableOpacity>
 
 
 
                 <TouchableOpacity style={styles.button} onPress={handleOnPress} title="Next">
                     {/* <Text style={{fontSize:20}}>Next</Text> */}
-                    <View><FontAwesomeIcon icon={faForward} /></View>
+                    <View><FontAwesomeIcon icon={faForward} color={'#2894FA'} /></View>
                 </TouchableOpacity>
             </View>
         </View>
@@ -119,14 +119,15 @@ const styles = StyleSheet.create({
     },
 
     button:{
-        borderWidth:0,
+        borderWidth:2,
+        borderColor:'#2B28FA',
         width: 70,
         height:50,
         display:'flex',
         alignItems: 'center',
         borderRadius:20,
         justifyContent: 'center',
-        backgroundColor: '#666666',
+        backgroundColor: '#ffffff',
     },
     
 

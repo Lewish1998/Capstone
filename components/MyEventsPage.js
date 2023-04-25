@@ -1,10 +1,15 @@
 import React, { useEffect,useState } from 'react';
 import { Text, View, Button, StyleSheet, ScrollView} from 'react-native';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faLocationPin } from '@fortawesome/free-solid-svg-icons';
 
 const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
   useEffect(() => {
     clickRefresh();
+    console.log(user.location)
   }, []);
+
+  console.log(user.location)
  
   const handleDelete = async (id) => {
     try {
@@ -89,8 +94,8 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
 
   const displayUserInterested = user.user_interested.map((interested) => (
 
-
-    <View key={interested.id}>
+    <View style={{paddingBottom:20, shadowColor:'black', shadowRadius:10, shadowOffset:{width:0, height:0}, shadowOpacity:0.8}}>
+    <View style={{borderWidth:1, borderRadius:15,backgroundColor:'white' }} key={interested.id}>
       <Text style={styles.title} >{interested.event_name}</Text>
       <Text style={styles.text} >{interested.event_date}</Text>
       <Text style={styles.text}>{interested.event_time}</Text>
@@ -101,10 +106,13 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
       <Button title='Info' onPress={()=>{onClickMoreInfo}} />
       </View>
     </View>
+    </View>
   ));
 
+  // GOING
   const displayUserGoing = user.user_going.map((going) => (
-    <View key={going.id}>
+    <View style={{paddingBottom:20, shadowColor:'black', shadowRadius:10, shadowOffset:{width:0, height:0}, shadowOpacity:0.8}}>
+    <View style={{borderWidth:1, borderRadius:15,backgroundColor:'white' }} key={going.id}>
       <Text style={styles.title}>{going.event_name}</Text>
       <Text style={styles.text}>{going.event_date}</Text>
       <Text style={styles.text}>{going.event_time}</Text>
@@ -115,25 +123,41 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
       <Button title='Info' onPress={()=>{onClickMoreInfo}}/>
       </View>
     </View>
+    </View>
   ));
 
-  return <View style={styles.container}>
-
- 
+  return (
+    // Location information
+  <View >
+    <Text style={styles.location}>
+      <View>
+        <FontAwesomeIcon icon={faLocationPin} size={18}/>
+      </View>
+      {user.location}
+    </Text>
+  
+  <View style={[styles.container, ]}>
     <ScrollView>
-    <Text style={{fontSize:30, textDecorationLine:'underline'}}>Going</Text>
+    <View style={{backgroundColor:'#2894FA', borderRadius:25, marginBottom:10,}}>
+      <Text style={{color:'white', fontSize:30, fontWeight:'bold', paddingBottom:10, textAlign:'center', top:3}}>Going</Text>
+    </View>
     {displayUserGoing}
-    <Text style={{fontSize:30, textDecorationLine:'underline'}}>Interested</Text>
+    <View style={{backgroundColor:'#2894FA', borderRadius:25, marginBottom:10,}}>
+    <Text  style={{color:'white', fontSize:30, fontWeight:'bold', paddingBottom:10, textAlign:'center', top:3}}>Interested</Text>
+    </View>
   {displayUserInterested}
+
     </ScrollView>
-    </View>;
+    </View>
+    </View>
+  )
 };
 
 const styles = StyleSheet.create({
   container: {
     display: "flex",
     width: 360,
-    height: 600,
+    height: 670,
     top: 120,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -143,12 +167,12 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
     shadowRadius: 15,
     borderRadius: 20,
-    padding:20
+    padding:20,
   },
   title:{
     fontSize:24,
     textAlign:'center',
-    textDecorationLine:'underline'
+    textDecorationLine:'underline',
   },
   text:{
     fontSize:20,
@@ -160,7 +184,15 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     justifyContent:'space-between',
     alignItems:'center'
-  }
+  }, 
+  location: {
+    position: 'absolute',
+    top: 80,
+    left: 10,
+    fontSize: 20,
+    color: "black",
+    textDecorationLine: 'underline'
+  },
 });
 
 export default MyEventsPage;

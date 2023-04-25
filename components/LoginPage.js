@@ -110,12 +110,12 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   inputView: {
-    backgroundColor: "#FFC0CB",
+    backgroundColor: "#ffffff",
     borderRadius: 30,
-    width: "70%",
+    width: 200,
     height: 45,
     marginBottom: 20,
-    alignItems: "center",
+
   },
   TextInput: {
     height: 50,
@@ -128,13 +128,20 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   loginBtn: {
-    width: "80%",
+
+    width: 100,
+
     borderRadius: 25,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,
     backgroundColor: "#FF1493",
+  },
+  loginText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 20,
   },
 });
 export default LoginPage;

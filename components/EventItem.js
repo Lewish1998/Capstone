@@ -241,14 +241,12 @@ const EventItem = ({
 
   return (
     <View>
-      <Animated.View style={[styles.fadingContainer, {opacity:fadeAnim}]}>
     <Text style={styles.location}>
       <View>
-        <FontAwesomeIcon icon={faLocationPin} size={18}/>
+        <FontAwesomeIcon icon={faLocationPin} size={22} color={'#6026F0'}/>
       </View>
       {city}
     </Text>
-    </Animated.View>
 
       {open ? (
         <View style={styles.cardContainer}>
@@ -290,9 +288,9 @@ const EventItem = ({
         <View style={styles.cardContainer}>
           <Image style={styles.image} source={image}></Image>
           <Text style={[styles.heading, {fontSize:26}]}>{name}</Text>
-          <Text style={styles.text}>{date}</Text>
-          <Text style={styles.text}>{time}</Text>
-          <Text style={styles.text}>{venue}</Text>
+          <Text style={styles.text}>Date: {date}</Text>
+          <Text style={styles.text}>Time: {time}</Text>
+          <Text style={styles.text}>Venue: {venue}</Text>
           <Text style={styles.text}>Status: {status}</Text>
 
           <Button
@@ -324,7 +322,7 @@ const EventItem = ({
               <View>
              <TouchableOpacity onPress={handleInterested}>
               <View>
-                <FontAwesomeIcon icon={faHeart} size={50} color={interest ? "red" : "black"}/>
+                <FontAwesomeIcon icon={faHeart} size={50} color={interest ? "red" : "darkgrey"}/>
               </View>
             </TouchableOpacity>
             </View>
@@ -410,9 +408,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 80,
     left: 10,
-    fontSize: 20,
-    color: "black",
-    textDecorationLine: 'underline'
+    fontSize: 22,
+    color: "white",
+    fontWeight:'bold',
+    paddingLeft:5
   },
   heading: {
     fontSize: 34,
