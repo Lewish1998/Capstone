@@ -1,3 +1,4 @@
+import { useReducedMotion } from "@react-spring/native";
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
@@ -12,7 +13,7 @@ import { Link } from "react-router-native";
 
 
 
-const LoginPage = ({ setUser, clickRefresh }) => {
+const LoginPage = ({ setUser, clickRefresh, setUserLocation, user }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [users, setUsers] = useState([]);
@@ -39,6 +40,7 @@ const LoginPage = ({ setUser, clickRefresh }) => {
       if (userToLogin[0].password === password.toLowerCase()) {
         setUser(userToLogin[0]);
         setLogin(true);
+        setUserLocation(user.location);
         clickRefresh();
     }
   }

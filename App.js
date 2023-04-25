@@ -29,7 +29,7 @@ const withoutMs = date.toISOString().split('.')[0] + 'Z';
   const [user,setUser]=useState([]);
   const [refreshed, setRefreshed] = useState(false);
   const [searchInput, setSearchInput] = useState('')
-  const [userLocation,setUserLocation]=useState(user.location)
+  const [userLocation,setUserLocation]=useState("")
   const [users,setUsers]=useState([])
 
 
@@ -157,13 +157,13 @@ const getUsers=async ()=>{
         <NavBar onclick={clickRefresh}/>
         <Params/>
       <Routes>
-        <Route path="/login" element={<LoginPage setUser={setUser} clickRefresh={clickRefresh}/>}/>  
+        <Route path="/login" element={<LoginPage setUser={setUser} clickRefresh={clickRefresh} setUserLocation={setUserLocation} user={user}/>}/>  
         <Route path="/register" element={<Register userPost={userPost} getUsers={getUsers}/>}/>
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
         <Route path="/events" element={<MyEventsPage clickRefresh={clickRefresh}  user={user} patchUser={patchUser}  />}/>
-        <Route path="/paramaters" element={<ParametersPage  clickRefresh={clickRefresh} user={user} patchUser={patchUser} setUserLocation={setUserLocation}/>}/>
+        <Route path="/paramaters" element={<ParametersPage  clickRefresh={clickRefresh} user={user} patchUser={patchUser} setUser={setUser}/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
 
         <Route path="/test" element={<Test/>}/>
