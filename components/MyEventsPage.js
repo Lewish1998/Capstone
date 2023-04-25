@@ -90,37 +90,40 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
   const displayUserInterested = user.user_interested.map((interested) => (
 
 
-    <View key={interested.id} style={styles.item}>
-      <Text style={styles.textbox}>{interested.event_name}</Text>
-      <Text style={styles.textbox}>{interested.event_date}</Text>
-      <Text style={styles.textbox}>{interested.event_time}</Text>
+    <View key={interested.id}>
+      <Text style={styles.title} >{interested.event_name}</Text>
+      <Text style={styles.text} >{interested.event_date}</Text>
+      <Text style={styles.text}>{interested.event_time}</Text>
+      <View style={styles.buttons}>
       <Button onPress={() => handleDelete(interested.id)} title="Remove" />
       <Button title="Going" onPress={() => handleGoing(interested.id)}  />
       <Button title="Contact" onPress={() => handleContact(interested.id)}/>
-      <Button title='More Info' onPress={()=>{onClickMoreInfo}} />
+      <Button title='Info' onPress={()=>{onClickMoreInfo}} />
+      </View>
     </View>
   ));
 
   const displayUserGoing = user.user_going.map((going) => (
-    <View key={going.id} style={styles.item}>
-      <Text style={styles.textbox}>{going.event_name}</Text>
-      <Text style={styles.textbox}>{going.event_date}</Text>
-      <Text style={styles.textbox}>{going.event_time}</Text>
+    <View key={going.id}>
+      <Text style={styles.title}>{going.event_name}</Text>
+      <Text style={styles.text}>{going.event_date}</Text>
+      <Text style={styles.text}>{going.event_time}</Text>
+      <View style={styles.buttons}>
       <Button onPress={() => handleDelete(going.id)} title="Remove" />
       <Button title="Not Going" onPress={() => handleNotGoing(going.id)} />
       <Button title="Contact" onPress={() => handleContact(going.id)} />
-      <Button title='More Info' onPress={()=>{onClickMoreInfo}}/>
+      <Button title='Info' onPress={()=>{onClickMoreInfo}}/>
+      </View>
     </View>
   ));
 
   return <View style={styles.container}>
 
  
-    <ScrollView style={styles.scrollView}>
-    <Text>Going</Text>
-  {displayUserGoing}
-    <Text></Text>
-    <Text>Interested</Text>
+    <ScrollView>
+    <Text style={{fontSize:30, textDecorationLine:'underline'}}>Going</Text>
+    {displayUserGoing}
+    <Text style={{fontSize:30, textDecorationLine:'underline'}}>Interested</Text>
   {displayUserInterested}
     </ScrollView>
     </View>;
@@ -128,26 +131,36 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
 
 const styles = StyleSheet.create({
   container: {
-    borderWidth: 2,
-    borderRadius: 20,
+    display: "flex",
     width: 360,
     height: 600,
     top: 120,
-    padding: 10,
-    backgroundColor: '#ffffff',
-  },  
-  scrollView: {
-    backgroundColor: 'white',
-    marginHorizontal: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    backgroundColor: "#ffffff",
+    shadowOffset: { width: 0, height: 0 },
+    shadowColor: "black",
+    shadowOpacity: 1,
+    shadowRadius: 15,
+    borderRadius: 20,
+    padding:20
   },
-  item:{
-flexWrap:"wrap",
-justifyContent:"center"
+  title:{
+    fontSize:24,
+    textAlign:'center',
+    textDecorationLine:'underline'
   },
-  textbox: {
-    margin: 5,
-    fontSize: 16,
+  text:{
+    fontSize:20,
+    textAlign:'center',
+    padding:3
   },
+  buttons:{
+    flex:4,
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center'
+  }
 });
 
 export default MyEventsPage;

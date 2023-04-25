@@ -23,6 +23,7 @@ const NavBar = () => {
           <Link to="/about" onPress={toggleMenu}><Text style={styles.menuItemText}>About</Text></Link>
           <Link to="/contact" onPress={toggleMenu}><Text style={styles.menuItemText}>Contact</Text></Link>
           <Link to="/account" onPress={toggleMenu}><Text style={styles.menuItemText}>Account</Text></Link>
+          <Link to="/test" onPress={toggleMenu}><Text>Test</Text></Link>
         </TouchableOpacity>
       </View>
     )}

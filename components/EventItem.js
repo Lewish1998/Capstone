@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState, useEffect } from "react";
 import { Linking, Pressable } from "react-native";
 import { Text, View, Image, Button, StyleSheet } from "react-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
 import {faArrowRotateBack, faBackspace, faBackward, faBackwardStep, faEnvelope, faEnvelopeOpen, faEnvelopeSquare, faHeart, faHeartBroken, faInfoCircle, faLocationPin, faSliders } from '@fortawesome/free-solid-svg-icons';
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, Animated } from "react-native";
 
 
 const EventItem = ({
@@ -222,14 +222,29 @@ const EventItem = ({
     );
   };
 
+
+  // ANIMATION TESTING
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const fadeIn = () => {
+  Animated.timing(fadeAnim, {
+    toValue: 1,
+    duration: 1000,
+    useNativeDriver: true,
+  }).start();
+  };
+
+
   return (
     <View>
+      <Animated.View style={[styles.fadingContainer, {opacity:fadeAnim}]}>
     <Text style={styles.location}>
       <View>
         <FontAwesomeIcon icon={faLocationPin} size={24}/>
       </View>
       {city}
     </Text>
+    </Animated.View>
 
       {open ? (
         <View style={styles.cardContainer}>
@@ -270,7 +285,7 @@ const EventItem = ({
       ) : toggleContact ? (
         <View style={styles.cardContainer}>
           <Image style={styles.image} source={image}></Image>
-          <Text style={styles.heading}>{name}</Text>
+          <Text style={[styles.heading, {fontSize:26}]}>{name}</Text>
           <Text style={styles.text}>{date}</Text>
           <Text style={styles.text}>{time}</Text>
           <Text style={styles.text}>{venue}</Text>
@@ -285,7 +300,8 @@ const EventItem = ({
           <Button onPress={loadInBrowser} title="BUY TICKETS" />
           <View style={styles.buttons}>
           <View>
-             <TouchableOpacity onPress={handleOpen}>
+          {/* onPress={handleOpen} */}
+             <TouchableOpacity  onPress={handleOpen}>
               <View>
                 <FontAwesomeIcon icon={faArrowRotateBack} size={50}/>
               </View>
@@ -303,7 +319,7 @@ const EventItem = ({
               <View>
              <TouchableOpacity onPress={handleInterested}>
               <View>
-                <FontAwesomeIcon icon={faHeart} size={50} color={interest ? "red" : "darkgrey"}/>
+                <FontAwesomeIcon icon={faHeart} size={50} color={interest ? "red" : "black"}/>
               </View>
             </TouchableOpacity>
             </View>
@@ -348,7 +364,7 @@ const styles = StyleSheet.create({
     top: 120,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    backgroundColor: "#999999",
+    backgroundColor: "#ffffff",
     shadowOffset: { width: 0, height: 0 },
     shadowColor: "black",
     shadowOpacity: 1,
@@ -399,6 +415,10 @@ const styles = StyleSheet.create({
     color: "black",
     textAlign:'center'
   },
+  fadingContainer: {
+    padding:20,
+    backgroundColor:'red'
+  }
 });
 
 export default EventItem;
