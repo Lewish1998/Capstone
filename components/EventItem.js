@@ -226,7 +226,7 @@ const EventItem = ({
     <View>
     <Text style={styles.location}>
       <View>
-        <FontAwesomeIcon icon={faLocationPin} size={24}/>
+        <FontAwesomeIcon icon={faLocationPin} size={18}/>
       </View>
       {city}
     </Text>
@@ -244,7 +244,7 @@ const EventItem = ({
           <View>
              <TouchableOpacity onPress={handleOpen}>
               <View>
-                <FontAwesomeIcon icon={faInfoCircle} size={50}/>
+                <FontAwesomeIcon icon={faInfoCircle} size={50} color={'#4C4FE0'}/>
               </View>
             </TouchableOpacity>
             </View>
@@ -252,7 +252,7 @@ const EventItem = ({
             <View style={styles.contact}>
              <TouchableOpacity onPress={handleContact}>
               <View>
-                <FontAwesomeIcon icon={contact?faEnvelope:faEnvelopeOpen} size={50}  color={contact?"orchid":"palegreen"}/>
+                <FontAwesomeIcon icon={contact?faEnvelope:faEnvelopeOpen} size={50}  color={contact?"#7F56FC":"#4C9DE0"}/>
               </View>
             </TouchableOpacity>
             </View>
@@ -260,7 +260,7 @@ const EventItem = ({
             <View>
              <TouchableOpacity onPress={handleInterested}>
               <View>
-                <FontAwesomeIcon icon={faHeart} size={50} color={interest ? "red" : "black"}/>
+                <FontAwesomeIcon icon={faHeart} size={50} color={interest ? "red" : "darkgrey"}/>
               </View>
             </TouchableOpacity>
             </View>
@@ -285,17 +285,17 @@ const EventItem = ({
           <Button onPress={loadInBrowser} title="BUY TICKETS" />
           <View style={styles.buttons}>
           <View>
-             <TouchableOpacity onPress={handleOpen}>
+            <TouchableOpacity onPress={handleOpen}>
               <View>
-                <FontAwesomeIcon icon={faArrowRotateBack} size={50}/>
+                <FontAwesomeIcon icon={faArrowRotateBack} size={50} color={'#7F56FC'}/>
               </View>
             </TouchableOpacity>
           </View>
 
             <View style={styles.contact}>
-             <TouchableOpacity onPress={handleContact}>
+            <TouchableOpacity onPress={handleContact}>
               <View>
-                <FontAwesomeIcon icon={contact?faEnvelope:faEnvelopeOpen} size={50} color={contact?"orchid":"palegreen"}/>
+                <FontAwesomeIcon icon={contact?faEnvelope:faEnvelopeOpen} size={50} color={contact?"#7F56FC":"#4C9DE0"}/>
               </View>
             </TouchableOpacity>
             </View>
@@ -329,7 +329,7 @@ const EventItem = ({
           <View>
              <TouchableOpacity onPress={handleGoBack}>
               <View>
-                <FontAwesomeIcon icon={faArrowRotateBack} size={50}/>
+                <FontAwesomeIcon icon={faArrowRotateBack} size={50} color={'#7F56FC'}/>
               </View>
             </TouchableOpacity>
           </View>
@@ -389,7 +389,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 80,
     left: 10,
-    fontSize: 26,
+    fontSize: 20,
     color: "black",
     textDecorationLine: 'underline'
   },

@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { NativeRouter, Routes, Route } from "react-router-native";
 import Home from './components/Home';
 import AboutPage from './components/AboutPage';
@@ -16,6 +16,9 @@ import LoginPage from './components/LoginPage';
 export default function App() {  
 const date = new Date();
 const withoutMs = date.toISOString().split('.')[0] + 'Z';
+
+export default function App() {  
+
   // stops all console logs
   // console.log = function() {}
 
@@ -35,8 +38,6 @@ const withoutMs = date.toISOString().split('.')[0] + 'Z';
       setUser(userData);
       setJavaEvents(javaEventsData);
       setUsers(usersData)
-
-  
     })
     .catch(error => {
       console.error(error);
@@ -134,9 +135,11 @@ const getUsers=async ()=>{
   
   
   return (
+  
     <NativeRouter initialEntries={["/login"]}>
-      <LinearGradient colors={['#ffffff', '#ffffff', '#999999']} style={styles.linearGradient}>
+      <LinearGradient colors={['#56DCFC', '#4C9DE0', '#608BF7', '#4C4FE0', '#7F56FC']} style={styles.linearGradient}>
       <View style={styles.container}>
+      <Image source={require("./images/Oot'N'Aboot-logos_black.png")} style={{position:'absolute', width: 100, height: 80, top: 30}}/>
         <NavBar onclick={clickRefresh}/>
         <Params/>
       <Routes>
