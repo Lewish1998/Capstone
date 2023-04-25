@@ -151,9 +151,7 @@ const getUsers=async ()=>{
     <NativeRouter initialEntries={["/login"]}>
       <LinearGradient colors={['#56DCFC', '#4C9DE0', '#608BF7', '#4C4FE0', '#7F56FC']} style={styles.linearGradient}>
       <View style={styles.container}>
-      <Image source={require("./images/Oot'N'Aboot-logos_black.png")} style={{position:'absolute', width: 100, height: 80, top: 30}}/>
         <NavBar onclick={clickRefresh}/>
-        <Params/>
       <Routes>
         <Route path="/login" element={<LoginPage setUser={setUser} clickRefresh={clickRefresh} setUserLocation={setUserLocation} user={user}/>}/>  
         <Route path="/register" element={<Register userPost={userPost} getUsers={getUsers}/>}/>
