@@ -16,7 +16,12 @@ const Register = ({userPost, getUsers, clickRefresh}) => {
     setLocation(newLocation);
    
   }
-// console.log(user[4])
+  const nameUpper = (data) => {
+    let newName =`${data.charAt(0).toUpperCase()}${data.slice(1)}`
+    setName(newName);
+   
+  }
+
 
    
 
@@ -53,7 +58,7 @@ const Register = ({userPost, getUsers, clickRefresh}) => {
               style={styles.TextInput}
               placeholder="Name"
               placeholderTextColor="#003f5c"
-              onChangeText={(data) => setName(data.toLowerCase())}
+              onChangeText={(data) => nameUpper(data.toLowerCase())}
               
             />
           </View>

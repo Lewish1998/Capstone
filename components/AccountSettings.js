@@ -9,6 +9,17 @@ const AccountSettings = ({user, patchUser, clickRefresh}) => {
   const [updatePassword, setUpdatePassword] = useState("");
   const [updateLocation, setUpdateLocation] = useState("");
   const[updateName, setUpdateName] = useState("");
+
+  const locationUp = (data) => {
+    let newLocation =`${data.charAt(0).toUpperCase()}${data.slice(1)}`
+    setUpdateLocation(newLocation);
+   
+  }
+  const nameUp = (data) => {
+    let newName =`${data.charAt(0).toUpperCase()}${data.slice(1)}`
+    setUpdateName(newName);
+   
+  }
   
   const handleAccountUpdate= () => {
     if(updateEmail.length === 0 || updatePassword.length === 0 || updateLocation.length === 0 || updateName.length === 0 ){
@@ -39,7 +50,7 @@ const AccountSettings = ({user, patchUser, clickRefresh}) => {
               style={styles.TextInput}
               placeholder={user.name}
               placeholderTextColor="#003f5c"
-              onChangeText={(data) => setUpdateName(data.toLowerCase())}
+              onChangeText={(data) => nameUp(data.toLowerCase())}
             />
           </View>
           
@@ -57,7 +68,7 @@ const AccountSettings = ({user, patchUser, clickRefresh}) => {
               style={styles.TextInput}
               placeholder={user.location}
               placeholderTextColor="#003f5c"
-              onChangeText={(data) => setUpdateLocation(data.toLowerCase())}
+              onChangeText={(data) => locationUp(data.toLowerCase())}
             />
           </View>
 
