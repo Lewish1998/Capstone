@@ -78,7 +78,7 @@ const LoginPage = ({ setUser, clickRefresh, setUserLocation, user }) => {
           onChangeText={(password) => setPassword(password.toLowerCase())}
         />
       </View>
-      <TouchableOpacity onPress={() => console.log("Forgot Password")}>
+      <TouchableOpacity onPress={() => alert("Oh dear")}>
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
 

@@ -6,10 +6,10 @@ import { faLocationPin } from '@fortawesome/free-solid-svg-icons';
 const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
   useEffect(() => {
     clickRefresh();
-    console.log(user.location)
+
   }, []);
 
-  console.log(user.location)
+
  
   const handleDelete = async (id) => {
     try {
@@ -59,7 +59,7 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
   const handleContact = async (id) => {
     try {
       const updatedUser = { ...user };
-      console.log(updatedUser.user_going.some(event => event.id === id))
+    
       if (updatedUser.user_contact.some(event => event.id === id)) {
         updatedUser.user_contact = updatedUser.user_contact.filter(contact => contact.id !== id);
         await patchUser(updatedUser, user.id);
@@ -87,15 +87,15 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
   [open,setOpen]=useState(true)
 
   onClickMoreInfo=async()=>{
-    console.log(open)
+ 
   setOpen(!open)
-  console.log(open);
+
   }
 
   const displayUserInterested = user.user_interested.map((interested) => (
 
-    <View style={{paddingBottom:20, shadowColor:'black', shadowRadius:10, shadowOffset:{width:0, height:0}, shadowOpacity:0.8}}>
-    <View style={{borderWidth:1, borderRadius:15,backgroundColor:'white' }} key={interested.id}>
+    <View key={interested.id} style={{paddingBottom:20, shadowColor:'black', shadowRadius:10, shadowOffset:{width:0, height:0}, shadowOpacity:0.8}}>
+    <View style={{borderWidth:1, borderRadius:15,backgroundColor:'white' }} >
       <Text style={styles.title} >{interested.event_name}</Text>
       <Text style={styles.text} >{interested.event_date}</Text>
       <Text style={styles.text}>{interested.event_time}</Text>
@@ -111,8 +111,8 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
 
   // GOING
   const displayUserGoing = user.user_going.map((going) => (
-    <View style={{paddingBottom:20, shadowColor:'black', shadowRadius:10, shadowOffset:{width:0, height:0}, shadowOpacity:0.8}}>
-    <View style={{borderWidth:1, borderRadius:15,backgroundColor:'white' }} key={going.id}>
+    <View key={going.id} style={{paddingBottom:20, shadowColor:'black', shadowRadius:10, shadowOffset:{width:0, height:0}, shadowOpacity:0.8}}>
+    <View style={{borderWidth:1, borderRadius:15,backgroundColor:'white' }} >
       <Text style={styles.title}>{going.event_name}</Text>
       <Text style={styles.text}>{going.event_date}</Text>
       <Text style={styles.text}>{going.event_time}</Text>
