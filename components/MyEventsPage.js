@@ -1,15 +1,13 @@
 import React, { useEffect,useState } from 'react';
-import { Text, View, Button, StyleSheet, ScrollView} from 'react-native';
+import { Text, View, Button, StyleSheet, ScrollView, Image} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faLocationPin } from '@fortawesome/free-solid-svg-icons';
 
 const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
   useEffect(() => {
     clickRefresh();
-    console.log(user.location)
   }, []);
 
-  console.log(user.location)
  
   const handleDelete = async (id) => {
     try {
@@ -87,9 +85,7 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
   [open,setOpen]=useState(true)
 
   onClickMoreInfo=async()=>{
-    console.log(open)
   setOpen(!open)
-  console.log(open);
   }
 
   const displayUserInterested = user.user_interested.map((interested) => (
@@ -129,6 +125,7 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
   return (
     // Location information
   <View >
+
     <Text style={styles.location}>
       <View>
         <FontAwesomeIcon icon={faLocationPin} size={18}/>
@@ -136,7 +133,10 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
       {user.location}
     </Text>
   
-  <View style={[styles.container, ]}>
+  <View style={[styles.container]}>
+    <View>
+      <Image source={require("../images/Oot'N'Aboot-logos_black.png")} style={{position:'absolute', width: 120, height: 80, left:110, bottom:20}}/>
+    </View>
     <ScrollView>
     <View style={{backgroundColor:'#2894FA', borderRadius:25, marginBottom:10,}}>
       <Text style={{color:'white', fontSize:30, fontWeight:'bold', paddingBottom:10, textAlign:'center', top:3}}>Going</Text>
