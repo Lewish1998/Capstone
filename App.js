@@ -17,7 +17,6 @@ export default function App() {
 const date = new Date();
 const withoutMs = date.toISOString().split('.')[0] + 'Z';
 
-export default function App() {  
 
   // stops all console logs
   // console.log = function() {}
