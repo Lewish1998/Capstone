@@ -15,15 +15,13 @@ const Params = () => {
     <TouchableOpacity>
       <View>
       <Link to="/paramaters">
-      <FontAwesomeIcon style={styles.burgerIcon} icon={faSliders} size={30}/>
+      <FontAwesomeIcon style={styles.icon} icon={faSliders} size={30} color={'black'}/>
       </Link>
       </View>
     </TouchableOpacity>
   </View>
   )
 }
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -32,33 +30,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     zIndex: 1,
   },
-  content: {
-    fontSize: 24,
-    marginBottom: 20,
-  },
 
-  // Edit here for Nav styling
-  
-  menuItem: {
-    paddingVertical: 20,
-    paddingHorizontal: 40,
-  },
-  menuItemText: {
-    fontSize: 24,
-    padding:5
-  },
-  burgerIcon: {
+  icon: {
     position: 'absolute',
     top: 67,
     left: 100,
     width: 40,
     height: 40,
-  },
-  burgerIconLine: {
-    width: 36,
-    height: 25,
-    backgroundColor: 'black',
-    marginBottom: 7,
   },
 });
 
