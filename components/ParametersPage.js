@@ -1,8 +1,19 @@
 import React, { useState } from 'react'
 import { Text, View, StyleSheet, Pressable, TextInput, Button, TouchableOpacity } from 'react-native'
 import { Link } from "react-router-native";
+import { motion } from "framer-motion";
+import { useInView } from'react-intersection-observer';
+
 
 const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUserLocation }) => {
+  
+  // motion test
+  const [ref, inView] = useInView({
+    threshold: 0.5,
+    triggerOnce: true,
+  });
+
+
 
   const [inputValue, setInputValue] = useState('');
 
@@ -20,6 +31,12 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUserLo
 
   
   return (
+    <View>
+      <motion.div
+      ref={ref}
+      initial={inView?{x:0, opacity:1}:{x:100, opacity:0}}
+      transition={{duration: 1, ease:'easeInOut'}}
+      >
       <View style={styles.container}>
         
           <Text style={styles.text}>Change Current Location...</Text>
@@ -35,8 +52,8 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUserLo
           <Link  to="/" onPress={handleOnPress}><Text style={{position:'absolute', fontSize:20, left:270, borderRadius:3}}>Submit</Text></Link>
         </TouchableOpacity>
       </View>
-
-
+    </motion.div>
+    </View>
   )
 }
 
