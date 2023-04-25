@@ -1,12 +1,9 @@
 package com.example.cap.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +17,9 @@ public class User {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name="password")
+    private String password;
 
     @Column(name = "email")
     private String email;
@@ -56,7 +56,8 @@ public class User {
     )
     private List<Event> user_contact;
 
-    public User(String name, String location, String email) {
+    public User(String name, String password, String location, String email) {
+        this.password = password;
         this.email = email;
         this.name = name;
         this.location = location;
@@ -144,5 +145,13 @@ public class User {
         if (!getUser_contact().contains(event)) {
             this.user_contact.add(event);
         }
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
