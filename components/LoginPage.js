@@ -12,7 +12,7 @@ import { Link } from "react-router-native";
 
 
 
-const LoginPage = ({ setUser }) => {
+const LoginPage = ({ setUser, clickRefresh }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [users, setUsers] = useState([]);
@@ -39,6 +39,7 @@ const LoginPage = ({ setUser }) => {
       if (userToLogin[0].password === password.toLowerCase()) {
         setUser(userToLogin[0]);
         setLogin(true);
+        clickRefresh();
     }
   }
 }

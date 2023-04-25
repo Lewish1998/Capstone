@@ -35,7 +35,7 @@ const withoutMs = date.toISOString().split('.')[0] + 'Z';
 
 
   useEffect(() => {
-    Promise.all([ getUser(user.id), getJavaEvents()],getUsers())
+    Promise.all([ getUser(user.id), getJavaEvents(),getUsers()])
     .then(([userData, javaEventsData,usersData])=>{
       setUser(userData);
       setJavaEvents(javaEventsData);
@@ -44,6 +44,7 @@ const withoutMs = date.toISOString().split('.')[0] + 'Z';
     .catch(error => {
       console.error(error);
     });
+    
   }, [])
 
   useEffect(() => {
@@ -55,12 +56,14 @@ const withoutMs = date.toISOString().split('.')[0] + 'Z';
     })    .catch(error => {
       console.error(error);
     });
+
   }, [refreshed])
+
 
   useEffect(() => {
     setSearchInput(user.location)
   }, [])
-console.log(user);
+
   const clickRefresh =() => {
     setRefreshed(!refreshed);
   }
@@ -154,7 +157,7 @@ const getUsers=async ()=>{
         <NavBar onclick={clickRefresh}/>
         <Params/>
       <Routes>
-        <Route path="/login" element={<LoginPage setUser={setUser}/>}/>  
+        <Route path="/login" element={<LoginPage setUser={setUser} clickRefresh={clickRefresh}/>}/>  
         <Route path="/register" element={<Register userPost={userPost} getUsers={getUsers}/>}/>
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
