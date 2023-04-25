@@ -61,7 +61,7 @@ const LoginPage = ({ setUser, clickRefresh, setUserLocation, user }) => {
     <View style={styles.container}>
       <View style={styles.inputView}>
       <Image source={require("../images/Oot'N'Aboot-logos.jpeg")} 
-      style={{position:'absolute', width: 100, height: 100, bottom: 65, left: 70, borderRadius: 15}}/>
+      style={{position:'absolute', width: 150, height: 150, left: 48, bottom: 65, borderRadius: 15}}/>
         <TextInput
           style={styles.TextInput}
           placeholder="Email"
@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   loginBtn: {
-
     width: 120,
     borderRadius: 25,
     height: 50,
