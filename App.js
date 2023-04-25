@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { NativeRouter, Routes, Route } from "react-router-native";
 import Home from './components/Home';
 import AboutPage from './components/AboutPage';
@@ -11,11 +11,14 @@ import { useState, useEffect } from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import Params from './Params';
 import Test from './components/Test';
+import LoginPage from './components/LoginPage';
 
+
+
+export default function App() {  
 const date = new Date();
 const withoutMs = date.toISOString().split('.')[0] + 'Z';
-console.log(withoutMs); 
-export default function App() {  
+
 
   // stops all console logs
   // console.log = function() {}
@@ -26,16 +29,16 @@ export default function App() {
   const [refreshed, setRefreshed] = useState(false);
   const [searchInput, setSearchInput] = useState('')
   const [userLocation,setUserLocation]=useState("Glasgow")
+  const [users,setUsers]=useState([])
 
 
 
   useEffect(() => {
-    Promise.all([ getUser(), getJavaEvents()])
-    .then(([userData, javaEventsData])=>{
+    Promise.all([ getUser(user.id), getJavaEvents()],getUsers())
+    .then(([userData, javaEventsData,usersData])=>{
       setUser(userData);
       setJavaEvents(javaEventsData);
-
-  
+      setUsers(usersData)
     })
     .catch(error => {
       console.error(error);
@@ -43,7 +46,7 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    Promise.all([getJavaEvents(), getUser(), getUpdatedEvents(userLocation,withoutMs)])
+    Promise.all([getJavaEvents(), getUser(user.id), getUpdatedEvents(userLocation,withoutMs)])
     .then(([javaEventsData,userData, updatedEventData])=>{
     setJavaEvents(javaEventsData)
     setUser(userData)
@@ -56,14 +59,22 @@ export default function App() {
   useEffect(() => {
     setSearchInput(user.location)
   }, [])
-
+console.log(user);
   const clickRefresh =() => {
     setRefreshed(!refreshed);
   }
 
-const getUser=async ()=>{
+const getUser=async (id)=>{
   try {
-    const res = await fetch('http://127.0.0.1:8080/api/users/1');
+    const res = await fetch('http://127.0.0.1:8080/api/users/'+id);
+    return await res.json();
+  } catch (error) {
+    console.error(error);
+  }
+}
+const getUsers=async ()=>{
+  try {
+    const res = await fetch('http://127.0.0.1:8080/api/users');
     return await res.json();
   } catch (error) {
     console.error(error);
@@ -125,19 +136,25 @@ const getUser=async ()=>{
   
   
   return (
-    <NativeRouter>
-      <LinearGradient colors={['#ffffff', '#ffffff', '#999999']} style={styles.linearGradient}>
+  
+    <NativeRouter initialEntries={["/login"]}>
+      <LinearGradient colors={['#56DCFC', '#4C9DE0', '#608BF7', '#4C4FE0', '#7F56FC']} style={styles.linearGradient}>
       <View style={styles.container}>
+      <Image source={require("./images/Oot'N'Aboot-logos_black.png")} style={{position:'absolute', width: 100, height: 80, top: 30}}/>
         <NavBar onclick={clickRefresh}/>
         <Params/>
       <Routes>
+        <Route path="/login" element={<LoginPage setUser={setUser}/>}/>  
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
         <Route path="/events" element={<MyEventsPage clickRefresh={clickRefresh}  user={user} patchUser={patchUser}  />}/>
         <Route path="/paramaters" element={<ParametersPage  clickRefresh={clickRefresh} user={user} patchUser={patchUser} setUserLocation={setUserLocation}/>}/>
         <Route path="/account" element={<AccountSettings/>}/>
+
         <Route path="/test" element={<Test/>}/>
+
+
       </Routes>
       </View>
     </LinearGradient>
