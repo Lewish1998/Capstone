@@ -125,7 +125,6 @@ const MyEventsPage = ({ clickRefresh, user, patchUser, javaEvents }) => {
   }
 
 
-console.log(contactable)
 
   loadInBrowser = () => {
     Linking.openURL(myEventData.url).catch((err) =>
