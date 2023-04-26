@@ -1,10 +1,14 @@
+
 import React, { useState } from 'react'
-import { Text, View, StyleSheet, Image, TextInput, Button, TouchableOpacity } from 'react-native'
+import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native'
 import { Link } from "react-router-native";
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faLocationPin } from '@fortawesome/free-solid-svg-icons';
+import Params from '../Params';
+import NavBar from '../NavBar';
 
 const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUser }) => {
+
 
   const [inputValue, setInputValue] = useState('');
 
@@ -21,9 +25,8 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUser }
     clickRefresh()
   }
 
-  
   return (
-    
+
     <View>
       <Text style={styles.location}>
         <View>
@@ -31,12 +34,17 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUser }
         </View>
       {user.location}
     </Text>
+    <TouchableOpacity style={styles.icon}>
+      <Params/>
+      <NavBar/>
+    </TouchableOpacity>
 
     <View style={styles.container}>
         
         <View>
           <Image source={require("../images/Oot'N'Aboot-logos_black.png")} style={{position:'absolute', width: 120, height: 80, left:120, bottom: 10}}/>
         </View>
+        
         
         <Text style={styles.text}>Change Current Location...</Text>
           <TextInput
@@ -46,12 +54,13 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUser }
             onChangeText={handleOnChange}
           />
 
+
         <TouchableOpacity title='submit'>
           <Link  to="/" onPress={handleOnPress}><Text style={{position:'absolute', fontSize:20, left:270, borderRadius:3}}>Submit</Text></Link>
         </TouchableOpacity>
+        {/* </Animated.View> */}
       </View>
-      </View>
-
+    </View>
 
   )
 }
@@ -88,6 +97,11 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight:'bold',
     paddingLeft:5
+  },
+  icon: {
+    position: 'absolute',
+    left: 180,
+    zIndex: 15000,
   },
 })
 

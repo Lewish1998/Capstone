@@ -3,7 +3,7 @@ import EventItem from "./EventItem";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faBackward, faForward } from "@fortawesome/free-solid-svg-icons";
-import AnimatedView from "react-native-animated-view";
+import { useRef } from "react";
 
 
 const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) => {
@@ -71,38 +71,73 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
 
         return setIndex(newIndex)
     }
+  
+        //Animations testing
+        const [positionF, setPositionF] = useState(new Animated.Value(0));
+        const [positionB, setPositionB] = useState(new Animated.Value(0));
 
-    
 
-    // Animation Testing
-    // const FadeInView = props => {
-    //     const fadeAnim = useRef(new Animated.Value(0)).current;
+        const springB = () => {
+            Animated.spring(positionB, {
+                toValue:2,
+                friction: 2000,
+                tension: 10000,
+                useNativeDriver: true
+            }).start(() => {
+              Animated.spring(positionB, {
+                toValue:0,
+                friction: 2000,
+                tension: 0,
+                useNativeDriver: true
+              }).start()
+            })
+        }
 
-    //     useEffect(() => {
-    //       Animated.timing(fadeAnim, {
-    //         toValue:1,
-    //         duration: 10000,
-    //         useNativeDriver: true,
-    //       }).start();
-    //     }, [fadeAnim])
-    // }
+        const springF = () => {
+            Animated.spring(positionF, {
+                toValue:2,
+                friction: 2000,
+                tension: 10000,
+                useNativeDriver: true
+            }).start(() => {
+              Animated.spring(positionF, {
+                toValue:0,
+                friction: 2000,
+                tension: 10000,
+                useNativeDriver: true
+              }).start()
+            })
+        }
+
+        const pressHandlerBack = () => {
+            springB();
+            handleOnPressBack();
+        }
+        const pressHandlerForward = () => {
+            springF();
+            handleOnPress();
+        }
+
 
 
     return(
         <View>
             {eventNodes[index]}
             <View style={styles.buttonContainer}>
-                <TouchableOpacity style={styles.button} onPress={handleOnPressBack} title="Back">
-                    {/* <Text style={{fontSize:20}}>Back</Text> */}
+            <Animated.View style={{transform: [{translateY: positionB}]}}>
+                <TouchableOpacity style={styles.button} onPress={pressHandlerBack} title="Back">
                     <View><FontAwesomeIcon icon={faBackward} color={'#2894FA'}/></View>
                 </TouchableOpacity>
+            </Animated.View>
 
 
-
-                <TouchableOpacity style={styles.button} onPress={handleOnPress} title="Next">
-                    {/* <Text style={{fontSize:20}}>Next</Text> */}
+                <View>
+                 <Animated.View style={{transform: [{translateY: positionF}]}}>
+                <TouchableOpacity style={styles.button} onPress={pressHandlerForward} title="Next">
                     <View><FontAwesomeIcon icon={faForward} color={'#2894FA'} /></View>
                 </TouchableOpacity>
+                </Animated.View>
+                </View>
             </View>
         </View>
     )
@@ -115,7 +150,6 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent: 'center',
         gap:70
-
     },
 
     button:{

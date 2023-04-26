@@ -228,18 +228,11 @@ const EventItem = ({
   };
 
 
-  // ANIMATION TESTING
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-
-  const fadeIn = () => {
-  Animated.timing(fadeAnim, {
-    toValue: 1,
-    duration: 1000,
-    useNativeDriver: true,
-  }).start();
-  };
-
-
+  // Changing size based on the title length
+  let width = 24;
+  if (name.length > 55) {
+    let width = 16;
+  }
   return (
     <View>
     <Text style={styles.location}>
@@ -258,9 +251,12 @@ const EventItem = ({
           <Text style={styles.text}>Venue: {venue}</Text>
           <View style={styles.buttons}>
 
-
           <View>
              <TouchableOpacity onPress={handleOpen}>
+
+
+
+
               <View>
                 <FontAwesomeIcon icon={faInfoCircle} size={50} color={'#4C4FE0'}/>
               </View>
@@ -268,19 +264,19 @@ const EventItem = ({
             </View>
 
             <View style={styles.contact}>
-             <TouchableOpacity onPress={handleContact}>
-              <View>
-                <FontAwesomeIcon icon={contact?faEnvelope:faEnvelopeOpen} size={50}  color={contact?"#7F56FC":"#4C9DE0"}/>
-              </View>
-            </TouchableOpacity>
+              <TouchableOpacity onPress={handleContact}>
+                <View>
+                  <FontAwesomeIcon icon={contact?faEnvelope:faEnvelopeOpen} size={50}  color={contact?"#7F56FC":"#4C9DE0"}/>
+                </View>
+              </TouchableOpacity>
             </View>
 
             <View>
-             <TouchableOpacity onPress={handleInterested}>
-              <View>
-                <FontAwesomeIcon icon={faHeart} size={50} color={interest ? "red" : "darkgrey"}/>
-              </View>
-            </TouchableOpacity>
+              <TouchableOpacity onPress={handleInterested}>
+                <View>
+                  <FontAwesomeIcon icon={faHeart} size={50} color={interest ? "red" : "darkgrey"}/>
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -288,7 +284,7 @@ const EventItem = ({
       ) : toggleContact ? (
         <View style={styles.cardContainer}>
           <Image style={styles.image} source={image}></Image>
-          <Text style={[styles.heading, {fontSize:26}]}>{name}</Text>
+          <Text style={[styles.heading, {fontSize:width}]}>{name}</Text>
           <Text style={styles.text}>Date: {date}</Text>
           <Text style={styles.text}>Time: {time}</Text>
           <Text style={styles.text}>Venue: {venue}</Text>
@@ -354,11 +350,13 @@ const EventItem = ({
             </TouchableOpacity>
           </View>
         </View>
+
       )}
     </View>
-  
+
   );
 };
+
 
 const styles = StyleSheet.create({
   cardContainer: {
@@ -407,10 +405,10 @@ const styles = StyleSheet.create({
   },
   location: {
     position: 'absolute',
-    top: 80,
-    left: 10,
+    top: 85,
+    left:-3,
     fontSize: 22,
-    color: "white",
+    color: "black",
     fontWeight:'bold',
     paddingLeft:5
   },

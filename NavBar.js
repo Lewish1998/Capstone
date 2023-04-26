@@ -17,14 +17,29 @@ const NavBar = () => {
     {isMenuOpen && (
       <View style={styles.menu}>
         <TouchableOpacity style={styles.menuItem}>
-          <Link to="/" onPress={toggleMenu} ><Text style={styles.menuItemText}>Home</Text></Link>        
-          <Link to="/events" onPress={toggleMenu}><Text style={styles.menuItemText}>My Events</Text></Link>
-          <Link to="/paramaters" onPress={toggleMenu}><Text style={styles.menuItemText}>Paramaters</Text></Link>
-          <Link to="/about" onPress={toggleMenu}><Text style={styles.menuItemText}>About</Text></Link>
-          <Link to="/contact" onPress={toggleMenu}><Text style={styles.menuItemText}>Contact</Text></Link>
-          <Link to="/account" onPress={toggleMenu}><Text style={styles.menuItemText}>Account</Text></Link>
-          <Link to="/login" onPress={toggleMenu}><Text style={styles.menuItemText}>Log Out</Text></Link>
+          <Link to="/" onPress={toggleMenu} underlayColor={"#FF1493"} style={{width: 200, borderRadius: 15, alignItems:'center'}}>
+            <Text style={styles.menuItemText}>Home</Text>
+          </Link>
 
+          <Link to="/events" onPress={toggleMenu} underlayColor={"#FF1493"} style={{width: 200, borderRadius: 15, alignItems:'center'}}>
+            <Text style={styles.menuItemText}>My Events</Text>
+          </Link>
+
+          <Link to="/about" onPress={toggleMenu} underlayColor={"#FF1493"} style={{width: 200, borderRadius: 15, alignItems:'center'}}>
+            <Text style={styles.menuItemText}>About</Text>
+          </Link>
+
+          <Link to="/contact" onPress={toggleMenu} underlayColor={"#FF1493"} style={{width: 200, borderRadius: 15, alignItems:'center'}}>
+            <Text style={styles.menuItemText}>Contact</Text>
+          </Link>
+
+          <Link to="/account" onPress={toggleMenu} underlayColor={"#FF1493"} style={{width: 200, borderRadius: 15, alignItems:'center'}}>
+            <Text style={styles.menuItemText}>Account</Text>
+          </Link>
+
+          <Link to="/login" onPress={toggleMenu} underlayColor={"#FF1493"} style={{width: 200, borderRadius: 15, alignItems:'center'}}>
+            <Text style={styles.menuItemText}>Log Out</Text>
+          </Link>
         </TouchableOpacity>
       </View>
     )}
@@ -38,14 +53,6 @@ const NavBar = () => {
     </View>
   )
 }
-
-
-
-
-
-
-
-
 
 
 const styles = StyleSheet.create({
@@ -65,26 +72,25 @@ const styles = StyleSheet.create({
   // Edit here for Nav styling
   menu: {
     position: 'absolute',
-    top: 130,
+    top: 100,
     width: 220,
     height: 300,
-    left: -70,
-    backgroundColor: 'gray',
+    left: -35,
+    backgroundColor: '#C9F5FF',
     justifyContent: 'top',
     alignItems: 'center',
-    borderColor: 'black',
-    borderWidth: 2,
-    borderRadius:20,
+    borderColor: '#2B28FA',
+    borderWidth: 3,
+    borderRadius:15,
   },
   menuItem: {
-    paddingVertical: 20,
-    paddingHorizontal: 40,
+    paddingVertical: 15,
   },
   menuItemText: {
     fontSize: 24,
-    padding:5,
-    color: 'white',
-    opacity:1
+    padding:8,
+    color: 'black',
+    fontWeight: 'bold',
   },
   burgerIcon: {
     position: 'absolute',
@@ -94,7 +100,7 @@ const styles = StyleSheet.create({
     height: 40,
   },
   burgerIconLine: {
-    width: 36,
+    width: 32,
     height: 3,
     backgroundColor: 'black',
     marginBottom: 7,
