@@ -5,14 +5,19 @@ import { faLocationPin } from '@fortawesome/free-solid-svg-icons';
 import NavBar from '../NavBar';
 import Params from '../Params';
 
-const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
+const MyEventsPage = ({ clickRefresh, user, patchUser, javaEvents }) => {
 
   const [myEventData, setMyEventData] = useState([]);
+  const [contactable, setContactable] = useState(1);
+  const [myEventContacts, setMyEventContacts] = useState([]);
+  const [i, setI] = useState("")
 
   useEffect(() => {
     clickRefresh();
   }, []);
- 
+
+  
+
   const handleDelete = async (id) => {
     try {
       const updatedUser = { ...user };
@@ -86,6 +91,8 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
   }
 
   const handleInfo= (id) => {
+    setI(id)
+    setContactable(1)
     if(id === myEventData.id){
       setMyEventData([]);
     }else{
@@ -93,16 +100,34 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
     .then(response => response.json())
     .then(json => setMyEventData(json._embedded.events[0]))
     .catch(error => console.error('Error fetching data:', error));
+    
+    const myEvent = javaEvents.find((javaEvent) => javaEvent.event_id === id);
+    const contactList = myEvent.event_contact
+    setMyEventContacts(contactList)
+    clickRefresh()
   }
 }
 
 
-  // [open,setOpen]=useState(true)
+  const goToContacts = () => {
+    
+    refreshContacts()
+    setContactable(2)
+  }
 
-  // onClickMoreInfo=async()=>{
+  const backToInfo = () => {
+    setContactable(1)
+  }
 
-  // setOpen(!open)
-  // }
+  const refreshContacts = () => {
+    const myEvent = javaEvents.find((javaEvent) => javaEvent.event_id === i);
+    const contactList = myEvent.event_contact
+    setMyEventContacts(contactList)
+
+  }
+
+
+
   loadInBrowser = () => {
     Linking.openURL(myEventData.url).catch((err) =>
       console.error("Couldn't load page", err)
@@ -111,8 +136,11 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
 
   const displayUserInterested = user.user_interested.map((interested) => (
     <View key={interested.id} style={{paddingBottom:20, shadowColor:'black', shadowRadius:10, shadowOffset:{width:0, height:0}, shadowOpacity:0.8}}>
-      { myEventData.id != interested.event_id ?
-    <View>
+
+     { myEventData.id != interested.event_id ? (
+    <View  >
+    
+
 
     <View style={{borderWidth:1, borderRadius:15,backgroundColor:'#F5F8FE'}}>
       <Text style={styles.title} >{interested.event_name}</Text>
@@ -128,7 +156,8 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
     </View> 
     </View>
 
-  :(<View>
+ ): contactable === 1 ?(<View>
+
 
       <Text style={styles.title} >{interested.event_name}</Text>
       <Image style={{height: 90, width: 160, top: 3, bottom: 50,left:80}} source={myEventData.images[1]}></Image>
@@ -136,7 +165,10 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
       <Text style={styles.text}>Time: {interested.event_time}</Text>
       <Text style={styles.text}>Venue: {myEventData._embedded.venues[0].name}</Text>
       <Text style={styles.text}>Status: {myEventData.dates.status.code}</Text> 
-      <Button onPress={loadInBrowser} title="Get Tickets!" />
+
+      <Button onPress={goToContacts} title={`Who's going?: ${myEventContacts.length}`}/>
+      <Button onPress={loadInBrowser} title="Get Tickets" />
+
       <View style={styles.buttons}>
         <Button onPress={() => handleDelete(interested.id)} title="Remove"/>
         <Button title="Going" onPress={() => handleGoing(interested.id)}/>
@@ -144,7 +176,24 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
         <Button title='Info' onPress={()=> handleInfo(interested.event_id)}/>
       </View>
 
-    </View>)}
+
+    </View>):(
+      <View>
+      <View>
+            {myEventContacts.length > 0 ? (
+              myEventContacts.map((contact) => (
+                <View key={contact.id}>
+                  <Text>Name: {contact.name}</Text>
+                  <Text>Email: {contact.email}</Text>
+                </View>
+              ))
+            ) : (
+              <Text>No contacts found.</Text>
+            )}
+          </View>
+      <Button onPress={backToInfo} title="Back to info" />
+      </View>
+    )}
 
     </View>
   ));
@@ -152,8 +201,10 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
   // GOING
   const displayUserGoing = user.user_going.map((going) => (
     <View key={going.id} style={{paddingBottom:20, shadowColor:'black', shadowRadius:10, shadowOffset:{width:0, height:0}, shadowOpacity:0.8}}>
-      { myEventData.id != going.event_id ?
-    <View style={{borderWidth:1, borderRadius:15,backgroundColor:'#F5F8FE'}} >
+
+     { myEventData.id != going.event_id ? (
+    <View style={{borderWidth:1, borderRadius:15,backgroundColor:'#F5F8FE' }} >
+
       <Text style={styles.title}>{going.event_name}</Text>
       <Text style={styles.text}>{going.event_date}</Text>
       <Text style={styles.text}>{going.event_time}</Text>
@@ -164,14 +215,15 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
       <Button title='Info' onPress={()=>handleInfo(going.event_id)}/>
       </View>
     </View>
-    :(<View >
+    ): contactable === 1 ? (<View >
       <Text style={styles.title} >{going.event_name}</Text>
       <Image style={{height: 90, width: 160, top: 3, bottom: 50,left:80}} source={myEventData.images[1]}></Image>
       <Text style={styles.text} >Date: {going.event_date}</Text>
       <Text style={styles.text}>Time: {going.event_time}</Text>
       <Text style={styles.text}>Venue: {myEventData._embedded.venues[0].name}</Text>
       <Text style={styles.text}>Status: {myEventData.dates.status.code}</Text> 
-      <Button onPress={loadInBrowser} title="BUY TICKETS" />
+      <Button onPress={goToContacts} title={`Who's going?: ${myEventContacts.length}`}/>
+      <Button onPress={loadInBrowser} title="Get Tickets" />
       <View style={styles.buttons}>
       <Button onPress={() => handleDelete(going.id)} title="Remove" />
       <Button title="Going" onPress={() => handleGoing(going.id)}  />
@@ -179,8 +231,29 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
       <Button title='Info' onPress={()=> handleInfo(going.event_id)} />
       </View>
     
-      </View>)}
+
+    
+     </View>):(
+      <View>
+      <View>
+            {myEventContacts.length > 0 ? (
+              myEventContacts.map((contact) => (
+                <View key={contact.id}>
+                  <Text>Name: {contact.name}</Text>
+                  <Text>Email: {contact.email}</Text>
+                </View>
+              ))
+            ) : (
+              <Text>No contacts found.</Text>
+            )}
+          </View>
+      <Button onPress={backToInfo} title="Back to info" />
+      </View>
+    )}
+
     </View>
+    
+    
   ));
 
   

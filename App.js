@@ -158,7 +158,7 @@ const getUsers=async ()=>{
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
-        <Route path="/events" element={<MyEventsPage clickRefresh={clickRefresh}  user={user} patchUser={patchUser}  />}/>
+        <Route path="/events" element={<MyEventsPage clickRefresh={clickRefresh}  user={user} patchUser={patchUser} javaEvents={javaEvents} />}/>
         <Route path="/paramaters" element={<ParametersPage  clickRefresh={clickRefresh} user={user} patchUser={patchUser} setUser={setUser}/>}/>
         <Route path="/account" element={<AccountSettings user={user} patchUser={patchUser} clickRefresh={clickRefresh}/>}/>
       </Routes>
