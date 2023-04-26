@@ -24,6 +24,7 @@ const ContactPage = () => {
 
 const styles = StyleSheet.create({
   container:{
+
     borderWidth:2,
     borderRadius:20,
     width: 360,
@@ -40,3 +41,4 @@ const styles = StyleSheet.create({
 })
 
 export default ContactPage;
+
