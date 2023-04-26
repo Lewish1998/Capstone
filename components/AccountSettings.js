@@ -84,7 +84,7 @@ const AccountSettings = ({user, patchUser, clickRefresh}) => {
 
 
           <TouchableOpacity style={styles.loginBtn} onPress={handleAccountUpdate} >
-            <Text style={styles.loginText}> Confirm</Text>
+            <Text style={styles.loginText}> Update</Text>
           </TouchableOpacity>
 
 
