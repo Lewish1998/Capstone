@@ -25,19 +25,6 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUser }
 
   return (
 
-      <View style={styles.container}>
-          <Text style={styles.text}>Change Current Location...</Text>
-
-
-        <TextInput
-          style={styles.input}
-          placeholder="Enter city"
-          value={inputValue}
-          onChangeText={handleOnChange}
-        />
-
-
-    
     <View>
       <Text style={styles.location}>
         <View>
@@ -66,7 +53,6 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUser }
         </TouchableOpacity>
         {/* </Animated.View> */}
       </View>
-    </View>
     </View>
 
   )
