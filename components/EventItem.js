@@ -259,7 +259,7 @@ const EventItem = ({
 
 
           <View>
-             <TouchableOpacity onPress={handleOpen}>
+            <TouchableOpacity onPress={handleOpen}>
               <View>
                 <FontAwesomeIcon icon={faInfoCircle} size={50} color={'#4C4FE0'}/>
               </View>
@@ -267,19 +267,19 @@ const EventItem = ({
             </View>
 
             <View style={styles.contact}>
-             <TouchableOpacity onPress={handleContact}>
-              <View>
-                <FontAwesomeIcon icon={contact?faEnvelope:faEnvelopeOpen} size={50}  color={contact?"#7F56FC":"#4C9DE0"}/>
-              </View>
-            </TouchableOpacity>
+              <TouchableOpacity onPress={handleContact}>
+                <View>
+                  <FontAwesomeIcon icon={contact?faEnvelope:faEnvelopeOpen} size={50}  color={contact?"#7F56FC":"#4C9DE0"}/>
+                </View>
+              </TouchableOpacity>
             </View>
 
             <View>
-             <TouchableOpacity onPress={handleInterested}>
-              <View>
-                <FontAwesomeIcon icon={faHeart} size={50} color={interest ? "red" : "darkgrey"}/>
-              </View>
-            </TouchableOpacity>
+              <TouchableOpacity onPress={handleInterested}>
+                <View>
+                  <FontAwesomeIcon icon={faHeart} size={50} color={interest ? "red" : "darkgrey"}/>
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
         </View>
@@ -406,10 +406,10 @@ const styles = StyleSheet.create({
   },
   location: {
     position: 'absolute',
-    top: 80,
-    left: 10,
+    top: 85,
+    left:-3,
     fontSize: 22,
-    color: "white",
+    color: "black",
     fontWeight:'bold',
     paddingLeft:5
   },

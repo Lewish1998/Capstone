@@ -111,51 +111,49 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
 
   const displayUserInterested = user.user_interested.map((interested) => (
     <View key={interested.id} style={{paddingBottom:20, shadowColor:'black', shadowRadius:10, shadowOffset:{width:0, height:0}, shadowOpacity:0.8}}>
-     { myEventData.id != interested.event_id ?
+      { myEventData.id != interested.event_id ?
     <View>
 
-    <View style={{borderWidth:1, borderRadius:15,backgroundColor:'white' }} >
-   
+    <View style={{borderWidth:1, borderRadius:15,backgroundColor:'#F5F8FE'}}>
       <Text style={styles.title} >{interested.event_name}</Text>
       <Text style={styles.text} >{interested.event_date}</Text>
       <Text style={styles.text}>{interested.event_time}</Text>
       <View style={styles.buttons}>
-      <Button onPress={() => handleDelete(interested.id)} title="Remove" />
-      <Button title="Going" onPress={() => handleGoing(interested.id)}  />
+      <Button onPress={() => handleDelete(interested.id)} title="Remove"/>
+      <Button title="Going" onPress={() => handleGoing(interested.id)}/>
       <Button title="Contact" onPress={() => handleContact(interested.id)}/>
       <Button title='Info' onPress={()=> handleInfo(interested.event_id)} />
-      </View>
+    </View>
     
     </View> 
-  
     </View>
+
   :(<View>
 
-       
-        <Text style={styles.title} >{interested.event_name}</Text>
-        <Image style={{height: 90, width: 160, top: 10, bottom: 50,}} source={myEventData.images[1]}></Image>
-      <Text style={styles.text} >Date: {interested.event_date}</Text>
+      <Text style={styles.title} >{interested.event_name}</Text>
+      <Image style={{height: 90, width: 160, top: 10, bottom: 50,}} source={myEventData.images[1]}></Image>
+      <Text style={styles.text}>Date: {interested.event_date}</Text>
       <Text style={styles.text}>Time: {interested.event_time}</Text>
       <Text style={styles.text}>Venue: {myEventData._embedded.venues[0].name}</Text>
       <Text style={styles.text}>Status: {myEventData.dates.status.code}</Text> 
       <Button onPress={loadInBrowser} title="BUY TICKETS" />
       <View style={styles.buttons}>
-      <Button onPress={() => handleDelete(interested.id)} title="Remove" />
-      <Button title="Going" onPress={() => handleGoing(interested.id)}  />
-      <Button title="Contact" onPress={() => handleContact(interested.id)}/>
-      <Button title='Info' onPress={()=> handleInfo(interested.event_id)} />
+        <Button onPress={() => handleDelete(interested.id)} title="Remove"/>
+        <Button title="Going" onPress={() => handleGoing(interested.id)}/>
+        <Button title="Contact" onPress={() => handleContact(interested.id)}/>
+        <Button title='Info' onPress={()=> handleInfo(interested.event_id)}/>
       </View>
 
     </View>)}
+
     </View>
-   
   ));
 
   // GOING
   const displayUserGoing = user.user_going.map((going) => (
     <View key={going.id} style={{paddingBottom:20, shadowColor:'black', shadowRadius:10, shadowOffset:{width:0, height:0}, shadowOpacity:0.8}}>
-     { myEventData.id != going.event_id ?
-    <View style={{borderWidth:1, borderRadius:15,backgroundColor:'white' }} >
+      { myEventData.id != going.event_id ?
+    <View style={{borderWidth:1, borderRadius:15,backgroundColor:'#F5F8FE'}} >
       <Text style={styles.title}>{going.event_name}</Text>
       <Text style={styles.text}>{going.event_date}</Text>
       <Text style={styles.text}>{going.event_time}</Text>
@@ -181,8 +179,7 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
       <Button title='Info' onPress={()=> handleInfo(going.event_id)} />
       </View>
     
-    
-     </View>)}
+      </View>)}
     </View>
   ));
 
@@ -230,7 +227,7 @@ const styles = StyleSheet.create({
     top: 120,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    backgroundColor: "#ffffff",
+    backgroundColor: "#C9F5FF",
     shadowOffset: { width: 0, height: 0 },
     shadowColor: "black",
     shadowOpacity: 1,
@@ -257,10 +254,10 @@ const styles = StyleSheet.create({
   }, 
   location: {
     position: 'absolute',
-    top: 80,
-    left: 10,
+    top: 85,
+    left:-3,
     fontSize: 22,
-    color: "white",
+    color: "black",
     fontWeight:'bold',
     paddingLeft:5
   },
