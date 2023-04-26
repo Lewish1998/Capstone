@@ -69,7 +69,7 @@ const LoginPage = ({ setUser, clickRefresh, setUserLocation, user }) => {
           onChangeText={(email) => setEmail(email.toLowerCase())}
         />
       </View>
-   
+      
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
@@ -93,7 +93,7 @@ const LoginPage = ({ setUser, clickRefresh, setUserLocation, user }) => {
       </Link>
     }
     <Link to="/register" style={styles.loginBtn}>
-      <Text style={styles.loginText}>Register</Text>
+      <Text style={styles.loginText}>REGISTER</Text>
     </Link>
     
     </View>

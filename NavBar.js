@@ -19,7 +19,7 @@ const NavBar = () => {
         <TouchableOpacity style={styles.menuItem}>
           <Link to="/" onPress={toggleMenu} ><Text style={styles.menuItemText}>Home</Text></Link>        
           <Link to="/events" onPress={toggleMenu}><Text style={styles.menuItemText}>My Events</Text></Link>
-          <Link to="/paramaters" onPress={toggleMenu}><Text style={styles.menuItemText}>Paramaters</Text></Link>
+          {/* <Link to="/paramaters" onPress={toggleMenu}><Text style={styles.menuItemText}>Paramaters</Text></Link> */}
           <Link to="/about" onPress={toggleMenu}><Text style={styles.menuItemText}>About</Text></Link>
           <Link to="/contact" onPress={toggleMenu}><Text style={styles.menuItemText}>Contact</Text></Link>
           <Link to="/account" onPress={toggleMenu}><Text style={styles.menuItemText}>Account</Text></Link>
@@ -38,14 +38,6 @@ const NavBar = () => {
     </View>
   )
 }
-
-
-
-
-
-
-
-
 
 
 const styles = StyleSheet.create({

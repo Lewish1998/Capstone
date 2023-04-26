@@ -52,7 +52,7 @@ const Register = ({userPost, getUsers, clickRefresh}) => {
     return (
         <View style={styles.container}>
         <Image source={require("../images/Oot'N'Aboot-logos.jpeg")} 
-      style={{position:'absolute', width: 150, height: 150, left: 48, bottom: 230, borderRadius: 15}}/>
+        style={{position:'absolute', width: 150, height: 150, left: 48, bottom: 230, borderRadius: 15}}/>
           <View style={styles.inputView}>
             <TextInput
               style={styles.TextInput}
