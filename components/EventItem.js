@@ -327,25 +327,24 @@ const EventItem = ({
         </View>
       ) : (
         <View style={styles.cardContainer}>
-          <Text>test</Text>
 
           <View>
             {contactList.length > 0 ? (
               contactList.map((contact) => (
                 <View key={contact.id}>
-                  <Text>Name: {contact.name}</Text>
-                  <Text>Email: {contact.email}</Text>
+                <Text style={{marginBottom: 2, left: 10, top: 10}}><Text style={{fontWeight:'bold'}}>Name: </Text>{contact.name}</Text>
+                  <Text style={{marginBottom: 2, left: 10, top: 10}}><Text style={{fontWeight:'bold'}}>Email: </Text>{contact.email}</Text>
                 </View>
               ))
             ) : (
-              <Text>No contacts found.</Text>
+              <Text style={{margin: 5, fontWeight:'bold', color:"red"}}>No contacts found</Text>
             )}
           </View>
 
           <View>
-             <TouchableOpacity onPress={handleGoBack}>
+            <TouchableOpacity onPress={handleGoBack}>
               <View>
-                <FontAwesomeIcon icon={faArrowRotateBack} size={50} color={'#7F56FC'}/>
+                <FontAwesomeIcon icon={faArrowRotateBack} size={34} color={'#7F56FC'} style={{position: "absolute", left: 320, bottom: -5}}/>
               </View>
             </TouchableOpacity>
           </View>

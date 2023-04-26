@@ -156,7 +156,7 @@ const MyEventsPage = ({ clickRefresh, user, patchUser, javaEvents }) => {
     </View> 
     </View>
 
- ): contactable === 1 ?(<View>
+ ): contactable === 1 ?(<View style={{borderWidth:1, borderRadius:15, backgroundColor:'#F5F8FE' }}>
 
 
       <Text style={styles.title} >{interested.event_name}</Text>
@@ -179,16 +179,16 @@ const MyEventsPage = ({ clickRefresh, user, patchUser, javaEvents }) => {
 
     </View>):(
       <View>
-      <View>
+      <View style={{borderWidth:1, borderRadius:15, backgroundColor:'#F5F8FE', alignItems: 'center'}}>
             {myEventContacts.length > 0 ? (
               myEventContacts.map((contact) => (
-                <View key={contact.id}>
-                  <Text>Name: {contact.name}</Text>
-                  <Text>Email: {contact.email}</Text>
+                <View key={contact.id} style={{padding: 5, backgroundColor:'#F5F8FE'}}>
+                  <Text style={{marginBottom: 2}}><Text style={{fontWeight:'bold'}}>Name: </Text>{contact.name}</Text>
+                  <Text style={{marginBottom: 2}}><Text style={{fontWeight:'bold'}}>Email: </Text>{contact.email}</Text>
                 </View>
               ))
             ) : (
-              <Text>No contacts found.</Text>
+              <Text style={{margin: 5, fontWeight:'bold', color:"red"}}>No contacts found</Text>
             )}
           </View>
       <Button onPress={backToInfo} title="Back to info" />
@@ -215,7 +215,7 @@ const MyEventsPage = ({ clickRefresh, user, patchUser, javaEvents }) => {
       <Button title='Info' onPress={()=>handleInfo(going.event_id)}/>
       </View>
     </View>
-    ): contactable === 1 ? (<View >
+    ): contactable === 1 ? (<View style={{borderWidth:1, borderRadius:15,backgroundColor:'#F5F8FE' }}>
       <Text style={styles.title} >{going.event_name}</Text>
       <Image style={{height: 90, width: 160, top: 3, bottom: 50,left:80}} source={myEventData.images[1]}></Image>
       <Text style={styles.text} >Date: {going.event_date}</Text>
@@ -235,12 +235,12 @@ const MyEventsPage = ({ clickRefresh, user, patchUser, javaEvents }) => {
     
      </View>):(
       <View>
-      <View>
+      <View style={{borderWidth:1, borderRadius:15, backgroundColor:'#F5F8FE', alignItems: 'center'}}>
             {myEventContacts.length > 0 ? (
               myEventContacts.map((contact) => (
-                <View key={contact.id}>
-                  <Text>Name: {contact.name}</Text>
-                  <Text>Email: {contact.email}</Text>
+                <View key={contact.id} style={{padding: 5, backgroundColor:'#F5F8FE'}}>
+                  <Text style={{marginBottom: 2}}><Text style={{fontWeight:'bold'}}>Name: </Text>{contact.name}</Text>
+                  <Text style={{marginBottom: 2}}><Text style={{fontWeight:'bold'}}>Email: </Text>{contact.email}</Text>
                 </View>
               ))
             ) : (
