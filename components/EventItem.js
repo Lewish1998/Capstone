@@ -238,9 +238,17 @@ const EventItem = ({
   }).start();
   };
 
+  // Changing size based on the title length
+  let width = 24;
+  if (name.length > 55) {
+    let width = 16;
+  }
+
 
   return (
     <View>
+
+      
     <Text style={styles.location}>
       <View>
         <FontAwesomeIcon icon={faLocationPin} size={22} color={'#6026F0'}/>
@@ -256,7 +264,6 @@ const EventItem = ({
           <Text style={styles.text}>Time: {time}</Text>
           <Text style={styles.text}>Venue: {venue}</Text>
           <View style={styles.buttons}>
-
 
           <View>
              <TouchableOpacity onPress={handleOpen}>
@@ -287,7 +294,7 @@ const EventItem = ({
       ) : toggleContact ? (
         <View style={styles.cardContainer}>
           <Image style={styles.image} source={image}></Image>
-          <Text style={[styles.heading, {fontSize:26}]}>{name}</Text>
+          <Text style={[styles.heading, {fontSize:width}]}>{name}</Text>
           <Text style={styles.text}>Date: {date}</Text>
           <Text style={styles.text}>Time: {time}</Text>
           <Text style={styles.text}>Venue: {venue}</Text>
@@ -355,9 +362,9 @@ const EventItem = ({
         </View>
       )}
     </View>
-  
   );
 };
+
 
 const styles = StyleSheet.create({
   cardContainer: {
