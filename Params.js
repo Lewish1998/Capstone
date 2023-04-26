@@ -12,11 +12,11 @@ const Params = () => {
 
   <View style={styles.container}>
 
-    <TouchableOpacity>
+    <TouchableOpacity style={styles.paramsIcon}>
       <View>
-      <Link to="/paramaters">
-      <FontAwesomeIcon style={styles.burgerIcon} icon={faSliders} size={30}/>
-      </Link>
+        <Link to="/paramaters" underlayColor={"transparent"}>
+          <FontAwesomeIcon icon={faSliders} size={30}/>
+        </Link>
       </View>
     </TouchableOpacity>
     
@@ -48,17 +48,16 @@ const styles = StyleSheet.create({
     fontSize: 24,
     padding:5
   },
-  burgerIcon: {
+  paramsIcon: {
     position: 'absolute',
     top: 67,
     left: 100,
     width: 40,
-    height: 40,
+    height: 30,
   },
-  burgerIconLine: {
+  paramsIconLine: {
     width: 36,
     height: 25,
-    backgroundColor: 'black',
     marginBottom: 7,
   },
 });
