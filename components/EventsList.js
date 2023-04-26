@@ -75,16 +75,34 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
         //Animations testing
 
 
-        const [position, setPosition] = useState(new Animated.Value(0));
+        const [positionF, setPositionF] = useState(new Animated.Value(0));
+        const [positionB, setPositionB] = useState(new Animated.Value(0));
 
-        const spring = () => {
-            Animated.spring(position, {
+
+        const springB = () => {
+            Animated.spring(positionB, {
                 toValue:2,
                 friction: 2000,
                 tension: 10000,
                 useNativeDriver: true
             }).start(() => {
-              Animated.spring(position, {
+              Animated.spring(positionB, {
+                toValue:0,
+                friction: 2000,
+                tension: 0,
+                useNativeDriver: true
+              }).start()
+            })
+        }
+
+        const springF = () => {
+            Animated.spring(positionF, {
+                toValue:2,
+                friction: 2000,
+                tension: 10000,
+                useNativeDriver: true
+            }).start(() => {
+              Animated.spring(positionF, {
                 toValue:0,
                 friction: 2000,
                 tension: 10000,
@@ -94,11 +112,11 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
         }
 
         const pressHandlerBack = () => {
-            spring();
+            springB();
             handleOnPressBack();
         }
         const pressHandlerForward = () => {
-            spring();
+            springF();
             handleOnPress();
         }
 
@@ -108,7 +126,7 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
         <View>
             {eventNodes[index]}
             <View style={styles.buttonContainer}>
-            <Animated.View style={{transform: [{translateY: position}]}}>
+            <Animated.View style={{transform: [{translateY: positionB}]}}>
                 <TouchableOpacity style={styles.button} onPress={pressHandlerBack} title="Back">
                     <View><FontAwesomeIcon icon={faBackward} color={'#2894FA'}/></View>
                 </TouchableOpacity>
@@ -116,7 +134,7 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
 
 
                 <View>
-                 <Animated.View style={{transform: [{translateY: position}]}}>
+                 <Animated.View style={{transform: [{translateY: positionF}]}}>
                 <TouchableOpacity style={styles.button} onPress={pressHandlerForward} title="Next">
                     <View><FontAwesomeIcon icon={faForward} color={'#2894FA'} /></View>
                 </TouchableOpacity>

@@ -7,19 +7,19 @@ import { useRef } from 'react';
 
 const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUserLocation }) => {
   
+  // Unnecessary animation 
+  // const fadeAnim = useRef(new Animated.Value(0)).current;
+  // const fadeIn = () => {
+  //   Animated.timing(fadeAnim, {
+  //     toValue: 1,
+  //     duration: 2000,
+  //     useNativeDriver: true,
+  //   }).start();
+  // };
 
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-  const fadeIn = () => {
-    Animated.timing(fadeAnim, {
-      toValue: 1,
-      duration: 2000,
-      useNativeDriver: true,
-    }).start();
-  };
-
-  useEffect(() => {
-    fadeIn();
-  }, []);
+  // useEffect(() => {
+  //   fadeIn();
+  // }, []);
 
 
   const [inputValue, setInputValue] = useState('');
@@ -38,7 +38,7 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUserLo
 
   return (
       <View style={styles.container}>
-        <Animated.View style={[styles.fadingContainer, {opacity:fadeAnim}]}>
+        {/* <Animated.View style={[styles.fadingContainer, {opacity:fadeAnim}]}> */}
           <Text style={styles.text}>Change Current Location...</Text>
 
 
@@ -52,7 +52,7 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUserLo
         <TouchableOpacity title='submit'>
           <Link  to="/" onPress={handleOnPress}><Text style={{position:'absolute', fontSize:20, left:270, borderRadius:3}}>Submit</Text></Link>
         </TouchableOpacity>
-        </Animated.View>
+        {/* </Animated.View> */}
       </View>
   )
 }
