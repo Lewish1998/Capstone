@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native'
 import EventsList from './EventsList'
 import Params from '../Params'
+import NavBar from '../NavBar'
 
 
 const Home = ({events, javaEvents, user, eventPost, patch, clickRefresh}) => {
@@ -12,6 +13,7 @@ return (
     <Image source={require("../images/Oot'N'Aboot-logos_black.png")} style={{position:'absolute', width: 120, height: 80, top: 30, left:120}}/>
     <TouchableOpacity style={styles.icon}>
       <Params/>
+      <NavBar/>
     </TouchableOpacity>
       <EventsList events={events} user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>
   </View>

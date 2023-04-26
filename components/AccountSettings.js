@@ -2,6 +2,8 @@ import React from 'react';
 import { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native';
 import { useNavigate } from "react-router-native";
+import NavBar from '../NavBar';
+import Params from '../Params';
 
 const AccountSettings = ({user, patchUser, clickRefresh}) => {
   const navigate = useNavigate();
@@ -13,33 +15,35 @@ const AccountSettings = ({user, patchUser, clickRefresh}) => {
   const locationUp = (data) => {
     let newLocation =`${data.charAt(0).toUpperCase()}${data.slice(1)}`
     setUpdateLocation(newLocation);
-   
   }
+
   const nameUp = (data) => {
     let newName =`${data.charAt(0).toUpperCase()}${data.slice(1)}`
     setUpdateName(newName);
-   
   }
   
   const handleAccountUpdate= () => {
     if(updateEmail.length === 0 || updatePassword.length === 0 || updateLocation.length === 0 || updateName.length === 0 ){
         alert("Please Complete All Fields")
-    } else{
-       user.name = updateName
-       user.email = updateEmail
-       user.location = updateLocation
-       user.password = updatePassword 
+    } else {
+      user.name = updateName
+      user.email = updateEmail
+      user.location = updateLocation
+      user.password = updatePassword 
 
       patchUser(user,user.id)
       clickRefresh(); 
       navigate("/");
-
     }
 }
 
 
   return (
-    
+    <View>
+      <TouchableOpacity style={styles.icon}>
+        <Params/>
+        <NavBar/>
+      </TouchableOpacity>
     <View style={styles.container}>
       <View>
         <Image source={require("../images/Oot'N'Aboot-logos_black.png")} style={{position:'absolute', width: 120, height: 80, left:110, bottom:20}}/>
@@ -87,7 +91,7 @@ const AccountSettings = ({user, patchUser, clickRefresh}) => {
             <Text style={styles.loginText}> Confirm</Text>
           </TouchableOpacity>
 
-
+          </View>
 
 
     </View>
@@ -116,6 +120,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     width: "100%",
+  },
+  icon: {
+    position: 'absolute',
+    left: 180,
+    zIndex: 15000,
   },
 })
 

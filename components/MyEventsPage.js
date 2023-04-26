@@ -1,7 +1,9 @@
 import React, { useEffect,useState } from 'react';
-import { Text, View, Button, StyleSheet, ScrollView, Image, Linking} from 'react-native';
+import { Text, View, Button, StyleSheet, ScrollView, Image, Linking, TouchableOpacity } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faLocationPin } from '@fortawesome/free-solid-svg-icons';
+import NavBar from '../NavBar';
+import Params from '../Params';
 
 const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
 
@@ -110,8 +112,7 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
   const displayUserInterested = user.user_interested.map((interested) => (
     <View key={interested.id} style={{paddingBottom:20, shadowColor:'black', shadowRadius:10, shadowOffset:{width:0, height:0}, shadowOpacity:0.8}}>
      { myEventData.id != interested.event_id ?
-    <View  >
-    
+    <View>
 
     <View style={{borderWidth:1, borderRadius:15,backgroundColor:'white' }} >
    
@@ -196,6 +197,10 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
       </View>
     {user.location}
   </Text>
+  <TouchableOpacity style={styles.icon}>
+      <Params/>
+      <NavBar/>
+  </TouchableOpacity>
   
   <View style={[styles.container]}>
     <View>
@@ -244,8 +249,6 @@ const styles = StyleSheet.create({
     textAlign:'center',
     padding:3
   },
- 
- 
   buttons:{
     flex:4,
     flexDirection:'row',
@@ -261,7 +264,11 @@ const styles = StyleSheet.create({
     fontWeight:'bold',
     paddingLeft:5
   },
-  
+  icon: {
+    position: 'absolute',
+    left: 180,
+    zIndex: 15000,
+  },
 });
 
 export default MyEventsPage;
