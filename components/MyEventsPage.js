@@ -1,15 +1,15 @@
 import React, { useEffect,useState } from 'react';
-import { Text, View, Button, StyleSheet, ScrollView} from 'react-native';
+import { Text, View, Button, StyleSheet, ScrollView, Image, Linking} from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faLocationPin } from '@fortawesome/free-solid-svg-icons';
 
 const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
+
+  const [myEventData, setMyEventData] = useState([]);
+
   useEffect(() => {
     clickRefresh();
-    console.log(user.location)
   }, []);
-
-  console.log(user.location)
  
   const handleDelete = async (id) => {
     try {
@@ -59,7 +59,7 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
   const handleContact = async (id) => {
     try {
       const updatedUser = { ...user };
-      console.log(updatedUser.user_going.some(event => event.id === id))
+    
       if (updatedUser.user_contact.some(event => event.id === id)) {
         updatedUser.user_contact = updatedUser.user_contact.filter(contact => contact.id !== id);
         await patchUser(updatedUser, user.id);
@@ -82,20 +82,39 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
       console.error('Error moving event to "Interested":', error);
     }
   }
-  
 
-  [open,setOpen]=useState(true)
-
-  onClickMoreInfo=async()=>{
-    console.log(open)
-  setOpen(!open)
-  console.log(open);
+  const handleInfo= (id) => {
+    if(id === myEventData.id){
+      setMyEventData([]);
+    }else{
+    fetch('https://app.ticketmaster.com/discovery/v2/events.json?id='+id+'&apikey=S0uqfssCa1qWxQqMpnc9rKK8PGRwt4IZ')
+    .then(response => response.json())
+    .then(json => setMyEventData(json._embedded.events[0]))
+    .catch(error => console.error('Error fetching data:', error));
   }
+}
+
+
+  // [open,setOpen]=useState(true)
+
+  // onClickMoreInfo=async()=>{
+
+  // setOpen(!open)
+  // }
+  loadInBrowser = () => {
+    Linking.openURL(myEventData.url).catch((err) =>
+      console.error("Couldn't load page", err)
+    );
+  };
 
   const displayUserInterested = user.user_interested.map((interested) => (
+    <View key={interested.id} style={{paddingBottom:20, shadowColor:'black', shadowRadius:10, shadowOffset:{width:0, height:0}, shadowOpacity:0.8}}>
+     { myEventData.id != interested.event_id ?
+    <View  >
+    
 
-    <View style={{paddingBottom:20, shadowColor:'black', shadowRadius:10, shadowOffset:{width:0, height:0}, shadowOpacity:0.8}}>
-    <View style={{borderWidth:1, borderRadius:15,backgroundColor:'white' }} key={interested.id}>
+    <View style={{borderWidth:1, borderRadius:15,backgroundColor:'white' }} >
+   
       <Text style={styles.title} >{interested.event_name}</Text>
       <Text style={styles.text} >{interested.event_date}</Text>
       <Text style={styles.text}>{interested.event_time}</Text>
@@ -103,16 +122,39 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
       <Button onPress={() => handleDelete(interested.id)} title="Remove" />
       <Button title="Going" onPress={() => handleGoing(interested.id)}  />
       <Button title="Contact" onPress={() => handleContact(interested.id)}/>
-      <Button title='Info' onPress={()=>{onClickMoreInfo}} />
+      <Button title='Info' onPress={()=> handleInfo(interested.event_id)} />
       </View>
+    
+    </View> 
+  
     </View>
+  :(<View>
+
+       
+        <Text style={styles.title} >{interested.event_name}</Text>
+        <Image style={{height: 90, width: 160, top: 3, bottom: 50,left:80}} source={myEventData.images[1]}></Image>
+      <Text style={styles.text} >Date: {interested.event_date}</Text>
+      <Text style={styles.text}>Time: {interested.event_time}</Text>
+      <Text style={styles.text}>Venue: {myEventData._embedded.venues[0].name}</Text>
+      <Text style={styles.text}>Status: {myEventData.dates.status.code}</Text> 
+      <Button onPress={loadInBrowser} title="Get Tickets!" />
+      <View style={styles.buttons}>
+      <Button onPress={() => handleDelete(interested.id)} title="Remove" />
+      <Button title="Going" onPress={() => handleGoing(interested.id)}  />
+      <Button title="Contact" onPress={() => handleContact(interested.id)}/>
+      <Button title='Info' onPress={()=> handleInfo(interested.event_id)} />
+      </View>
+
+    </View>)}
     </View>
+   
   ));
 
   // GOING
   const displayUserGoing = user.user_going.map((going) => (
-    <View style={{paddingBottom:20, shadowColor:'black', shadowRadius:10, shadowOffset:{width:0, height:0}, shadowOpacity:0.8}}>
-    <View style={{borderWidth:1, borderRadius:15,backgroundColor:'white' }} key={going.id}>
+    <View key={going.id} style={{paddingBottom:20, shadowColor:'black', shadowRadius:10, shadowOffset:{width:0, height:0}, shadowOpacity:0.8}}>
+     { myEventData.id != going.event_id ?
+    <View style={{borderWidth:1, borderRadius:15,backgroundColor:'white' }} >
       <Text style={styles.title}>{going.event_name}</Text>
       <Text style={styles.text}>{going.event_date}</Text>
       <Text style={styles.text}>{going.event_time}</Text>
@@ -120,23 +162,45 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
       <Button onPress={() => handleDelete(going.id)} title="Remove" />
       <Button title="Not Going" onPress={() => handleNotGoing(going.id)} />
       <Button title="Contact" onPress={() => handleContact(going.id)} />
-      <Button title='Info' onPress={()=>{onClickMoreInfo}}/>
+      <Button title='Info' onPress={()=>handleInfo(going.event_id)}/>
       </View>
     </View>
+    :(<View >
+      <Text style={styles.title} >{going.event_name}</Text>
+        <Image style={{height: 90, width: 160, top: 10, bottom: 50,}} source={myEventData.images[1]}></Image>
+      <Text style={styles.text} >Date: {going.event_date}</Text>
+      <Text style={styles.text}>Time: {going.event_time}</Text>
+      <Text style={styles.text}>Venue: {myEventData._embedded.venues[0].name}</Text>
+      <Text style={styles.text}>Status: {myEventData.dates.status.code}</Text> 
+      <Button onPress={loadInBrowser} title="BUY TICKETS" />
+      <View style={styles.buttons}>
+      <Button onPress={() => handleDelete(going.id)} title="Remove" />
+      <Button title="Going" onPress={() => handleGoing(going.id)}  />
+      <Button title="Contact" onPress={() => handleContact(going.id)}/>
+      <Button title='Info' onPress={()=> handleInfo(going.event_id)} />
+      </View>
+    
+    
+     </View>)}
     </View>
   ));
 
+  
   return (
     // Location information
   <View >
-    <Text style={styles.location}>
+
+  <Text style={styles.location}>
       <View>
-        <FontAwesomeIcon icon={faLocationPin} size={18}/>
+        <FontAwesomeIcon icon={faLocationPin} size={22} color={'#6026F0'}/>
       </View>
-      {user.location}
-    </Text>
+    {user.location}
+  </Text>
   
-  <View style={[styles.container, ]}>
+  <View style={[styles.container]}>
+    <View>
+      <Image source={require("../images/Oot'N'Aboot-logos_black.png")} style={{position:'absolute', width: 120, height: 80, left:110, bottom:20}}/>
+    </View>
     <ScrollView>
     <View style={{backgroundColor:'#2894FA', borderRadius:25, marginBottom:10,}}>
       <Text style={{color:'white', fontSize:30, fontWeight:'bold', paddingBottom:10, textAlign:'center', top:3}}>Going</Text>
@@ -174,11 +238,14 @@ const styles = StyleSheet.create({
     textAlign:'center',
     textDecorationLine:'underline',
   },
+
   text:{
     fontSize:20,
     textAlign:'center',
     padding:3
   },
+ 
+ 
   buttons:{
     flex:4,
     flexDirection:'row',
@@ -189,10 +256,12 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 80,
     left: 10,
-    fontSize: 20,
-    color: "black",
-    textDecorationLine: 'underline'
+    fontSize: 22,
+    color: "white",
+    fontWeight:'bold',
+    paddingLeft:5
   },
+  
 });
 
 export default MyEventsPage;

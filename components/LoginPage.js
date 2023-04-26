@@ -1,3 +1,4 @@
+import { useReducedMotion } from "@react-spring/native";
 import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
@@ -11,10 +12,12 @@ import {
 import { Link } from "react-router-native";
 
 
-const LoginPage = ({ setUser }) => {
+
+const LoginPage = ({ setUser, clickRefresh, setUserLocation, user }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [users, setUsers] = useState([]);
+  const [login, setLogin] = useState(false);
 
   useEffect(() => {
     getUsers();
@@ -26,23 +29,39 @@ const LoginPage = ({ setUser }) => {
       .then((data) => setUsers(data));
   };
 
-  const handlePress = () => {
+  useEffect(() => {
+    loginUser();
+  }, [password]);
+
+
+  const loginUser = () => {
     const userToLogin = users.filter((user) => user.email === email.toLowerCase());
     if (userToLogin.length > 0) {
       if (userToLogin[0].password === password.toLowerCase()) {
         setUser(userToLogin[0]);
-      } else {
-        alert("Password is Incorrect");
-      }
-    } else {
-      alert("Email is wrong, have you registered?");
+        setLogin(true);
+        setUserLocation(user.location);
+        clickRefresh();
     }
-  };
+  }
+}
+
+
+
+  const handlePress = () => {
+    setEmail("")
+    setPassword("")
+        alert("Email or Password is Incorrect");
+  }
+
+
+
 
   return (
     <View style={styles.container}>
-      {/* <Image style={styles.image} source={require("./assets/log2.png")} /> */}
       <View style={styles.inputView}>
+      <Image source={require("../images/Oot'N'Aboot-logos.jpeg")} 
+      style={{position:'absolute', width: 150, height: 150, left: 48, bottom: 65, borderRadius: 15}}/>
         <TextInput
           style={styles.TextInput}
           placeholder="Email"
@@ -50,6 +69,7 @@ const LoginPage = ({ setUser }) => {
           onChangeText={(email) => setEmail(email.toLowerCase())}
         />
       </View>
+   
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
@@ -59,12 +79,23 @@ const LoginPage = ({ setUser }) => {
           onChangeText={(password) => setPassword(password.toLowerCase())}
         />
       </View>
-      <TouchableOpacity onPress={() => console.log("Forgot Password")}>
+      <TouchableOpacity onPress={() => alert("Oh dear")}>
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
-      <Link to="/" style={styles.loginBtn} onPress={handlePress}>
+
+    {login?
+      <Link to="/" style={styles.loginBtn} >
         <Text style={styles.loginText}>LOGIN</Text>
       </Link>
+      :
+      <Link style={styles.loginBtn} onPress={handlePress}>
+        <Text style={styles.loginText}>LOGIN</Text>
+      </Link>
+    }
+    <Link to="/register" style={styles.loginBtn}>
+      <Text style={styles.loginText}>Register</Text>
+    </Link>
+    
     </View>
   );
 };
@@ -83,7 +114,7 @@ const styles = StyleSheet.create({
   inputView: {
     backgroundColor: "#ffffff",
     borderRadius: 30,
-    width: 200,
+    width: 240,
     height: 45,
     marginBottom: 20,
 
@@ -92,19 +123,19 @@ const styles = StyleSheet.create({
     height: 50,
     flex: 1,
     padding: 10,
-    marginLeft: 20,
+    width: "100%",
   },
   forgot_button: {
     height: 30,
     marginBottom: 30,
   },
   loginBtn: {
-    width: 100,
+    width: 120,
     borderRadius: 25,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
+    marginTop: 25,
     backgroundColor: "#FF1493",
   },
   loginText: {
