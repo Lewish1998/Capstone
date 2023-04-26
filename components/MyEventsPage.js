@@ -93,7 +93,7 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
     .catch(error => console.error('Error fetching data:', error));
   }
 }
-  console.log(myEventData.name)
+
 
   // [open,setOpen]=useState(true)
 
@@ -153,6 +153,7 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
   // GOING
   const displayUserGoing = user.user_going.map((going) => (
     <View key={going.id} style={{paddingBottom:20, shadowColor:'black', shadowRadius:10, shadowOffset:{width:0, height:0}, shadowOpacity:0.8}}>
+     { myEventData.id != going.event_id ?
     <View style={{borderWidth:1, borderRadius:15,backgroundColor:'white' }} >
       <Text style={styles.title}>{going.event_name}</Text>
       <Text style={styles.text}>{going.event_date}</Text>
@@ -161,9 +162,26 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
       <Button onPress={() => handleDelete(going.id)} title="Remove" />
       <Button title="Not Going" onPress={() => handleNotGoing(going.id)} />
       <Button title="Contact" onPress={() => handleContact(going.id)} />
-      <Button title='Info' onPress={()=>{onClickMoreInfo}}/>
+      <Button title='Info' onPress={()=>handleInfo(going.event_id)}/>
       </View>
     </View>
+    :(<View >
+      <Text style={styles.title} >{going.event_name}</Text>
+        <Image style={{height: 90, width: 160, top: 10, bottom: 50,}} source={myEventData.images[1]}></Image>
+      <Text style={styles.text} >Date: {going.event_date}</Text>
+      <Text style={styles.text}>Time: {going.event_time}</Text>
+      <Text style={styles.text}>Venue: {myEventData._embedded.venues[0].name}</Text>
+      <Text style={styles.text}>Status: {myEventData.dates.status.code}</Text> 
+      <Button onPress={loadInBrowser} title="BUY TICKETS" />
+      <View style={styles.buttons}>
+      <Button onPress={() => handleDelete(going.id)} title="Remove" />
+      <Button title="Going" onPress={() => handleGoing(going.id)}  />
+      <Button title="Contact" onPress={() => handleContact(going.id)}/>
+      <Button title='Info' onPress={()=> handleInfo(going.event_id)} />
+      </View>
+    
+    
+     </View>)}
     </View>
   ));
 
