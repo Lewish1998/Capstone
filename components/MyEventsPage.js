@@ -235,12 +235,12 @@ const MyEventsPage = ({ clickRefresh, user, patchUser, javaEvents }) => {
     
      </View>):(
       <View>
-      <View>
+      <View style={{borderWidth:1, borderRadius:15, backgroundColor:'#F5F8FE', alignItems: 'center'}}>
             {myEventContacts.length > 0 ? (
               myEventContacts.map((contact) => (
-                <View key={contact.id}>
-                  <Text>Name: {contact.name}</Text>
-                  <Text>Email: {contact.email}</Text>
+                <View key={contact.id} style={{padding: 5, backgroundColor:'#F5F8FE'}}>
+                  <Text style={{marginBottom: 2}}><Text style={{fontWeight:'bold'}}>Name: </Text>{contact.name}</Text>
+                  <Text style={{marginBottom: 2}}><Text style={{fontWeight:'bold'}}>Email: </Text>{contact.email}</Text>
                 </View>
               ))
             ) : (
