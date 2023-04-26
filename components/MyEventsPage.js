@@ -8,7 +8,6 @@ const MyEventsPage = ({ clickRefresh, user, patchUser, javaEvents }) => {
   const [myEventData, setMyEventData] = useState([]);
   const [contactable, setContactable] = useState(1);
   const [myEventContacts, setMyEventContacts] = useState([]);
-  const [myEventContactLength, setMyEventContactLength] = useState(0);
   const [i, setI] = useState("")
 
   useEffect(() => {
@@ -103,13 +102,13 @@ const MyEventsPage = ({ clickRefresh, user, patchUser, javaEvents }) => {
     const myEvent = javaEvents.find((javaEvent) => javaEvent.event_id === id);
     const contactList = myEvent.event_contact
     setMyEventContacts(contactList)
-    refreshContacts()
     clickRefresh()
   }
 }
 
 
   const goToContacts = () => {
+    
     refreshContacts()
     setContactable(2)
   }
@@ -122,7 +121,7 @@ const MyEventsPage = ({ clickRefresh, user, patchUser, javaEvents }) => {
     const myEvent = javaEvents.find((javaEvent) => javaEvent.event_id === i);
     const contactList = myEvent.event_contact
     setMyEventContacts(contactList)
-    setMyEventContactLength(contactList.length)
+
   }
 
 
