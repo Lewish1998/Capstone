@@ -66,11 +66,8 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUser }
         </TouchableOpacity>
         {/* </Animated.View> */}
       </View>
-
-
-      </View>
-
-
+    </View>
+    </View>
 
   )
 }
