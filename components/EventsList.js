@@ -73,8 +73,6 @@ const EventsList = ({events, user, eventPost, patch, javaEvents, clickRefresh}) 
     }
   
         //Animations testing
-
-
         const [positionF, setPositionF] = useState(new Animated.Value(0));
         const [positionB, setPositionB] = useState(new Animated.Value(0));
 

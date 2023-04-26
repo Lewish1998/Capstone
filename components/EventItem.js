@@ -227,28 +227,13 @@ const EventItem = ({
   };
 
 
-  // ANIMATION TESTING
-  const fadeAnim = useRef(new Animated.Value(0)).current;
-
-  const fadeIn = () => {
-  Animated.timing(fadeAnim, {
-    toValue: 1,
-    duration: 1000,
-    useNativeDriver: true,
-  }).start();
-  };
-
   // Changing size based on the title length
   let width = 24;
   if (name.length > 55) {
     let width = 16;
   }
-
-
   return (
     <View>
-
-      
     <Text style={styles.location}>
       <View>
         <FontAwesomeIcon icon={faLocationPin} size={22} color={'#6026F0'}/>
@@ -267,6 +252,8 @@ const EventItem = ({
 
           <View>
              <TouchableOpacity onPress={handleOpen}>
+
+
               <View>
                 <FontAwesomeIcon icon={faInfoCircle} size={50} color={'#4C4FE0'}/>
               </View>
@@ -360,8 +347,10 @@ const EventItem = ({
             </TouchableOpacity>
           </View>
         </View>
+
       )}
     </View>
+
   );
 };
 
