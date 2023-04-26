@@ -145,6 +145,7 @@ const EventItem = ({
         interestAndContact();
       }
     } else {
+      alert("You're going! Change this in My Events")
       return
     }
     } else {
