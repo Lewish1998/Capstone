@@ -160,7 +160,7 @@ const MyEventsPage = ({ clickRefresh, user, patchUser, javaEvents }) => {
 
 
       <Text style={styles.title} >{interested.event_name}</Text>
-      <Image style={{height: 90, width: 160, top: 3, bottom: 50,left:80}} source={myEventData.images[1]}></Image>
+      <Image style={{height: 171, width: 304, top: 3, bottom: 50,left:7}} source={myEventData.images[1]}></Image>
       <Text style={styles.text} >Date: {interested.event_date}</Text>
       <Text style={styles.text}>Time: {interested.event_time}</Text>
       <Text style={styles.text}>Venue: {myEventData._embedded.venues[0].name}</Text>
@@ -217,7 +217,7 @@ const MyEventsPage = ({ clickRefresh, user, patchUser, javaEvents }) => {
     </View>
     ): contactable === 1 ? (<View style={{borderWidth:1, borderRadius:15,backgroundColor:'#F5F8FE' }}>
       <Text style={styles.title} >{going.event_name}</Text>
-      <Image style={{height: 90, width: 160, top: 3, bottom: 50,left:80}} source={myEventData.images[1]}></Image>
+      <Image style={{height: 171, width: 304, top: 3, bottom: 50,left:7}} source={myEventData.images[1]}></Image>
       <Text style={styles.text} >Date: {going.event_date}</Text>
       <Text style={styles.text}>Time: {going.event_time}</Text>
       <Text style={styles.text}>Venue: {myEventData._embedded.venues[0].name}</Text>
