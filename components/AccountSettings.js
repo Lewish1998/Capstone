@@ -5,10 +5,10 @@ import { useNavigate } from "react-router-native";
 
 const AccountSettings = ({user, patchUser, clickRefresh}) => {
   const navigate = useNavigate();
-  const [updateEmail, setUpdateEmail] = useState("");
-  const [updatePassword, setUpdatePassword] = useState("");
-  const [updateLocation, setUpdateLocation] = useState("");
-  const[updateName, setUpdateName] = useState("");
+  const [updateEmail, setUpdateEmail] = useState(user.email);
+  const [updatePassword, setUpdatePassword] = useState(user.password);
+  const [updateLocation, setUpdateLocation] = useState(user.location);
+  const[updateName, setUpdateName] = useState(user.name);
 
   const locationUp = (data) => {
     let newLocation =`${data.charAt(0).toUpperCase()}${data.slice(1)}`
@@ -44,7 +44,7 @@ const AccountSettings = ({user, patchUser, clickRefresh}) => {
       <View>
         <Image source={require("../images/Oot'N'Aboot-logos_black.png")} style={{position:'absolute', width: 120, height: 80, left:110, bottom:20}}/>
       </View>
-      <Text style={{fontSize:36, textAlign:'center', paddingBottom:20}}>Settings Page</Text>
+      <Text style={{fontSize:36, textAlign:'center', paddingBottom:20}}>Update Details</Text>
       <View style={styles.inputView}>
             <TextInput
               style={styles.TextInput}
@@ -102,20 +102,39 @@ const styles = StyleSheet.create({
     height: 600,
     top: 120,
     padding:10,
-    backgroundColor:'#ffffff'
+    backgroundColor:'#ffffff',
+
   },
   inputView: {
-    backgroundColor: "#ffffff",
-    borderRadius: 30,
-    width: 240,
-    height: 45,
-    marginBottom: 20,
+    borderWidth:2,
+    borderRadius:20,
+    width: 300,
+  height: 50,
+    backgroundColor:'#ffffff',
+    margin:5,
+    justifyContent:"center"
   },
   TextInput: {
     height: 50,
     flex: 1,
     padding: 10,
     width: "100%",
+    borderColor:"black",
+    borderRadius:1
+  },loginBtn: {
+    width: 120,
+    borderRadius: 25,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 15,
+    backgroundColor: "#FF1493",},
+    loginText: {
+    color: "#fff",
+    fontWeight: "bold",
+    fontSize: 20,
+    // marginRight:5,
+    
   },
 })
 

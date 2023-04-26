@@ -132,12 +132,12 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
 
        
         <Text style={styles.title} >{interested.event_name}</Text>
-        <Image style={{height: 90, width: 160, top: 10, bottom: 50,}} source={myEventData.images[1]}></Image>
+        <Image style={{height: 90, width: 160, top: 3, bottom: 50,left:80}} source={myEventData.images[1]}></Image>
       <Text style={styles.text} >Date: {interested.event_date}</Text>
       <Text style={styles.text}>Time: {interested.event_time}</Text>
       <Text style={styles.text}>Venue: {myEventData._embedded.venues[0].name}</Text>
       <Text style={styles.text}>Status: {myEventData.dates.status.code}</Text> 
-      <Button onPress={loadInBrowser} title="BUY TICKETS" />
+      <Button onPress={loadInBrowser} title="Get Tickets!" />
       <View style={styles.buttons}>
       <Button onPress={() => handleDelete(interested.id)} title="Remove" />
       <Button title="Going" onPress={() => handleGoing(interested.id)}  />
