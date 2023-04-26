@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
   }, 
   location: {
     position: 'absolute',
-    top: 85,
+    top: 80,
     left:-3,
     fontSize: 22,
     color: "black",
