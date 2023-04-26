@@ -166,7 +166,7 @@ const MyEventsPage = ({ clickRefresh, user, patchUser }) => {
     </View>
     :(<View >
       <Text style={styles.title} >{going.event_name}</Text>
-        <Image style={{height: 90, width: 160, top: 10, bottom: 50,}} source={myEventData.images[1]}></Image>
+      <Image style={{height: 90, width: 160, top: 3, bottom: 50,left:80}} source={myEventData.images[1]}></Image>
       <Text style={styles.text} >Date: {going.event_date}</Text>
       <Text style={styles.text}>Time: {going.event_time}</Text>
       <Text style={styles.text}>Venue: {myEventData._embedded.venues[0].name}</Text>
