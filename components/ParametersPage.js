@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import { Text, View, StyleSheet, Image, TextInput, TouchableOpacity } from 'react-native'
 import { Link } from "react-router-native";
@@ -7,6 +8,7 @@ import Params from '../Params';
 import NavBar from '../NavBar';
 
 const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUser }) => {
+
 
   const [inputValue, setInputValue] = useState('');
 
@@ -23,8 +25,20 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUser }
     clickRefresh()
   }
 
-  
   return (
+
+      <View style={styles.container}>
+          <Text style={styles.text}>Change Current Location...</Text>
+
+
+        <TextInput
+          style={styles.input}
+          placeholder="Enter city"
+          value={inputValue}
+          onChangeText={handleOnChange}
+        />
+
+
     
     <View>
       <Text style={styles.location}>
@@ -53,12 +67,14 @@ const ParametersPage = ({ passHandlePress, clickRefresh,user,patchUser,setUser }
             onChangeText={handleOnChange}
           />
 
+
         <TouchableOpacity title='submit'>
           <Link  to="/" onPress={handleOnPress}><Text style={{position:'absolute', fontSize:20, left:270, borderRadius:3}}>Submit</Text></Link>
         </TouchableOpacity>
+        {/* </Animated.View> */}
       </View>
-      </View>
-
+    </View>
+    </View>
 
   )
 }

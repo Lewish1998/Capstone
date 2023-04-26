@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Params from '../Params';
@@ -15,6 +16,7 @@ const ContactPage = () => {
       <View>
         <Image source={require("../images/Oot'N'Aboot-logos_black.png")} style={{position:'absolute', width: 120, height: 80, left:110, bottom:20}}/>
       </View>
+
     </View>
     </View>
   )
