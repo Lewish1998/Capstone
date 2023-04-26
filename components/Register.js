@@ -3,17 +3,30 @@ import { Text, View, StyleSheet, TextInput, TouchableOpacity, Image} from 'react
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-native";
 
-const Register = ({userPost, getUsers}) => {
+const Register = ({userPost, getUsers, clickRefresh}) => {
     const navigate = useNavigate();
     const [regEmail, setRegEmail] = useState("");
     const [regPassword, setRegPassword] = useState("");
     const [location, setLocation] = useState("");
     const[name, setName] = useState("");
 
+   
+  const locationUppercase = (data) => {
+    let newLocation =`${data.charAt(0).toUpperCase()}${data.slice(1)}`
+    setLocation(newLocation);
+   
+  }
+  const nameUpper = (data) => {
+    let newName =`${data.charAt(0).toUpperCase()}${data.slice(1)}`
+    setName(newName);
+   
+  }
 
-    
-    
+
+   
+
     const handleRegister = () => {
+     
         if(regEmail.length === 0 || regPassword.length === 0 || location.length === 0 || name.length === 0 ){
             alert("Please Complete All Fields")
         } else{
@@ -28,7 +41,9 @@ const Register = ({userPost, getUsers}) => {
                 };
 
             userPost(payload);
-            getUsers();
+            clickRefresh();
+            getUsers()
+
             navigate("/login");
             
         }
@@ -43,7 +58,8 @@ const Register = ({userPost, getUsers}) => {
               style={styles.TextInput}
               placeholder="Name"
               placeholderTextColor="#003f5c"
-              onChangeText={(data) => setName(data.toUpperCase())}
+              onChangeText={(data) => nameUpper(data.toLowerCase())}
+              
             />
           </View>
           
@@ -61,7 +77,7 @@ const Register = ({userPost, getUsers}) => {
               style={styles.TextInput}
               placeholder="Location"
               placeholderTextColor="#003f5c"
-              onChangeText={(data) => setLocation(data.toUpperCase())}
+              onChangeText={(data) => locationUppercase(data.toLowerCase())}
             />
           </View>
 
@@ -76,7 +92,7 @@ const Register = ({userPost, getUsers}) => {
           </View>
 
 
-          <TouchableOpacity style={styles.loginBtn} onPress={handleRegister} >
+          <TouchableOpacity style={styles.loginBtn} onPress={handleRegister}>
             <Text style={styles.loginText}> Register</Text>
           </TouchableOpacity>
             

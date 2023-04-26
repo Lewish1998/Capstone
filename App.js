@@ -46,11 +46,12 @@ const withoutMs = date.toISOString().split('.')[0] + 'Z';
   }, [])
 
   useEffect(() => {
-    Promise.all([getJavaEvents(), getUser(user.id), getUpdatedEvents(user.location,withoutMs)])
-    .then(([javaEventsData,userData, updatedEventData])=>{
+    Promise.all([getJavaEvents(), getUser(user.id), getUpdatedEvents(user.location,withoutMs), getUsers()])
+    .then(([javaEventsData,userData, updatedEventData, usersData])=>{
     setJavaEvents(javaEventsData)
     setUser(userData)
     setEvents(updatedEventData._embedded.events)
+    setUsers(usersData)
     })    .catch(error => {
       console.error(error);
     });
@@ -154,13 +155,13 @@ const getUsers=async ()=>{
         <NavBar onclick={clickRefresh}/>
       <Routes>
         <Route path="/login" element={<LoginPage setUser={setUser} clickRefresh={clickRefresh} setUserLocation={setUserLocation} user={user}/>}/>  
-        <Route path="/register" element={<Register userPost={userPost} getUsers={getUsers}/>}/>
+        <Route path="/register" element={<Register userPost={userPost} getUsers={getUsers} clickRefresh={clickRefresh}/>}/>
         <Route path="/" element={<Home events={events}  user={user} eventPost={eventPost} patch={patch} javaEvents={javaEvents} clickRefresh={clickRefresh}/>}/>
         <Route path="/about" element={<AboutPage/>}/>
         <Route path="/contact" element={<ContactPage/>}/>
         <Route path="/events" element={<MyEventsPage clickRefresh={clickRefresh}  user={user} patchUser={patchUser}  />}/>
         <Route path="/paramaters" element={<ParametersPage  clickRefresh={clickRefresh} user={user} patchUser={patchUser} setUser={setUser}/>}/>
-        <Route path="/account" element={<AccountSettings/>}/>
+        <Route path="/account" element={<AccountSettings user={user} patchUser={patchUser} clickRefresh={clickRefresh}/>}/>
       </Routes>
       </View>
     </LinearGradient>
